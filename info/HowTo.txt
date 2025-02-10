@@ -1,0 +1,151 @@
+
+
+
+
+
+
+
+php artisan serve
+npm run dev
+
+
+
+
+
+php artisan cache:clear
+php artisan view:clear
+
+
+
+
+
+
+
+
+
+
+
+
+check if installed...
+*********************
+node -v
+npm -v
+
+
+cd your-application-name
+npm install
+npm run build
+
+
+Start serving the project in dev mode...
+****************************************
+composer run dev
+
+
+
+
+
+
+/*
+npm run dev	Development mode with hot-reloading	Temporary assets, fast updates
+npm run build	Production build with optimized assets	Minified, production-ready files
+*/
+
+
+
+
+
+
+
+INSTALLING BOOTSTRAP - POPPERJS - SASS into your laravel project...
+npm i -D bootstrap @popperjs/core sass
+
+
+
+
+
+
+
+
+CREATE A NEW CONTROLLER:
+php artisan make:controller screenroomController
+
+
+
+
+
+
+
+php artisan view:clear
+php artisan cache:clear
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DATABASE:
+*********
+
+
+
+create the entire db
+or when adding a new table:	php artisan migrate
+
+
+
+drop all tables and recreate:	php artisan migrate:fresh
+
+
+
+
+
+
+create a new table in the database...
+php artisan make:migration create_movies_table
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Example of foreign key...
+$table->foreignId('category_id')->constrained()->onDelete('cascade');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE A MOVIE MODEL
+
+php artisan make:model Movie
+
+

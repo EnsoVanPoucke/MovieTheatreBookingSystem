@@ -1,0 +1,30 @@
+With Data Locking (Preventing Overselling)
+We use row-level locking to prevent two users from modifying the same seat at the same time.
+
+User A selects a seat and locks it:
+
+START TRANSACTION;
+SELECT available_seats FROM movies WHERE movie_id = 5 FOR UPDATE;
+This locks the row, preventing User B from selecting the same seat.
+User A books the ticket:
+
+UPDATE movies SET available_seats = available_seats - 1 WHERE movie_id = 5;
+COMMIT;  -- Unlocks the row
+If User B tries to book the same seat while it’s locked, their query will wait until User A finishes.
+If no seats are left, they get a "Seat Unavailable" message.
+
+
+
+
+
+
+
+
+Different database locking mechanisms provide varying levels of concurrency control.
+Depending on the business requirements and concurrency level, you can choose the most appropriate locking strategy:
+
+No locking might be suitable in low-concurrency environments where performance is critical.
+FOR UPDATE ensures data consistency but might block other transactions.
+FOR UPDATE NOWAIT provides fast feedback for locked rows.
+FOR UPDATE SKIP LOCKED ensures high throughput by skipping locked rows.
+Try implementing this in your next concurrent system and experiment with different cases to see which one fits your needs!
