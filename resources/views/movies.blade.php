@@ -1,22 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Movies</h1>
 
-<div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4 row-cols-xxl-4 g-4">
-	@foreach($movies as $movie)
-	<div class="col">
-		<div class="card shadow-sm h-100">
-			<img src="{{ asset('images/movieposters/' . $movie->image_url) }}" alt="{{ $movie->title }} Image" class="card-img-top">
-			<div class="card-body">
-				<h5 class="card-title">{{ $movie->title }}</h5>
-				<a href="{{ route('movies.show', $movie->movie_id) }}" class="stretched-link"></a>
-			</div>
+<div class="bg-white">
+	<div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+		<div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+			@foreach($movies as $movie)
+			<a href="{{ route('movies.show', $movie->movie_id) }}" class="group">
+				<div class="w-full relative overflow-hidden rounded-lg">
+					<img src="{{ asset('images/movieposters/' . $movie->image_url) }}" alt="{{ $movie->title }} Image" class="w-full h-auto object-cover group-hover:opacity-75">
+				</div>
+				<h3 class="mt-4 text-base text-gray-700">{{ $movie->title }}</h3>
+			</a>
+			@endforeach
 		</div>
 	</div>
-	@endforeach
 </div>
+
 @endsection
+
 
 
 
