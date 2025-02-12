@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Movie;
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 
 class MovieController extends Controller {
 
@@ -12,23 +12,21 @@ class MovieController extends Controller {
 		$movies = Movie::all();
 		return view('movies', compact('movies'));
 	}
-	
+
 	public function show($id) {
-		// $movie = Movie::findOrFail($id);
-		$movie = Movie::where('movie_id', $id)->firstOrFail(); // Correctly search by movie_id
-		
+		$movie = Movie::where('movie_id', $id)->firstOrFail();
+
 		// Fetch upcoming showtimes for this movie
 		$showtimes = $movie->showtimes()
-		->where('showtime', '>=', Carbon::now()) // Get only future showtimes
-		->orderBy('showtime')
-		->get();
-		
-		// Extract unique upcoming dates
-		$dates = $showtimes->map(function ($showtime) {
-			return Carbon::parse($showtime->showtime)->toDateString();
-		})->unique();
-		
-		return view('show', compact('movie', 'showtimes', 'dates'));
+			->where('show_date', '>=', Carbon::now()) // Get only future showtimes
+			->orderBy('show_date')
+			->orderBy('show_time') // Ensure times are sorted too
+			->get();
+
+		// Group showtimes by date
+		$groupedShowtimes = $showtimes->groupBy('show_date');
+
+		return view('movie_info', compact('movie', 'groupedShowtimes'));
 	}
 }
 

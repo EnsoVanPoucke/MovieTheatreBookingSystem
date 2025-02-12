@@ -12,4 +12,9 @@ class Showtime extends Model {
 	public function movie() {
 		return $this->belongsTo(\App\Models\Movie::class, 'movie_id', 'movie_id');
 	}
+
+	public function screenroom() {
+		return $this->belongsTo(Screenroom::class, 'screenroom_id');
+	}
+
 }
