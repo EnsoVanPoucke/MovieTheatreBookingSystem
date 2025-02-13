@@ -5,29 +5,32 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void {
-        Schema::create('movies', function (Blueprint $table) {
-            $table->id();
-            $table->string('title', 100)->unique();
-            $table->text('description');
-            $table->integer('duration');
-            $table->string('director');
-            $table->string('cast');
-            $table->string('genre');
-            $table->integer('price');
-            $table->date('release_date');
-            $table->string('image_url');
-            $table->string('trailer_url')->nullable();
-        });
-    }
+	/**
+	 * Run the migrations.
+	 */
+	public function up(): void {
+		Schema::create('movies', function (Blueprint $table) {
+			$table->id();
+			$table->string('title', 100)->unique();
+			$table->text('description');
+			$table->integer('duration');
+			$table->string('director');
+			$table->string('cast');
+			$table->string('genre');
+			$table->integer('aantal_single_normaal')->nullable();
+			$table->integer('aantal_single_korting')->nullable();
+			$table->integer('aantal_duo_normaal')->nullable();
+			$table->integer('aantal_duo_korting')->nullable();
+			$table->date('release_date');
+			$table->string('image_url');
+			$table->string('trailer_url')->nullable();
+		});
+	}
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void {
-        Schema::dropIfExists('movies');
-    }
+	/**
+	 * Reverse the migrations.
+	 */
+	public function down(): void {
+		Schema::dropIfExists('movies');
+	}
 };

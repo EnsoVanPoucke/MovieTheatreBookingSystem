@@ -81,7 +81,8 @@
 
 <script type="module">
 	import {createRoomLayout} from './js/main.js';
-	createRoomLayout("{{ $booking['selection-screenroom'] }}");
+	const screenRoomNumber = parseInt("{{ $booking['selection-screenroom'] }}");
+	createRoomLayout(screenRoomNumber);
 </script>
 
 

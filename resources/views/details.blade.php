@@ -247,10 +247,8 @@
 			total += qtyDuoKorting * priceDuoKorting;
 
 			// Toon het totaalbedrag
-			// document.getElementById("total-price").textContent = total.toFixed(2).replace('.', ',') + " €";
 			document.getElementById("total-price").textContent = (total / 100).toFixed(2).replace('.', ',') + " €";
 			// Zet het totaalbedrag in de verborgen input
-			// document.getElementById("total-price-hidden").value = total.toFixed(2).replace('.', ',');
 			document.getElementById("total-price-hidden").value = total;
 		}
 

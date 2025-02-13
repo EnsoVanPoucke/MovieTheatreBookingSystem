@@ -213,7 +213,8 @@ button.singleSeat {
 }
 
 .seat-status-hover {
-	filter: contrast(0%) brightness(200%);
+	/* filter: contrast(0%) brightness(200%); */
+	filter: invert(50%) sepia(100%) saturate(280%) hue-rotate(130deg) brightness(200%) contrast(100%);
 }
 
 .seat-status-selected {
