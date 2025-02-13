@@ -11,6 +11,11 @@
 	<h1 class="text-3xl font-bold">Selecteer je stoelen</h1>
 </div>
 
+
+
+
+
+
 <div class="mx-auto my-[60px] py-5 flex justify-center">
 	<div>
 		<div>
@@ -22,6 +27,11 @@
 	</div>
 </div>
 
+
+
+
+
+<!-- when button pressed, check selected seats and retrieve their number -->
 <div class="mx-auto my-[60px] flex justify-center">
 	<form action="#" method="post" class="m-0">
 		<button type="submit"
@@ -30,6 +40,11 @@
 		</button>
 	</form>
 </div>
+
+
+
+
+
 
 <div class="container mx-auto my-[60px]">
 

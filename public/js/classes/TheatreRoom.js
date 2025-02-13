@@ -3,28 +3,18 @@
 import {gridBlueprints, gridDimensions} from "../utils/gridBlueprints.js";
 
 export class TheatreRoom {
-
 	static gridBlueprints = gridBlueprints;
 	static gridDimensions = gridDimensions;
 	static seatImgPath = "images/icons";
 
 	// class constructor. Initiates room properties...
-	constructor(date, time, title, duration, layoutNumber) {
-		this.date = date;
-		this.time = time;
-		this.duration = duration;
-		this.title = title;
+	constructor(layoutNumber) {
 		this.layoutNumber = layoutNumber;
 		this.screenLayout = TheatreRoom.gridBlueprints[layoutNumber - 1];
 		this.gridDimensions = TheatreRoom.gridDimensions[layoutNumber - 1];
 
 		this.renderRoomLayout(layoutNumber);
-
 	}
-
-
-
-
 
 	renderRoomLayout(layoutNumber) {
 		const roomWrapper = document.getElementById("room-wrapper");
@@ -36,7 +26,6 @@ export class TheatreRoom {
 		}
 
 		roomWrapper.innerHTML = ""; // clear layout
-
 
 		// keep track of the right numbers when looping through the layout...
 		let rowNumber = 0;
@@ -205,6 +194,11 @@ export class TheatreRoom {
 
 		else if (eventType === 'click') {
 			seatIMG.classList.toggle('seat-status-selected');
+
+			// when user selects a seat add class to button element...
+			button.classList.toggle('selected');
+			console.log(button);
+
 		}
 
 	}
@@ -214,18 +208,18 @@ export class TheatreRoom {
 
 
 	// renderMovieHeader() {
-		// const movieHeader = document.getElementById('movie-header');
-		// const headerImageElement = document.createElement('img');
-		// headerImageElement.classList.add('movie-poster');
+	// const movieHeader = document.getElementById('movie-header');
+	// const headerImageElement = document.createElement('img');
+	// headerImageElement.classList.add('movie-poster');
 
-		// const headerImage = `${TheatreRoom.posterImgPath}/Interstellar.jpg`;
-		// headerImageElement.src = headerImage;
+	// const headerImage = `${TheatreRoom.posterImgPath}/Interstellar.jpg`;
+	// headerImageElement.src = headerImage;
 
-		// movieHeader.style.background = "linear-gradient(to bottom, transparent, blue), url('path/to/your/image.jpg')";
-		// movieHeader.style.backgroundSize = "cover";
-		// movieHeader.style.backgroundPosition = "center";
+	// movieHeader.style.background = "linear-gradient(to bottom, transparent, blue), url('path/to/your/image.jpg')";
+	// movieHeader.style.backgroundSize = "cover";
+	// movieHeader.style.backgroundPosition = "center";
 
-		// movieHeader.append(headerImageElement);
+	// movieHeader.append(headerImageElement);
 	// }
 
 
