@@ -7,7 +7,6 @@ export class TheatreRoom {
 	static gridBlueprints = gridBlueprints;
 	static gridDimensions = gridDimensions;
 	static seatImgPath = "images/icons";
-	// static posterImgPath = "images/posters";
 
 	// class constructor. Initiates room properties...
 	constructor(date, time, title, duration, layoutNumber) {

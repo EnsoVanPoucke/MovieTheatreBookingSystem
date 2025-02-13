@@ -31,7 +31,6 @@
 	</form>
 </div>
 
-
 <div class="container mx-auto my-[60px]">
 
 	<div class="bg-white shadow-md rounded-lg p-6 flex">
@@ -76,11 +75,18 @@
 </div>
 
 
+{{-- Include CSS and JavaScript via Vite --}}
+@vite(['resources/css/rooms.css'])
+
+
+<script type="module">
+	import {createRoomLayout} from './js/main.js';
+	createRoomLayout("{{ $booking['selection-screenroom'] }}");
+</script>
+
 
 @endsection
 
-{{-- Include CSS and JavaScript via Vite --}}
-@vite(['resources/css/rooms.css', 'resources/js/main.js'])
 
 
 
