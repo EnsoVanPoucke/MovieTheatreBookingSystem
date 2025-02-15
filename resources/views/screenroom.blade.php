@@ -2,8 +2,10 @@
 
 @section('content')
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
-<!-- <pre>{{ print_r($booking, true) }}</pre> -->
+
+
 
 
 <!-- <div class="bg-white mx-auto my-[60px] py-5 flex justify-center"> -->
@@ -16,16 +18,108 @@
 
 
 
+
 <div class="mx-auto my-[60px] py-5 flex justify-center">
-	<div>
+	<div class="room4Width">
 		<div>
 			<div id="screen"></div>
 		</div>
 		<div class="container">
-			<div id="room-wrapper"><!-- javascript loaded content --></div>
+			<div id="room-wrapper">
+
+				<?php $globalSeatNumber = 0 ?>
+				<?php $rowNumber = 0 ?>
+
+				<?php foreach ($roomGridBlueprint as $rowIndex => $row): ?>
+
+					<div class="row flex space-x-0"> <!-- Use flex and remove space between items -->
+
+						<?php foreach ($row as $colIndex => $seat): ?>
+
+							<?php if ($seat > 9000 && $seat <= 9200): ?>
+
+								<?php $rowNumber = $seat - 9000 ?>
+								<div class="gridBlocks rowNumberBlocks">{{ $rowNumber }}</div>
+
+							<?php elseif ($seat === 0 || $seat >= 9000): ?>
+
+								<div class="gridBlocks"></div>
+
+							<?php else: ?>
+
+
+
+
+								<?php if ($seat === 1 || $seat === 1001): ?>
+
+									<?php
+									$globalSeatNumber++;
+									$seatType = ($seat === 1) ? 'singleSeat' : 'duoSeat';
+									$image = ($seat === 1) ? 'singleSeat.svg' : 'duoSeat.svg';
+									$seatId = "$globalSeatNumber";
+									?>
+
+									<button id="{{ $seatId }}" class="seat {{ $seatType }} p-0 m-0" data-seat-type="{{ $seatType }}">
+										<img src="{{ asset('images/icons/' . $image) }}" alt="{{ $seatType }} image" class="p-0 m-0">
+									</button>
+
+
+
+
+								<?php elseif ($seat === 2 || $seat === 1002): ?>
+
+									<?php
+									$globalSeatNumber++;
+									$seatType = ($seat === 2) ? 'singleSeat' : 'duoSeat';
+									$image = ($seat === 2) ? 'singleSeat.svg' : 'duoSeat.svg';
+									$seatId = "$globalSeatNumber";
+									?>
+
+									<button id="{{ $seatId }}" class="seat {{ $seatType }} p-0 m-0" data-seat-type="{{ $seatType }}">
+										<img src="{{ asset('images/icons/' . $image) }}" alt="{{ $seatType }} image" class="p-0 m-0">
+									</button>
+
+
+
+
+								<?php elseif ($seat === 3 || $seat === 1003): ?>
+
+									<?php
+									$globalSeatNumber++;
+									$seatType = ($seat === 3) ? 'singleSeat' : 'duoSeat';
+									$image = ($seat === 3) ? 'singleSeat.svg' : 'duoSeat.svg';
+									$seatId = "$globalSeatNumber";
+									?>
+
+									<button id="{{ $seatId }}" class="seat {{ $seatType }} seat-status-booked p-0 m-0" data-seat-type="{{ $seatType }}" disabled>
+										<img src="{{ asset('images/icons/' . $image) }}" alt="{{ $seatType }} image" class="p-0 m-0">
+									</button>
+
+
+								<?php endif ?>
+
+
+
+
+
+							<?php endif ?>
+
+						<?php endforeach ?>
+					</div>
+				<?php endforeach ?>
+			</div>
 		</div>
 	</div>
 </div>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -94,19 +188,100 @@
 @vite(['resources/css/rooms.css'])
 
 
-<script type="module">
-	import {createRoomLayout} from './js/main.js';
-	const screenRoomNumber = parseInt("{{ $booking['selection-screenroom'] }}");
-	createRoomLayout(screenRoomNumber);
+<script>
+	const roomWrapper = document.getElementById("room-wrapper");
+
+	roomWrapper.addEventListener('mouseover', (event) => {
+		const targetSeat = event.target.closest('.seat');
+		if (!targetSeat || targetSeat.classList.contains('seat-status-booked')) return;
+		this.handleMouseEvents('mouseover', targetSeat);
+	});
+
+	roomWrapper.addEventListener('mouseout', (event) => {
+		const targetSeat = event.target.closest('.seat');
+		if (!targetSeat || targetSeat.classList.contains('seat-status-booked')) return;
+		this.handleMouseEvents('mouseout', targetSeat);
+	});
+
+	roomWrapper.addEventListener('click', (event) => {
+		const targetSeat = event.target.closest('.seat');
+		if (!targetSeat || targetSeat.classList.contains('seat-status-booked')) return;
+		this.handleMouseEvents('click', targetSeat);
+	});
+
+	function handleMouseEvents(eventType, button) {
+
+		const seatIMG = button.children[0]; // seat img
+		const seatType = button.dataset.seattype;
+		const seatrowDATA = button.dataset.seatRow;
+		// const [seatNR, seatROW] = seatrowDATA.split('/');
+		// const seatNumber = parseInt(seatNR);
+		// const seatRow = parseInt(seatROW);
+
+		if (eventType === 'mouseover') {
+
+			seatIMG.classList.add('seat-status-hover');
+
+			// TOOLTIP
+			// document.addEventListener('mousemove', (e) => this.updateTooltipPosition(e));
+			// this.displayTooltip('block', seatNumber, seatRow, seatType);
+
+		} else if (eventType === 'mouseout') {
+
+			seatIMG.classList.remove('seat-status-hover');
+
+			// TOOLTIP
+			// this.displayTooltip('none', '', '', '');
+			// document.removeEventListener('mousemove', (e) => this.updateTooltipPosition(e));
+
+		} else if (eventType === 'click') {
+
+			console.log(button);
+			seatIMG.classList.toggle('seat-status-selected');
+
+			// when user selects a seat add class to button element...
+			// button.classList.toggle('selected');
+
+			// gebruiker zou niet in staat mogen zijn om meer seats aan te klikken dan aantal/type hij/zij gekozen voorheen heeft.
+
+			// when selecting a seat, initiate a function
+
+			// const rowNumber = button.dataset.rowNumber;
+			// const rowSeatNumber = button.dataset.rowSeatNumber;
+			// const globalSeatNumber = button.dataset.globalSeatNumber;
+
+			// console.log("TheatreRoom.js:", button.id);
+
+		}
+	}
 </script>
 
 
+
+
+
+
+
+
+
+
+
+<script>
+	// function insertVoornaam() {
+	// 	console.log('tester initiated!');
+	// 	let voornaam = document.getElementById("voornaam").value;
+
+	// 	axios.post('/tester', {
+	// 			voornaam: voornaam
+	// 		})
+	// 		.then(response => {
+	// 			console.log(response.data);
+	// 			alert(response.data.message);
+	// 		})
+	// 		.catch(error => {
+	// 			console.error("Error:", error);
+	// 		});
+	// }
+</script>
+
 @endsection
-
-
-
-
-
-
-
-<!-- <div id="tooltip"></div> -->

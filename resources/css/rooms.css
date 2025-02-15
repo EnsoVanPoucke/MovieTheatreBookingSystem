@@ -1,8 +1,3 @@
-/*
-	user-select: none;
-	overflow: hidden;
-	*/
-
 :root {
 	--grid-blockWidth: 22px;
 	--grid-blockHeight: 22px;
@@ -15,25 +10,14 @@
 	--defaultRadius: 6px;
 }
 
-
-#theatreGrid {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-
 #room-wrapper {
 	height: auto;
 	color: rgb(127, 143, 146);
-	/* background-color: pink; */
 }
 
 #screen {
 	margin-top: 10px;
 	margin-bottom: 60px;
-	/* width: 700px; */
-	/* is determined by javascript */
 	height: 8px;
 	border-radius: 4px;
 	text-align: center;
@@ -42,6 +26,54 @@
 	color: white;
 	box-shadow: 0 14px 28px 3px rgba(75, 159, 255, 0.5);
 }
+
+.room1Width {
+	width: 660px;
+}
+
+.room2Width {
+	width: 660px;
+}
+
+.room3Width {
+	width: 572px;
+}
+
+.room4Width {
+	width: 572px;
+}
+
+.room5Width {
+	width: 572px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #movie-header {
@@ -62,52 +94,7 @@
 	align-items: center;
 	font-size: 12px;
 	user-select: none;
-	background-color: grey;
 }
-
-
-button.singleSeat {
-	width: var(--grid-blockWidth);
-	height: var(--grid-blockHeight);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.grid {
-	display: flex;
-	flex-wrap: wrap;
-}
-
-
-
-
-
-
-
-/* visibility: hidden; */
-/* border: solid white; */
 
 .wrapperFlex div {
 	background: transparent;
@@ -115,14 +102,9 @@ button.singleSeat {
 	height: var(--grid-blockHeight);
 	box-sizing: border-box;
 	display: flex;
-	/* justify-content: center;
-	align-items: center; */
-	/* border: 1px solid rgb(32, 38, 46);
-	border: 1px solid orange;
-	background-color: rgba(56, 56, 56, 0.219); */
 }
 
-.wrapperFlex button {
+button {
 	background-color: transparent;
 	position: relative;
 	overflow: hidden;
@@ -133,28 +115,28 @@ button.singleSeat {
 	border: 0;
 }
 
-.wrapperFlex button.singleSeat {
+button.singleSeat {
 	width: var(--grid-blockWidth);
 	height: var(--grid-blockHeight);
 }
 
-.wrapperFlex button.duoSeat {
+button.duoSeat {
 	width: calc(var(--grid-blockWidth)*2);
 	height: var(--grid-blockHeight);
 }
 
-.wrapperFlex button img {
+button img {
 	position: absolute;
 	height: var(--grid-blockHeight);
 	bottom: 0;
 	/* border: 1px solid white; */
 }
 
-.wrapperFlex button.singleSeat img {
+button.singleSeat img {
 	width: var(--grid-blockWidth);
 }
 
-.wrapperFlex button.duoSeat img {
+button.duoSeat img {
 	width: calc(var(--grid-blockWidth)*2);
 }
 
@@ -218,7 +200,7 @@ button.singleSeat {
 }
 
 .seat-status-selected {
-	filter: invert(20%) sepia(80%) saturate(320%) hue-rotate(110deg) brightness(78%) contrast(250%);
+	filter: invert(20%) sepia(80%) saturate(300%) hue-rotate(100deg) brightness(72%) contrast(250%);
 }
 
 .seat-status-pending {
@@ -226,7 +208,8 @@ button.singleSeat {
 }
 
 .seat-status-booked {
-	filter: saturate(0) hue-rotate(0) brightness(75%) contrast(200%);
+	filter: invert(20%) sepia(80%) saturate(300%) hue-rotate(310deg) brightness(68%) contrast(250%);
+	/* filter: saturate(0) hue-rotate(0) brightness(75%) contrast(200%); */
 }
 
 

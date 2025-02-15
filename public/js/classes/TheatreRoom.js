@@ -34,7 +34,7 @@ export class TheatreRoom {
 
 
 		// Loop through rows in the layout
-		this.screenLayout.forEach((rowArray, arrayIndex) => {
+		this.screenLayout.forEach((rowArray) => {
 			rowArray.forEach((rowArrayContent) => {
 
 				// keep track of the current row number...
@@ -50,7 +50,7 @@ export class TheatreRoom {
 					seatNumber++;
 					globalSeatNumber++;
 
-					this.createSeatGridBlock(rowArrayContent, rowNumber, seatNumber);
+					this.createSeatGridBlock(rowArrayContent, rowNumber, seatNumber, globalSeatNumber);
 
 				} else {
 					console.log("Error: Some unidentified room object here!");
@@ -98,7 +98,7 @@ export class TheatreRoom {
 
 
 
-	createSeatGridBlock(rowArrayContent, rowNumber, seatNumber) {
+	createSeatGridBlock(rowArrayContent, rowNumber, seatNumber, globalSeatNumber) {
 		const roomWrapper = document.getElementById("room-wrapper");
 		roomWrapper.classList.add('wrapperFlex');
 
@@ -106,6 +106,7 @@ export class TheatreRoom {
 		const duoSeatSVG = `${TheatreRoom.seatImgPath}/duoSeat.svg`;
 
 		const buttonElement = document.createElement('button');
+		buttonElement.onclick = "getButtonData(event)"; // onclick for screenroom.blade.php
 		// buttonElement.classList.add('seats');
 
 		// create an img element for a seat image
@@ -114,17 +115,22 @@ export class TheatreRoom {
 
 		if (rowArrayContent === 1) {// set image for single seats
 			imgElement.src = singleSeatSVG;
+			buttonElement.id = `${rowNumber}-${seatNumber}-${globalSeatNumber}-singleSeat`;
 			buttonElement.classList.add('singleSeat', 'seat');
 			buttonElement.dataset.seattype = 'singleSeat', 'seat';
 		}
 		else if (rowArrayContent === 1001) {// set image for duo seats
 			imgElement.src = duoSeatSVG;
+			buttonElement.id = `${rowNumber}-${seatNumber}-${globalSeatNumber}-duoSeat`;
 			buttonElement.classList.add('duoSeat', 'seat');
 			buttonElement.dataset.seattype = 'duoSeat';
 		}
 
 		// create dataset seatNumber/rowNumber format
-		buttonElement.dataset.seatRow = `${seatNumber}/${rowNumber}`;
+		// buttonElement.dataset.rowNumber = `${rowNumber}`;
+		// buttonElement.dataset.rowSeatNumber = `${seatNumber}`;
+		// buttonElement.dataset.globalSeatNumber = `${globalSeatNumber}`;
+		// buttonElement.dataset.seatRow = `${seatNumber}/${rowNumber}`;
 
 		// append the img element to the button element
 		buttonElement.append(imgElement);
@@ -132,10 +138,6 @@ export class TheatreRoom {
 		// append the entire button element with image element to the grid
 		roomWrapper.append(buttonElement);
 	}
-
-
-
-
 
 	addEventListenerToRoomWrapper() {
 
@@ -168,9 +170,9 @@ export class TheatreRoom {
 		const seatIMG = button.children[0];// seat img
 		const seatType = button.dataset.seattype;
 		const seatrowDATA = button.dataset.seatRow;
-		const [seatNR, seatROW] = seatrowDATA.split('/');
-		const seatNumber = parseInt(seatNR);
-		const seatRow = parseInt(seatROW);
+		// const [seatNR, seatROW] = seatrowDATA.split('/');
+		// const seatNumber = parseInt(seatNR);
+		// const seatRow = parseInt(seatROW);
 
 		if (eventType === 'mouseover') {
 
@@ -197,7 +199,16 @@ export class TheatreRoom {
 
 			// when user selects a seat add class to button element...
 			button.classList.toggle('selected');
-			console.log(button);
+
+			// gebruiker zou niet in staat mogen zijn om meer seats aan te klikken dan aantal/type hij/zij gekozen voorheen heeft.
+
+			// when selecting a seat, initiate a function
+
+			// const rowNumber = button.dataset.rowNumber;
+			// const rowSeatNumber = button.dataset.rowSeatNumber;
+			// const globalSeatNumber = button.dataset.globalSeatNumber;
+
+			console.log("TheatreRoom.js:", button.id);
 
 		}
 

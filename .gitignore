@@ -21,3 +21,7 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+.gitignore
+ToDo.txt
+/backups
+/database/dbExports
