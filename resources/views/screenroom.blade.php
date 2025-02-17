@@ -30,86 +30,86 @@
 				<?php $globalSeatNumber = 0 ?>
 				<?php $rowNumber = 0 ?>
 
-				<?php foreach ($roomGridBlueprint as $rowIndex => $row): ?>
+				@foreach ($roomGridBlueprint as $rowIndex => $row)
 
-					<div class="row flex space-x-0"> <!-- Use flex and remove space between items -->
+				<div class="row flex space-x-0"> <!-- Use flex and remove space between items -->
 
-						<?php foreach ($row as $colIndex => $seat): ?>
+					@foreach ($row as $colIndex => $seat)
 
-							<?php if ($seat > 9000 && $seat <= 9200): ?>
+					@if ($seat > 9000 && $seat <= 9200)
 
-								<?php $rowNumber = $seat - 9000 ?>
-								<div class="gridBlocks rowNumberBlocks">{{ $rowNumber }}</div>
+						<?php $rowNumber = $seat - 9000 ?>
+						<div class="gridBlocks rowNumberBlocks">{{ $rowNumber }}</div>
 
-							<?php elseif ($seat === 0 || $seat >= 9000): ?>
+				@elseif ($seat === 0 || $seat >= 9000)
 
-								<div class="gridBlocks"></div>
+				<div class="gridBlocks"></div>
 
-							<?php else: ?>
-
-
-
-
-								<?php if ($seat === 1 || $seat === 1001): ?>
-
-									<?php
-									$globalSeatNumber++;
-									$seatType = ($seat === 1) ? 'singleSeat' : 'duoSeat';
-									$image = ($seat === 1) ? 'singleSeat.svg' : 'duoSeat.svg';
-									$seatId = "$globalSeatNumber";
-									?>
-
-									<button id="{{ $seatId }}" class="seat {{ $seatType }} p-0 m-0" data-seat-type="{{ $seatType }}">
-										<img src="{{ asset('images/icons/' . $image) }}" alt="{{ $seatType }} image" class="p-0 m-0">
-									</button>
+				@else
 
 
 
 
-								<?php elseif ($seat === 2 || $seat === 1002): ?>
+				@if ($seat === 1 || $seat === 1001)
 
-									<?php
-									$globalSeatNumber++;
-									$seatType = ($seat === 2) ? 'singleSeat' : 'duoSeat';
-									$image = ($seat === 2) ? 'singleSeat.svg' : 'duoSeat.svg';
-									$seatId = "$globalSeatNumber";
-									?>
+				<?php
+				$globalSeatNumber++;
+				$seatType = ($seat === 1) ? 'singleSeat' : 'duoSeat';
+				$image = ($seat === 1) ? 'singleSeat.svg' : 'duoSeat.svg';
+				$seatId = "$globalSeatNumber";
+				?>
 
-									<button id="{{ $seatId }}" class="seat {{ $seatType }} p-0 m-0" data-seat-type="{{ $seatType }}">
-										<img src="{{ asset('images/icons/' . $image) }}" alt="{{ $seatType }} image" class="p-0 m-0">
-									</button>
-
-
-
-
-								<?php elseif ($seat === 3 || $seat === 1003): ?>
-
-									<?php
-									$globalSeatNumber++;
-									$seatType = ($seat === 3) ? 'singleSeat' : 'duoSeat';
-									$image = ($seat === 3) ? 'singleSeat.svg' : 'duoSeat.svg';
-									$seatId = "$globalSeatNumber";
-									?>
-
-									<button id="{{ $seatId }}" class="seat {{ $seatType }} seat-status-booked p-0 m-0" data-seat-type="{{ $seatType }}" disabled>
-										<img src="{{ asset('images/icons/' . $image) }}" alt="{{ $seatType }} image" class="p-0 m-0">
-									</button>
-
-
-								<?php endif ?>
+				<button id="{{ $seatId }}" class="seat {{ $seatType }} p-0 m-0" data-seat-type="{{ $seatType }}">
+					<img src="{{ asset('images/icons/' . $image) }}" alt="{{ $seatType }} image" class="p-0 m-0">
+				</button>
 
 
 
 
+				@elseif ($seat === 2 || $seat === 1002)
 
-							<?php endif ?>
+				<?php
+				$globalSeatNumber++;
+				$seatType = ($seat === 2) ? 'singleSeat' : 'duoSeat';
+				$image = ($seat === 2) ? 'singleSeat.svg' : 'duoSeat.svg';
+				$seatId = "$globalSeatNumber";
+				?>
 
-						<?php endforeach ?>
-					</div>
-				<?php endforeach ?>
+				<button id="{{ $seatId }}" class="seat {{ $seatType }} p-0 m-0" data-seat-type="{{ $seatType }}">
+					<img src="{{ asset('images/icons/' . $image) }}" alt="{{ $seatType }} image" class="p-0 m-0">
+				</button>
+
+
+
+
+				@elseif ($seat === 3 || $seat === 1003)
+
+				<?php
+				$globalSeatNumber++;
+				$seatType = ($seat === 3) ? 'singleSeat' : 'duoSeat';
+				$image = ($seat === 3) ? 'singleSeat.svg' : 'duoSeat.svg';
+				$seatId = "$globalSeatNumber";
+				?>
+
+				<button id="{{ $seatId }}" class="seat {{ $seatType }} seat-status-booked p-0 m-0" data-seat-type="{{ $seatType }}" disabled>
+					<img src="{{ asset('images/icons/' . $image) }}" alt="{{ $seatType }} image" class="p-0 m-0">
+				</button>
+
+
+				@endif
+
+
+
+
+
+				@endif
+
+				@endforeach
 			</div>
+			@endforeach
 		</div>
 	</div>
+</div>
 </div>
 
 

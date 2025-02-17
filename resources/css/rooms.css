@@ -208,7 +208,8 @@ button.duoSeat img {
 }
 
 .seat-status-booked {
-	filter: invert(20%) sepia(80%) saturate(300%) hue-rotate(310deg) brightness(68%) contrast(250%);
+	filter: opacity(65%) saturate(300%) brightness(20%);
+	/* filter: invert(20%) sepia(80%) saturate(300%) hue-rotate(310deg) brightness(68%) contrast(250%); */
 	/* filter: saturate(0) hue-rotate(0) brightness(75%) contrast(200%); */
 }
 

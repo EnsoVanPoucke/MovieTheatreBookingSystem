@@ -1,14 +1,17 @@
 <?php
 
-use App\Models\RoomFour;
+use App\Models\Seats;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
-use App\Http\Controllers\MovieController;
-use App\Http\Controllers\TesterController;
 use Illuminate\Support\Facades\Config;
+
 use App\Http\Controllers\ShowtimeController;
-use App\Http\Controllers\ScreenroomController;
+use App\Http\Controllers\MovieController;
+use App\Http\Controllers\MovieScheduleController;
+use App\Http\Controllers\TesterController;
+// use App\Http\Controllers\ScreenroomController;
 
 
 
@@ -25,12 +28,6 @@ Route::get('/movies/{id}', [MovieController::class, 'show'])->name('movies.show'
 Route::get('/showtime/{id}', [ShowtimeController::class, 'show'])->name('showtime.details');
 
 
-
-
-
-
-
-
 // Route om de schermweergave te tonen
 Route::get('/screenroom', function () {
 
@@ -39,73 +36,45 @@ Route::get('/screenroom', function () {
 		return redirect()->route('home')->with('error', 'Geen boekingsinformatie gevonden.');
 	}
 
+	$date = $booking['selection-date'];
+	$time = $booking['selection-time'];
 	$screenroom = $booking['selection-screenroom'];
-
-
-
 
 	$roomGridBlueprint = Config::get("gridblueprints.blueprints")[$screenroom] ?? null;
 	if (!$roomGridBlueprint) {
 		return redirect()->route('home')->with('error', 'Geen grid blueprint gevonden voor deze zaal.');
 	}
 
-
-
-
-	$roomData = RoomFour::all(); // retrieve all rows from the 'room4' table
+	// instead retrieve all rows from the seats table WHERE primary key = date, time, screenroom, seatnumber
+	$roomData = Seats::where('show_date', $date)
+		->where('show_time', $time)
+		->where('screenroom_number', $screenroom)
+		->get();
 
 	$globalSeatNumber = 0;
 	$seatNumber = 0;
 
 	foreach ($roomGridBlueprint as $rowIndex => $row) {
-		// dd($roomGridBlueprint);
-
 		foreach ($row as $colIndex => $seat) {
-			if ($seat > 9000 && $seat <= 9200) {
-
-				// rowNumberBlocks
-
-			} else if ($seat === 0 || $seat >= 9000) {
-
-				// gridBlocks here
-
-			} else if ($seat === 1 || $seat === 1001) {
+			if ($seat === 1 || $seat === 1001) {
 
 				$globalSeatNumber++;
 
 				if ($roomGridBlueprint[$rowIndex][$colIndex] !== $roomData[$globalSeatNumber - 1]["seat_status"]) {
 					$roomGridBlueprint[$rowIndex][$colIndex] = $roomData[$globalSeatNumber - 1]["seat_status"];
 				}
-
-			} else {
-
-				// special case here
-
 			}
 		}
 	}
-	// return view('screenroom', compact('booking', 'roomData', 'roomGridBlueprint'));
 	return view('screenroom', compact('booking', 'roomGridBlueprint'));
 })->name('screenroom');
-
-
 
 
 
 // print('<pre>');
 // print_r($roomGridBlueprint);
 // print('</pre>');
-
 // exit;
-
-
-
-// how do I merge them at the right spot?
-// how to create consistency between the gridBlueprints array and the database? (when one of them changes, how does that effect the other one?)
-
-
-
-
 
 
 
@@ -139,6 +108,12 @@ Route::post('/tester', [TesterController::class, 'store']);
 
 
 
+Route::get('admin/schedule', function () {
+	return view('admin_schedule_movie');
+});
+
+
+Route::post('/schedule-movie', [MovieScheduleController::class, 'scheduleMovie'])->name('schedule.movie');
 
 
 
