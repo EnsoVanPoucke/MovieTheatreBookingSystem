@@ -2,25 +2,24 @@
 
 @section('content')
 
+{{-- Include CSS and JavaScript via Vite --}}
+@vite(['resources/css/rooms.css'])
+
 <meta name="csrf-token" content="{{ csrf_token() }}">
-
-
-
-
 
 <!-- <div class="bg-white mx-auto my-[60px] py-5 flex justify-center"> -->
 <div class="p-4">
 	<h1 class="text-3xl font-bold">Selecteer je stoelen</h1>
 </div>
 
-
-
-
-
-
-
 <div class="mx-auto my-[60px] py-5 flex justify-center">
-	<div class="room4Width">
+
+
+	<!--  -->
+	<div class="roomWidth{{ $booking['selection-screenroom'] }}">
+
+
+
 		<div>
 			<div id="screen"></div>
 		</div>
@@ -30,25 +29,17 @@
 				<?php $globalSeatNumber = 0 ?>
 				<?php $rowNumber = 0 ?>
 
+				<!-- begin loop -->
 				@foreach ($roomGridBlueprint as $rowIndex => $row)
-
 				<div class="row flex space-x-0"> <!-- Use flex and remove space between items -->
-
 					@foreach ($row as $colIndex => $seat)
-
 					@if ($seat > 9000 && $seat <= 9200)
-
 						<?php $rowNumber = $seat - 9000 ?>
 						<div class="gridBlocks rowNumberBlocks">{{ $rowNumber }}</div>
-
 				@elseif ($seat === 0 || $seat >= 9000)
-
 				<div class="gridBlocks"></div>
 
 				@else
-
-
-
 
 				@if ($seat === 1 || $seat === 1001)
 
@@ -59,10 +50,12 @@
 				$seatId = "$globalSeatNumber";
 				?>
 
-				<button id="{{ $seatId }}" class="seat {{ $seatType }} p-0 m-0" data-seat-type="{{ $seatType }}">
-					<img src="{{ asset('images/icons/' . $image) }}" alt="{{ $seatType }} image" class="p-0 m-0">
-				</button>
 
+
+				<button id="{{ $seatId }}" class="seat {{ $seatType }} p-0 m-0" data-seat-type="{{ $seatType }}">
+					<!-- <img src="{{ asset('images/icons/' . $image) }}" alt="{{ $seatType }} image" class="p-0 m-0"> -->
+					@include('components.svg.' . $seatType)
+				</button>
 
 
 
@@ -75,10 +68,12 @@
 				$seatId = "$globalSeatNumber";
 				?>
 
-				<button id="{{ $seatId }}" class="seat {{ $seatType }} p-0 m-0" data-seat-type="{{ $seatType }}">
-					<img src="{{ asset('images/icons/' . $image) }}" alt="{{ $seatType }} image" class="p-0 m-0">
-				</button>
 
+
+				<button id="{{ $seatId }}" class="seat {{ $seatType }} p-0 m-0" data-seat-type="{{ $seatType }}">
+					<!-- <img src="{{ asset('images/icons/' . $image) }}" alt="{{ $seatType }} image" class="p-0 m-0"> -->
+					@include('components.svg.' . $seatType)
+				</button>
 
 
 
@@ -92,18 +87,12 @@
 				?>
 
 				<button id="{{ $seatId }}" class="seat {{ $seatType }} seat-status-booked p-0 m-0" data-seat-type="{{ $seatType }}" disabled>
-					<img src="{{ asset('images/icons/' . $image) }}" alt="{{ $seatType }} image" class="p-0 m-0">
+					<!-- <img src="{{ asset('images/icons/' . $image) }}" alt="{{ $seatType }} image" class="p-0 m-0"> -->
+					@include('components.svg.' . $seatType)
 				</button>
 
-
 				@endif
-
-
-
-
-
 				@endif
-
 				@endforeach
 			</div>
 			@endforeach
@@ -184,8 +173,7 @@
 </div>
 
 
-{{-- Include CSS and JavaScript via Vite --}}
-@vite(['resources/css/rooms.css'])
+
 
 
 <script>
@@ -220,6 +208,9 @@
 
 		if (eventType === 'mouseover') {
 
+			// when seat is already selected, do not add a hover class!
+			if (!seatIMG || seatIMG.classList.contains('seat-status-selected')) return;
+
 			seatIMG.classList.add('seat-status-hover');
 
 			// TOOLTIP
@@ -238,6 +229,11 @@
 
 			console.log(button);
 			seatIMG.classList.toggle('seat-status-selected');
+
+			if (seatIMG.classList.contains('seat-status-hover')) seatIMG.classList.remove('seat-status-hover');
+
+
+
 
 			// when user selects a seat add class to button element...
 			// button.classList.toggle('selected');

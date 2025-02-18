@@ -27,27 +27,20 @@
 			</div>
 
 			<!-- Showtime time buttons -->
-			<div class="col-span-3">
+			<!-- <div class="col-span-3">
 				<div id="showtime-buttons" class="flex flex-wrap gap-4">
 					@foreach($groupedShowtimes as $date => $showtimes)
 					<div class="showtime-group gap-4" data-date="{{ $date }}" style="display: none;">
 						@foreach($showtimes as $showtime)
-
-
-						<a href="#"
-
-
-							{{-- <a href="{{ route('showtime.details', ['id' => $showtime->showtime_id]) }}" --}}
-
-
+						<a href="{{ route('showtime.details', ['id' => $showtime->showtime_id]) }}"
 							class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">
-							{{ \Carbon\Carbon::parse($showtime->show_time)->format('H:i') }} - Zaal {{ $showtime->screenroom_number }}
+							{{ \Carbon\Carbon::parse($showtime->show_time)->format('H:i') }} - Zaal {{ $showtime->screenroom->screenroom_id }}
 						</a>
 						@endforeach
 					</div>
 					@endforeach
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 
@@ -58,6 +51,7 @@
 				<img class="some-image-class" src="{{ asset('images/movieposters/' . $movie->image_url) }}"
 					alt="{{ $movie->title }} Image">
 			</div>
+
 			<div class="col-span-3">
 				<h3 class="mb-3 text-2xl font-semibold">{{ $movie->title }}</h3>
 				<h5 class="mb-3 font-semibold">Storyline</h5>

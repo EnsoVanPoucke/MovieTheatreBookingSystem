@@ -14,18 +14,28 @@ use App\Http\Controllers\TesterController;
 // use App\Http\Controllers\ScreenroomController;
 
 
-
-
-
-
-
-Route::get('/', function () {
-	return view('welcome');
-});
-
 Route::get('/movies', [MovieController::class, 'index']);
 Route::get('/movies/{id}', [MovieController::class, 'show'])->name('movies.show');
-Route::get('/showtime/{id}', [ShowtimeController::class, 'show'])->name('showtime.details');
+// Route::get('/showtime/{id}', [ShowtimeController::class, 'show'])->name('showtime.details');
+
+
+
+// Route::get('/', function () {
+// 	return view('welcome');
+// });
+
+// Route::get('admin/schedule-movie', function () {
+// 	return view('admin_schedule_movie');
+// });
+
+// Route::get('admin/delete-movie', function () {
+// 	return view('admin_delete_movie');
+// });
+
+// Route::get('/tester', function () {
+// 	return view('tester');
+// });
+
 
 
 // Route om de schermweergave te tonen
@@ -71,15 +81,17 @@ Route::get('/screenroom', function () {
 
 
 
-// print('<pre>');
-// print_r($roomGridBlueprint);
-// print('</pre>');
-// exit;
 
 
 
-// Route::get('/screenroom', [ScreenroomController::class, 'index']);
 
+
+
+
+
+
+Route::post('/tester', [TesterController::class, 'store']);
+Route::post('/schedule-movie', [MovieScheduleController::class, 'scheduleMovie'])->name('schedule.movie');
 Route::post('/screenroom', function (Request $request) {
 	// Gegevens opslaan in de sessie
 	Session::put('booking', [
@@ -100,20 +112,45 @@ Route::post('/screenroom', function (Request $request) {
 	return redirect()->route('screenroom');
 })->name('screenroom.store');
 
-Route::get('/tester', function () {
-	return view('tester');
-});
-
-Route::post('/tester', [TesterController::class, 'store']);
 
 
 
-Route::get('admin/schedule', function () {
-	return view('admin_schedule_movie');
-});
 
 
-Route::post('/schedule-movie', [MovieScheduleController::class, 'scheduleMovie'])->name('schedule.movie');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -123,3 +160,20 @@ Route::post('/schedule-movie', [MovieScheduleController::class, 'scheduleMovie']
 //     $bookedSeats = BookedSeat::all(); // Or filter by a room ID, depending on your needs.
 //     return response()->json($bookedSeats);
 // });
+
+
+
+
+
+
+
+
+
+// print('<pre>');
+// print_r($roomGridBlueprint);
+// print('</pre>');
+// exit;
+
+
+
+// Route::get('/screenroom', [ScreenroomController::class, 'index']);

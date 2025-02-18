@@ -8,7 +8,7 @@
 		<h3 class="mt-4 text-xl font-semibold">{{ $showtime->movie->title }}</h3>
 		<p><strong>Datum:</strong> {{ \Carbon\Carbon::parse($showtime->show_date)->format('l, d M Y') }}</p>
 		<p><strong>Tijd:</strong> {{ \Carbon\Carbon::parse($showtime->show_time)->format('H:i') }}</p>
-		<p><strong>Zaal:</strong> {{ $showtime->screenroom->screenroom_id }}</p>
+		<p><strong>Zaal:</strong> {{ $showtime->screenroom_number }}</p>
 
 		<form id="booking-form" action="{{ route('screenroom.store') }}" method="POST">
 			@csrf
@@ -196,7 +196,7 @@
 
 							<!-- Verborgen velden voor filmgegevens -->
 							<input type="hidden" name="selection-title" value="{{ $showtime->movie->title }}">
-							<input type="hidden" name="selection-screenroom" value="{{ $showtime->screenroom->screenroom_id }}">
+							<input type="hidden" name="selection-screenroom" value="{{ $showtime->screenroom_number }}">
 							<input type="hidden" name="selection-date" value="{{ $showtime->show_date }}">
 							<input type="hidden" name="selection-time" value="{{ $showtime->show_time }}">
 							<input type="hidden" name="selection-movieposter" value="{{ $showtime->movie->image_url }}">

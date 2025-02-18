@@ -23,6 +23,7 @@ class MovieController extends Controller {
 			->orderBy('show_time') // Ensure times are sorted too
 			->get();
 
+
 		// Group showtimes by date
 		$groupedShowtimes = $showtimes->groupBy('show_date');
 

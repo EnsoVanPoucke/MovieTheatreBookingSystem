@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 10, 2025 at 11:44 PM
+-- Host: localhost
+-- Generation Time: Feb 18, 2025 at 02:06 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `testproject`
+-- Database: `theatrebookingsystem`
 --
 
 -- --------------------------------------------------------
@@ -32,19 +32,19 @@ CREATE TABLE `screenrooms` (
   `name` varchar(50) NOT NULL,
   `description` varchar(100) NOT NULL,
   `row_count` int(4) DEFAULT NULL,
-  `col_count` int(4) DEFAULT NULL
+  `total_seats` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `screenrooms`
 --
 
-INSERT INTO `screenrooms` (`screenroom_id`, `name`, `description`, `row_count`, `col_count`) VALUES
-(1, 'Room 1', 'Large theater room.', 16, NULL),
-(2, 'Room 2', 'Large theatre room.', 17, NULL),
-(3, 'Room 3', 'Medium theatre room.', 13, NULL),
-(4, 'Room 4', 'Medium theatre room.', 13, NULL),
-(5, 'Room 5', 'Small theatre room.', 12, NULL);
+INSERT INTO `screenrooms` (`screenroom_id`, `name`, `description`, `row_count`, `total_seats`) VALUES
+(1, 'Room 1', 'Large theater room.', 16, 372),
+(2, 'Room 2', 'Large theatre room.', 16, 316),
+(3, 'Room 3', 'Medium theatre room.', 13, 192),
+(4, 'Room 4', 'Medium theatre room.', 13, 196),
+(5, 'Room 5', 'Small theatre room.', 12, 194);
 
 --
 -- Indexes for dumped tables

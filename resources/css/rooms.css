@@ -27,26 +27,16 @@
 	box-shadow: 0 14px 28px 3px rgba(75, 159, 255, 0.5);
 }
 
-.room1Width {
+.roomWidth1,
+.roomWidth2 {
 	width: 660px;
 }
 
-.room2Width {
-	width: 660px;
-}
-
-.room3Width {
+.roomWidth3,
+.roomWidth4,
+.roomWidth5 {
 	width: 572px;
 }
-
-.room4Width {
-	width: 572px;
-}
-
-.room5Width {
-	width: 572px;
-}
-
 
 
 

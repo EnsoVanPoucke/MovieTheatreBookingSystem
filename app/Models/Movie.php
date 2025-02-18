@@ -11,16 +11,15 @@ class Movie extends Model {
 	protected $fillable = [
 		'title',
 		'description',
-		'duration',
 		'director',
 		'cast',
 		'genre',
-		'price',
+		'duration',
+		'release_date',
 		'tarief_single_normaal',
 		'tarief_single_korting',
 		'tarief_duo_normaal',
 		'tarief_duo_korting',
-		'release_date',
 		'image_url',
 		'trailer_url'
 	];
