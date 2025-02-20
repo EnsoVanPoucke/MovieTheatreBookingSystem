@@ -13,17 +13,14 @@ return new class extends Migration {
 			$table->id();
 			$table->string('title', 100)->unique();
 			$table->text('description');
-			$table->integer('duration');
 			$table->string('director');
-			$table->string('cast');
-			$table->string('genre');
-			$table->integer('aantal_single_normaal')->nullable();
-			$table->integer('aantal_single_korting')->nullable();
-			$table->integer('aantal_duo_normaal')->nullable();
-			$table->integer('aantal_duo_korting')->nullable();
+			$table->text('cast');
+			$table->text('genre');
+			$table->integer('duration');
 			$table->date('release_date');
-			$table->string('image_url');
-			$table->string('trailer_url')->nullable();
+			$table->text('poster_url');
+			$table->text('trailer_url')->nullable();
+			$table->timestamps(); // Adds created_at & updated_at
 		});
 	}
 

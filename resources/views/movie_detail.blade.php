@@ -2,19 +2,24 @@
 
 @section('content')
 
-<div class="container my-4">
-	<div class="bg-white mb-5 py-6 px-4">
-		<div class="grid grid-cols-4 gap-4">
+<div class="container mx-auto w-3/4">
 
-			<!-- Showtime date select options -->
+
+
+	<div class="bg-white mb-5 py-6 px-4">
+
+		<!-- Screening date options -->
+		<div class="grid grid-cols-4 gap-4">
 			<div class="col-span-1">
 				<div class="grid col-span-2">
-					<select id="showtime-select"
-						name="showtime"
+					<select id="screening-select"
+						name="screening"
 						class="border border-gray-900/20 col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
-						<option value="" disabled selected>Select a date</option>
-						@foreach($groupedShowtimes as $date => $showtimes)
-						<option value="{{ $date }}">{{ \Carbon\Carbon::parse($date)->format('l, d M Y') }}</option>
+						<option value="" selected>Select a date</option>
+						@foreach($screenings->unique('screening_date') as $screening)
+						<option value="{{ $screening->screening_date }}">
+							{{ \Carbon\Carbon::parse($screening->screening_date)->format('l j F Y') }}
+						</option>
 						@endforeach
 					</select>
 					<svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
@@ -26,38 +31,56 @@
 				</div>
 			</div>
 
-			<!-- Showtime time buttons -->
+
+
+			<!-- Screening time buttons -->
 			<div class="col-span-3">
-				<div id="showtime-buttons" class="flex flex-wrap gap-4">
-					@foreach($groupedShowtimes as $date => $showtimes)
-					<div class="showtime-group gap-4" data-date="{{ $date }}" style="display: none;">
-						@foreach($showtimes as $showtime)
+				<div id="screening-buttons" class="flex flex-wrap gap-4">
+					@foreach($screenings->groupBy('screening_date') as $date => $dateScreenings)
+					<div class="screening-group gap-4" data-date="{{ $date }}" style="display: none;">
+						@foreach($dateScreenings as $screening)
 
 
-						<a href="#"
 
-
-							{{-- <a href="{{ route('showtime.details', ['id' => $showtime->showtime_id]) }}" --}}
-
-
+						<a href="{{ route('TicketSelection', ['date' => $screening->screening_date, 'time' => $screening->screening_time, 'screen' => $screening->screen_number]) }}"
 							class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">
-							{{ \Carbon\Carbon::parse($showtime->show_time)->format('H:i') }} - Zaal {{ $showtime->screenroom_number }}
+							{{ \Carbon\Carbon::parse($screening->screening_time)->format('H:i')}} - Zaal {{ $screening->screen_number }}
 						</a>
+
+
+
+						{{--
+						<button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">
+							{{ \Carbon\Carbon::parse($screening->screening_time)->format('H:i')}} - Zaal {{ $screening->screen_number }}
+						<input type="hidden" name="screening_date" value="{{ $screening->screening_date }}">
+						<input type="hidden" name="screening_time" value="{{ $screening->screening_time }}">
+						<input type="hidden" name="screen_number" value="{{ $screening->screen_number }}">
+						</button>
+						--}}
+
+
+
 						@endforeach
 					</div>
 					@endforeach
 				</div>
 			</div>
 		</div>
+
 	</div>
+
+
+
+
 
 	<!-- Movie Details -->
 	<div class="bg-light py-6 px-4">
 		<div class="grid grid-cols-4 gap-4">
 			<div class="col-span-1">
-				<img class="some-image-class" src="{{ asset('images/movieposters/' . $movie->image_url) }}"
+				<img class="some-image-class" src="{{ asset('images/movieposters/' . $movie->poster_url) }}"
 					alt="{{ $movie->title }} Image">
 			</div>
+
 			<div class="col-span-3">
 				<h3 class="mb-3 text-2xl font-semibold">{{ $movie->title }}</h3>
 				<h5 class="mb-3 font-semibold">Storyline</h5>
@@ -73,23 +96,26 @@
 			</div>
 		</div>
 	</div>
+
 </div>
+
+
 
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
-		const showtimeSelect = document.getElementById("showtime-select");
-		const showtimeGroups = document.querySelectorAll(".showtime-group");
+		const screeningSelect = document.getElementById("screening-select");
+		const screeningGroups = document.querySelectorAll(".screening-group");
 
-		showtimeSelect.addEventListener("change", function() {
+		screeningSelect.addEventListener("change", function() {
 			const selectedDate = this.value;
 
-			// Hide all showtime buttons
-			showtimeGroups.forEach(group => {
+			// Hide all screening buttons
+			screeningGroups.forEach(group => {
 				group.style.display = "none";
 			});
 
 			// Show only the buttons for the selected date
-			const activeGroup = document.querySelector(`.showtime-group[data-date="${selectedDate}"]`);
+			const activeGroup = document.querySelector(`.screening-group[data-date="${selectedDate}"]`);
 			if (activeGroup) {
 				activeGroup.style.display = "flex";
 			}

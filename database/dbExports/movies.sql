@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 18, 2025 at 02:04 PM
+-- Generation Time: Feb 18, 2025 at 07:24 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -52,7 +52,7 @@ INSERT INTO `movies` (`movie_id`, `title`, `description`, `duration`, `director`
 (1, 'Interstellar', 'When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humans.', 169, 'Christopher Nolan', 'Matthew McConaughey, Anne Hathaway, Jessica Chastain', 'Adventure Epic, Drama', 1760, 1660, 2060, 1960, '2014-11-05', 'interstellar.jpg', NULL),
 (2, 'Vaiana 2', 'After receiving an unexpected call from her wayfinding ancestors, Moana must journey to the far seas of Oceania and into dangerous, long-lost waters for an adventure unlike anything she\'s ever faced.', 160, 'David G. Derrick Jr., Jason Hand, Dana Ledoux Miller', 'Auli\'i Cravalho, Dwayne Johnson, Hualalai Chung', 'Animation', 1610, 1510, 1910, 1810, '2024-11-27', 'vaiana_2.jpg', NULL),
 (3, 'The Dark Knight', 'When a menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman, James Gordon and Harvey Dent must work together to put an end to the madness.', 152, 'Christopher Nolan', 'Christian Bale, Heath Ledger, Aaron Eckhart, Michael Caine, Morgan Freeman', 'Action Epic, Drama', 1810, 1710, 2110, 2010, '2008-07-23', 'the_dark_knight.jpg', NULL),
-(4, 'Inglourious Basterds', 'In Nazi-occupied France during World War II, a plan to assassinate Nazi leaders by a group of Jewish U.S. soldiers coincides with a theatre owner\'s vengeful plans for the same.', 153, 'Quentin Tarantino', 'Brad Pitt, Diane Kruger, Christoph Waltz, Michael Fassbender, Mélanie Laurent ', 'Dark comedy, Drama, War', 1750, 1650, 2050, 1950, '2009-08-19', 'inglourious_basterds.jpg', NULL);
+(4, 'Inglourious Basterds', 'In Nazi-occupied France during World War II, a plan to assassinate Nazi leaders by a group of Jewish U.S. soldiers coincides with a theatre owner\'s vengeful plans for the same.', 153, 'Quentin Tarantino', 'Brad Pitt, Diane Kruger, Christoph Waltz, Michael Fassbender, Mélanie Laurent', 'Dark comedy, Drama, War', 1750, 1650, 2050, 1950, '2009-08-19', 'inglourious_basterds.jpg', NULL);
 
 --
 -- Indexes for dumped tables

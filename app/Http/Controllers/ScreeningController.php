@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Showtime;
+use App\Models\Screening;
 use Illuminate\Http\Request;
 
-class ShowtimeController extends Controller {
+class ScreeningController extends Controller {
 	public function show($id) {
-		$showtime = Showtime::with(['screenroom', 'movie'])->findOrFail($id);  // Added 'movie' relationship
-		return view('details', compact('showtime'));  // Pass 'showtime' to the view
+		$screening = Screening::with(['screen_number', 'movie'])->findOrFail($id);  // Added 'movie' relationship
+		return view('details', compact('screening'));  // Pass 'screening' to the view
 	}
 }
 

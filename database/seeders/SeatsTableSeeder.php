@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\DB;
 
 class SeatsTableSeeder extends Seeder {
 
-	public function run($showDate, $showTime, $screenroomNumber) {
+	public function run($screenDate, $screenTime, $screenNumber) {
 
-		$roomLayout = config("gridblueprints.blueprints.{$screenroomNumber}");
+		$roomLayout = config("gridblueprints.blueprints.{$screenNumber}");
 		$seatNumber = 1;
 
 		foreach ($roomLayout as $row) {
@@ -21,9 +21,9 @@ class SeatsTableSeeder extends Seeder {
 
 				if ($seatStatus == 1 || $seatStatus == 1001) {
 					DB::table('seats')->insert([
-						'show_date' => $showDate,
-						'show_time' => $showTime,
-						'screenroom_number' => $screenroomNumber,
+						'screen_date' => $screenDate,
+						'screen_time' => $screenTime,
+						'screen_number' => $screenNumber,
 						'seat_number' => $seatNumber,
 						'row_number' => $rowId,
 						'seat_status' => $seatStatus
