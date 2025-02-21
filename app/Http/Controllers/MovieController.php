@@ -27,15 +27,15 @@ class MovieController extends Controller {
 	}
 
 	public function show($id) {
-		// Fetch movie details by id using named parameters
-		$movie = DB::selectOne(
+		// Fetch movie details by id
+		$movieData = DB::selectOne(
 			"SELECT * FROM movies
 			WHERE id = :id",
 			['id' => $id]
 		);
 
-		// Fetch associated screenings for this movie, filtered by is_public, using named parameters
-		$screenings = collect(DB::select(
+		// Fetch associated screenings for this movie (for dropdown menu with dates)
+		$movieScreenings = collect(DB::select(
 			"SELECT * FROM screenings 
         	WHERE movie_id = :id
         	AND is_public = 1 
@@ -43,7 +43,7 @@ class MovieController extends Controller {
 			['id' => $id]
 		));
 
-		return view('movie_detail', compact('movie', 'screenings'));
+		return view('movie_detail', compact('movieData', 'movieScreenings'));
 	}
 
 

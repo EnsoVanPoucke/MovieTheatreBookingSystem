@@ -8,8 +8,20 @@ use App\Http\Controllers\BookingController;
 Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
 
 Route::get('/movies/details/{movie}', [MovieController::class, 'show'])->name('movies.show');
-Route::get('/Booking/TicketSelection/{date}/{time}/{screen}', [BookingController::class, 'show'])->name('TicketSelection');
+Route::get('/Booking/TicketSelection/{data}', [BookingController::class, 'show'])->name('TicketSelection');
 
+
+
+
+
+
+
+
+
+
+
+
+// Route::get('/Booking/TicketSelection/{date}/{time}/{screen}', [BookingController::class, 'show'])->name('TicketSelection');
 
 // In your routes/web.php or controller
 

@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 11, 2025 at 12:04 AM
+-- Host: localhost
+-- Generation Time: Feb 21, 2025 at 05:12 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,27 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `theatrebookingsystem`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `bookings`
---
-
-CREATE TABLE `bookings` (
-  `booking_id` bigint(20) NOT NULL,
-  `booked_seats` varchar(255) NOT NULL,
-  `payment` int(11) DEFAULT NULL,
-  `showtime_id` bigint(20) UNSIGNED NOT NULL,
-  `created_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `bookings`
---
-
-INSERT INTO `bookings` (`booking_id`, `booked_seats`, `payment`, `showtime_id`, `created_at`) VALUES
-(1, '58,59', 4000, 6, '2025-02-10 22:56:23');
 
 -- --------------------------------------------------------
 
@@ -65,6 +44,50 @@ CREATE TABLE `cache_locks` (
   `owner` varchar(255) NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_discounts`
+--
+
+CREATE TABLE `customer_discounts` (
+  `id` tinyint(3) UNSIGNED NOT NULL,
+  `customer_type` enum('student','senior','vip') NOT NULL,
+  `discount_type` enum('percentage','cents') NOT NULL,
+  `discount` smallint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `customer_discounts`
+--
+
+INSERT INTO `customer_discounts` (`id`, `customer_type`, `discount_type`, `discount`) VALUES
+(1, 'student', 'cents', 200),
+(2, 'senior', 'cents', 200),
+(3, 'vip', 'percentage', 50);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `discount_codes`
+--
+
+CREATE TABLE `discount_codes` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `code` varchar(50) NOT NULL,
+  `discount_percentage` tinyint(4) NOT NULL,
+  `valid_from` date NOT NULL,
+  `valid_until` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `discount_codes`
+--
+
+INSERT INTO `discount_codes` (`id`, `code`, `discount_percentage`, `valid_from`, `valid_until`) VALUES
+(1, 'ZOMER25', 20, '2025-06-01', '2025-06-30'),
+(2, 'VIPONLY10', 10, '2025-02-01', '2025-05-31');
 
 -- --------------------------------------------------------
 
@@ -137,7 +160,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '0001_01_01_000000_create_users_table', 1),
 (2, '0001_01_01_000001_create_cache_table', 1),
 (3, '0001_01_01_000002_create_jobs_table', 1),
-(7, '2025_02_09_180509_create_movies_table', 2);
+(28, '2025_02_10_120000_create_movies_table', 2),
+(29, '2025_02_11_120000_create_screenings_table', 2),
+(30, '2025_02_12_120000_create_seats_table', 2),
+(31, '2025_02_13_120000_create_discounts_table', 2),
+(32, '2025_02_21_120000_create_pricing_table', 3);
 
 -- --------------------------------------------------------
 
@@ -146,28 +173,31 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `movies` (
-  `movie_id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(100) NOT NULL,
   `description` text NOT NULL,
-  `duration` int(11) NOT NULL,
   `director` varchar(255) NOT NULL,
-  `cast` varchar(255) NOT NULL,
-  `genre` varchar(255) NOT NULL,
-  `price` int(11) NOT NULL,
+  `cast` text NOT NULL,
+  `genre` text NOT NULL,
+  `duration` int(11) NOT NULL,
   `release_date` date NOT NULL,
-  `image_url` varchar(255) NOT NULL,
-  `trailer_url` varchar(255) DEFAULT NULL
+  `poster_url` text NOT NULL,
+  `trailer_url` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `movies`
 --
 
-INSERT INTO `movies` (`movie_id`, `title`, `description`, `duration`, `director`, `cast`, `genre`, `price`, `release_date`, `image_url`, `trailer_url`) VALUES
-(1, 'Interstellar', 'When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humans.', 169, 'Christopher Nolan', 'Matthew McConaughey, Anne Hathaway, Jessica Chastain', 'Adventure Epic, Drama', 1800, '2014-11-05', 'interstellar.jpg', NULL),
-(2, 'Vaiana 2', 'After receiving an unexpected call from her wayfinding ancestors, Moana must journey to the far seas of Oceania and into dangerous, long-lost waters for an adventure unlike anything she\'s ever faced.', 160, 'David G. Derrick Jr., Jason Hand, Dana Ledoux Miller', 'Auli\'i Cravalho, Dwayne Johnson, Hualalai Chung', 'Animation', 1800, '2024-11-27', 'vaiana_2.jpg', NULL),
-(3, 'The Dark Knight', 'When a menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman, James Gordon and Harvey Dent must work together to put an end to the madness.', 152, 'Christopher Nolan', 'Christian Bale, Heath Ledger, Aaron Eckhart, Michael Caine, Morgan Freeman', 'Action Epic, Drama', 1900, '2008-07-23', 'the_dark_knight.jpg', NULL),
-(4, 'Inglourious Basterds', 'In Nazi-occupied France during World War II, a plan to assassinate Nazi leaders by a group of Jewish U.S. soldiers coincides with a theatre owner\'s vengeful plans for the same.', 153, 'Quentin Tarantino', 'Brad Pitt, Diane Kruger, Christoph Waltz, Michael Fassbender, Mélanie Laurent ', 'Dark comedy, Drama, War', 1950, '2009-08-19', 'inglourious_basterds.jpg', NULL);
+INSERT INTO `movies` (`id`, `title`, `description`, `director`, `cast`, `genre`, `duration`, `release_date`, `poster_url`, `trailer_url`, `created_at`, `updated_at`) VALUES
+(1, 'The Dark Knight', 'When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham.', 'Christopher Nolan', 'Christian Bale, Heath Ledger, Aaron Eckhart', 'Action, Crime, Drama', 152, '2008-07-18', 'the_dark_knight.jpg', '#', '2025-02-20 13:00:00', NULL),
+(2, 'Vaiana 2', 'After receiving an unexpected call from her wayfinding ancestors, Moana must journey to the far seas of Oceania and into dangerous, long-lost waters for an adventure unlike anything she\'s ever faced.', 'David G. Derrick Jr., Jason Hand, Dana Ledoux Miller', 'Auli\'i Cravalho, Dwayne Johnson, Hualalai Chung', 'Animation', 160, '2024-11-27', 'vaiana_2.jpg', '#', '2025-02-20 13:00:00', NULL),
+(3, 'Interstellar', 'When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humans.', 'Christopher Nolan', 'Matthew McConaughey, Anne Hathaway, Jessica Chastain', 'Adventure Epic, Drama', 169, '2014-11-05', 'interstellar.jpg', '#', '2025-02-20 13:00:00', NULL),
+(4, 'Inglourious Basterds', 'In Nazi-occupied France during World War II, a plan to assassinate Nazi leaders by a group of Jewish U.S. soldiers coincides with a theatre owner\\\'s vengeful plans for the same.', 'Quentin Tarantino', 'Brad Pitt, Diane Kruger, Christoph Waltz, Michael Fassbender, Mélanie Laurent', 'Dark comedy, Drama, War', 153, '2009-08-19', 'inglourious_basterds.jpg', '#', '2025-02-20 13:00:00', NULL),
+(5, 'Patsers', 'Patser PATSER vertelt het waanzinnige verhaal van vier vrienden op ‘t Kiel in Antwerpen die ervan dromen om te leven als echte patsers. Ze stoppen hun neus in highprofile drugszaken en ontketenen zo een bendeoorlog van Antwerpen tot Amsterdam, en zelfs Colombia. Patsers In de straten van Antwerpen proberen Badia, Junes en Volt zich los te rukken van hun bewogen verleden, terwijl de onderwereld hen één voor één onverbiddelijk terugtrekt. Adamo heeft zich opgewerkt tot een van de meest invloedrijke figuren in de Antwerpse drugshandel en raakt steeds dieper verstrikt in een web van macht en gevaar. Zijn vrienden moeten een keuze maken: trouw blijven aan Adamo of kiezen voor de veiligheid van zichzelf en hun dierbaren. Ze ontdekken dat het verleden hen niet zomaar loslaat — en dat de prijs voor vrijheid hoger is dan ze ooit hadden verwacht.', 'Adil El Arbi, Bilall Fallah', 'Matteo Simoni, Nora Gharib, Junes Lazaar, Saïd Boumazoughe, Pommelien Thijs, Jennifer Heylen', 'Action, thriller', 126, '2025-02-22', 'patsers.jpg', '#', '2025-02-20 13:00:00', NULL),
+(6, 'The Brutalist', 'De visionaire architect László Toth ontvlucht het naoorlogse Europa en komt aan in Amerika om zijn leven, zijn werk en zijn huwelijk met zijn vrouw Erzsébet opnieuw op te bouwen nadat hij tijdens de oorlog uit elkaar werd gedreven door verschuivende grenzen en regimes. In zijn eentje in een vreemd nieuw land vestigt László zich in Pennsylvania, waar de rijke en prominente industrieel Harrison Lee Van Buren zijn bouwtalent herkent. Maar macht en nalatenschap komen ten koste van een zware prijs... Opgelet: deze film bevat een geïntegreerde pauze van 15 minuten.', 'Brady Corbet', 'Guy Pearce, Felicity Jones, Adrien Brody', 'Drama', 215, '2025-02-05', 'the_brutalist.jpg', '#', '2025-02-20 13:00:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -184,27 +214,66 @@ CREATE TABLE `password_reset_tokens` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `screenrooms`
+-- Table structure for table `pricings`
 --
 
-CREATE TABLE `screenrooms` (
-  `screenroom_id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `description` varchar(100) NOT NULL,
-  `row_count` int(4) DEFAULT NULL,
-  `col_count` int(4) DEFAULT NULL
+CREATE TABLE `pricings` (
+  `movie_id` bigint(20) UNSIGNED NOT NULL,
+  `single_seat_price` smallint(4) NOT NULL,
+  `duo_seat_price` smallint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `screenrooms`
+-- Dumping data for table `pricings`
 --
 
-INSERT INTO `screenrooms` (`screenroom_id`, `name`, `description`, `row_count`, `col_count`) VALUES
-(1, 'Room 1', 'Large theater room.', 16, NULL),
-(2, 'Room 2', 'Large theatre room.', 17, NULL),
-(3, 'Room 3', 'Medium theatre room.', 13, NULL),
-(4, 'Room 4', 'Medium theatre room.', 13, NULL),
-(5, 'Room 5', 'Small theatre room.', 12, NULL);
+INSERT INTO `pricings` (`movie_id`, `single_seat_price`, `duo_seat_price`) VALUES
+(1, 1650, 2050);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `screenings`
+--
+
+CREATE TABLE `screenings` (
+  `screening_date` date NOT NULL,
+  `screening_time` time NOT NULL,
+  `screen_number` int(2) UNSIGNED NOT NULL,
+  `movie_id` bigint(20) UNSIGNED NOT NULL,
+  `is_public` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `screenings`
+--
+
+INSERT INTO `screenings` (`screening_date`, `screening_time`, `screen_number`, `movie_id`, `is_public`) VALUES
+('2025-04-25', '16:30:00', 4, 5, 1),
+('2025-04-27', '18:00:00', 1, 6, 1),
+('2025-04-28', '20:00:00', 1, 1, 1),
+('2025-04-29', '16:00:00', 2, 2, 1),
+('2025-04-29', '16:00:00', 3, 3, 1),
+('2025-04-29', '20:00:00', 1, 1, 1),
+('2025-04-29', '20:00:00', 2, 1, 1),
+('2025-04-30', '14:30:00', 2, 2, 1),
+('2025-04-30', '14:30:00', 3, 2, 1),
+('2025-05-01', '20:00:00', 4, 4, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `seats`
+--
+
+CREATE TABLE `seats` (
+  `screening_date` date NOT NULL,
+  `screening_time` time NOT NULL,
+  `screen_number` int(2) UNSIGNED NOT NULL,
+  `seat_number` int(10) UNSIGNED NOT NULL,
+  `row_number` int(10) UNSIGNED NOT NULL,
+  `seat_status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -226,32 +295,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('DlTaRxOjXboQi28WjTgYwIMWFSihBsZSyJdtSynt', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiYWdFcDFyUGwyVG54Tm1Ea29yT0pZRG81OHhHOGdHOGprR1VxOEhySiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9tb3ZpZXMvMiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1739227344);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `showtimes`
---
-
-CREATE TABLE `showtimes` (
-  `showtime_id` bigint(20) UNSIGNED NOT NULL,
-  `showtime` datetime NOT NULL,
-  `screenroom_id` int(10) UNSIGNED NOT NULL,
-  `movie_id` bigint(20) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `showtimes`
---
-
-INSERT INTO `showtimes` (`showtime_id`, `showtime`, `screenroom_id`, `movie_id`) VALUES
-(1, '2025-02-14 20:00:00', 1, 1),
-(2, '2025-02-15 16:00:00', 2, 2),
-(3, '2025-02-15 20:00:00', 3, 4),
-(4, '2025-02-16 16:30:00', 4, 3),
-(5, '2025-02-16 21:30:00', 4, 3),
-(6, '2025-02-16 16:00:00', 3, 4);
+('05Nq0wQTzE9DCwFeC0wUe0nftlENX93X0BVZVfED', NULL, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoieWRnUVMyTmhsOHFXVDdsSTZDclZBVW9DQ0dHWnVWRU1vZGR0a3lzRCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9tb3ZpZXMvZGV0YWlscy8xIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1740150851);
 
 -- --------------------------------------------------------
 
@@ -275,13 +319,6 @@ CREATE TABLE `users` (
 --
 
 --
--- Indexes for table `bookings`
---
-ALTER TABLE `bookings`
-  ADD PRIMARY KEY (`booking_id`),
-  ADD KEY `bookings_ibfk_1` (`showtime_id`);
-
---
 -- Indexes for table `cache`
 --
 ALTER TABLE `cache`
@@ -292,6 +329,20 @@ ALTER TABLE `cache`
 --
 ALTER TABLE `cache_locks`
   ADD PRIMARY KEY (`key`);
+
+--
+-- Indexes for table `customer_discounts`
+--
+ALTER TABLE `customer_discounts`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `customer_type` (`customer_type`);
+
+--
+-- Indexes for table `discount_codes`
+--
+ALTER TABLE `discount_codes`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `code` (`code`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -323,7 +374,7 @@ ALTER TABLE `migrations`
 -- Indexes for table `movies`
 --
 ALTER TABLE `movies`
-  ADD PRIMARY KEY (`movie_id`),
+  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `movies_title_unique` (`title`);
 
 --
@@ -333,10 +384,23 @@ ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
--- Indexes for table `screenrooms`
+-- Indexes for table `pricings`
 --
-ALTER TABLE `screenrooms`
-  ADD PRIMARY KEY (`screenroom_id`);
+ALTER TABLE `pricings`
+  ADD PRIMARY KEY (`movie_id`);
+
+--
+-- Indexes for table `screenings`
+--
+ALTER TABLE `screenings`
+  ADD PRIMARY KEY (`screening_date`,`screening_time`,`screen_number`),
+  ADD KEY `screenings_movie_id_foreign` (`movie_id`);
+
+--
+-- Indexes for table `seats`
+--
+ALTER TABLE `seats`
+  ADD PRIMARY KEY (`screening_date`,`screening_time`,`screen_number`,`seat_number`);
 
 --
 -- Indexes for table `sessions`
@@ -345,14 +409,6 @@ ALTER TABLE `sessions`
   ADD PRIMARY KEY (`id`),
   ADD KEY `sessions_user_id_index` (`user_id`),
   ADD KEY `sessions_last_activity_index` (`last_activity`);
-
---
--- Indexes for table `showtimes`
---
-ALTER TABLE `showtimes`
-  ADD PRIMARY KEY (`showtime_id`),
-  ADD KEY `showtimes_ibfk_1` (`movie_id`),
-  ADD KEY `showtimes_ibfk_2` (`screenroom_id`);
 
 --
 -- Indexes for table `users`
@@ -366,10 +422,16 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `bookings`
+-- AUTO_INCREMENT for table `customer_discounts`
 --
-ALTER TABLE `bookings`
-  MODIFY `booking_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `customer_discounts`
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `discount_codes`
+--
+ALTER TABLE `discount_codes`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -387,25 +449,13 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `movies`
 --
 ALTER TABLE `movies`
-  MODIFY `movie_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `screenrooms`
---
-ALTER TABLE `screenrooms`
-  MODIFY `screenroom_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `showtimes`
---
-ALTER TABLE `showtimes`
-  MODIFY `showtime_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -418,17 +468,22 @@ ALTER TABLE `users`
 --
 
 --
--- Constraints for table `bookings`
+-- Constraints for table `pricings`
 --
-ALTER TABLE `bookings`
-  ADD CONSTRAINT `bookings_ibfk_1` FOREIGN KEY (`showtime_id`) REFERENCES `showtimes` (`showtime_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `pricings`
+  ADD CONSTRAINT `pricings_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `showtimes`
+-- Constraints for table `screenings`
 --
-ALTER TABLE `showtimes`
-  ADD CONSTRAINT `showtimes_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`movie_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `showtimes_ibfk_2` FOREIGN KEY (`screenroom_id`) REFERENCES `screenrooms` (`screenroom_id`) ON DELETE CASCADE;
+ALTER TABLE `screenings`
+  ADD CONSTRAINT `screenings_movie_id_foreign` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `seats`
+--
+ALTER TABLE `seats`
+  ADD CONSTRAINT `seats_screening_date_screening_time_screen_number_foreign` FOREIGN KEY (`screening_date`,`screening_time`,`screen_number`) REFERENCES `screenings` (`screening_date`, `screening_time`, `screen_number`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

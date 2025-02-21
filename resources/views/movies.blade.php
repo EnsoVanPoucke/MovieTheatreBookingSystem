@@ -4,7 +4,7 @@
 
 
 <div class="bg-gray-200 p-8 mt-8">
-	<div class="mx-auto w-3/4">
+	<div class="mx-auto w-4/5">
 		<div class="flex">
 			<a href="#"
 				class="bg-white text-orange-600 text-sm font-semibold border-2 border-orange-600 py-2 px-4 hover:bg-orange-600 hover:text-white">
@@ -28,7 +28,7 @@
 
 
 <div>
-	<div class="mx-auto w-3/4 max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+	<div class="mx-auto w-4/5 max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
 		<div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 xl:gap-x-8">
 			@foreach($movies as $movie)
 			<a href="{{ route('movies.show', $movie->id) }}" class="group">
