@@ -1,25 +1,24 @@
-@extends('layouts.app')
+@extends('layouts.booking')
+
+@vite(['resources/css/rooms.css'])
 
 @section('content')
 
-{{-- Include CSS and JavaScript via Vite --}}
-@vite(['resources/css/rooms.css'])
-
-<meta name="csrf-token" content="{{ csrf_token() }}">
-
-<!-- <div class="bg-white mx-auto my-[60px] py-5 flex justify-center"> -->
-<div class="p-4">
-	<h1 class="text-3xl font-bold">Selecteer je stoelen</h1>
+<div class="mx-auto max-w-5xl py-[30px] sm:px-6 lg:px-8 flex justify-center">
+	<h1 class="text-3xl font-bold">Selecteer je zitplaatsen</h1>
+</div>
+<div class="flex justify-center mb-[15px]">
+	<p id="text-seats-quantity" class="text-lg font-medium text-gray-500"></p>
 </div>
 
-<div class="mx-auto my-[60px] py-5 flex justify-center">
+{{-- change this - get the new values from array --}}
+<input type="hidden" id="maxQuantities" name="maxQuantities" value="{{ $booking['totalSeats'] }}">
+<input type="hidden" id="maxQuantitiesSingleSeats" name="maxQuantitiesSingleSeats" value="{{ $booking['totalSingleSeats'] }}">
+<input type="hidden" id="maxQuantitiesDuoSeats" name="maxQuantitiesDuoSeats" value="{{ $booking['totalDuoSeats'] }}">
 
-
-	<!--  -->
+{{-- room and button --}}
+<div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 flex justify-center">
 	<div class="roomWidth{{ $booking['selection-screenroom'] }}">
-
-
-
 		<div>
 			<div id="screen"></div>
 		</div>
@@ -27,257 +26,83 @@
 			<div id="room-wrapper">
 
 				<?php $globalSeatNumber = 0 ?>
+				<?php $seatNumber = 0 ?>
 				<?php $rowNumber = 0 ?>
 
-				<!-- begin loop -->
 				@foreach ($roomGridBlueprint as $rowIndex => $row)
-				<div class="row flex space-x-0"> <!-- Use flex and remove space between items -->
+				<div class="row flex space-x-0">
 					@foreach ($row as $colIndex => $seat)
 					@if ($seat > 9000 && $seat <= 9200)
 						<?php $rowNumber = $seat - 9000 ?>
 						<div class="gridBlocks rowNumberBlocks">{{ $rowNumber }}</div>
 				@elseif ($seat === 0 || $seat >= 9000)
 				<div class="gridBlocks"></div>
-
 				@else
 
+				{{-- if seat is available --}}
 				@if ($seat === 1 || $seat === 1001)
-
 				<?php
 				$globalSeatNumber++;
+				$seatNumber++;
 				$seatType = ($seat === 1) ? 'singleSeat' : 'duoSeat';
 				$image = ($seat === 1) ? 'singleSeat.svg' : 'duoSeat.svg';
-				$seatId = "$globalSeatNumber";
+				$seatId = (string) $globalSeatNumber;
 				?>
+				<div class="chk_parent">
+					<input type="checkbox" name="{{ $seatId }}" id="{{ $seatId }}" class="seat {{ $seatType }}" data-seat-type="{{ $seatType }}" data-seat-number="{{ $seatNumber }}" data-row-number="{{ $rowNumber }}">
+					@include('components.svg.' . $seatType, ['color' => $color ?? '#bfcbcc'])
+				</div>
 
 
-
-				<button id="{{ $seatId }}" class="seat {{ $seatType }} p-0 m-0" data-seat-type="{{ $seatType }}">
-					<!-- <img src="{{ asset('images/icons/' . $image) }}" alt="{{ $seatType }} image" class="p-0 m-0"> -->
-					@include('components.svg.' . $seatType)
-				</button>
-
-
-
+				{{-- if seat is pending --}}
+				{{--
 				@elseif ($seat === 2 || $seat === 1002)
-
 				<?php
 				$globalSeatNumber++;
+				$seatNumber++;
 				$seatType = ($seat === 2) ? 'singleSeat' : 'duoSeat';
 				$image = ($seat === 2) ? 'singleSeat.svg' : 'duoSeat.svg';
-				$seatId = "$globalSeatNumber";
+				$seatId = (string) $globalSeatNumber;
 				?>
+				--}}
+				{{-- some component for pending here --}}
 
 
-
-				<button id="{{ $seatId }}" class="seat {{ $seatType }} p-0 m-0" data-seat-type="{{ $seatType }}">
-					<!-- <img src="{{ asset('images/icons/' . $image) }}" alt="{{ $seatType }} image" class="p-0 m-0"> -->
-					@include('components.svg.' . $seatType)
-				</button>
-
-
-
+				{{-- if seat is booked --}}
 				@elseif ($seat === 3 || $seat === 1003)
-
 				<?php
 				$globalSeatNumber++;
+				$seatNumber++;
 				$seatType = ($seat === 3) ? 'singleSeat' : 'duoSeat';
 				$image = ($seat === 3) ? 'singleSeat.svg' : 'duoSeat.svg';
-				$seatId = "$globalSeatNumber";
+				$seatId = (string) $globalSeatNumber;
 				?>
-
-				<button id="{{ $seatId }}" class="seat {{ $seatType }} seat-status-booked p-0 m-0" data-seat-type="{{ $seatType }}" disabled>
-					<!-- <img src="{{ asset('images/icons/' . $image) }}" alt="{{ $seatType }} image" class="p-0 m-0"> -->
-					@include('components.svg.' . $seatType)
-				</button>
-
+				<div class="svg_parent">
+					@include('components.svg.' . $seatType, ['color' => $color ?? '#556060'])
+				</div>
 				@endif
 				@endif
 				@endforeach
+				<?php $seatNumber = 0 ?>
 			</div>
 			@endforeach
 		</div>
 	</div>
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- when button pressed, check selected seats and retrieve their number -->
-<div class="mx-auto my-[60px] flex justify-center">
-	<form action="#" method="post" class="m-0">
-		<button type="submit"
-			class="bg-orange-500 text-white font-semibold py-3 px-6 rounded-lg hover:bg-orange-600">
-			Verder
-		</button>
-	</form>
-</div>
-
-
-
-
-
-
-<div class="container mx-auto my-[60px]">
-
-	<div class="bg-white shadow-md rounded-lg p-6 flex">
-
-
-
-		<div class="w-1/3">
-			<img src="{{ asset('images/movieposters/' . $booking['selection-movieposter']) }}"
-				alt="{{ $booking['selection-title'] }} Image">
-		</div>
-
-
-
-
-		<!-- Film Informatie -->
-		<div class="w-2/3 pl-6">
-			<h2 class="text-2xl font-bold">{{ $booking['selection-title'] }}</h2>
-			<div class="mt-4">
-				<p><strong>Datum:</strong> {{ \Carbon\Carbon::parse($booking['selection-date'])->format('d-m-Y') }}</p>
-				<p><strong>Tijd:</strong> {{ $booking['selection-time'] }}</p>
-			</div>
-			<div class="border-t border-gray-300 my-3"></div>
-			<div>
-				<p><strong>Zaal:</strong> {{ $booking['selection-screenroom'] }}</p>
-			</div>
-			<div class="border-t border-gray-300 my-3"></div>
-			<div>
-				<h2 class="text-md font-semibold">Gekozen tickets</h2>
-				<p>Single Normaal: <strong>{{ $booking['single-normaal'] }}</strong></p>
-				<p>Single Korting: <strong>{{ $booking['single-korting'] }}</strong></p>
-				<p>Duo Normaal: <strong>{{ $booking['duo-normaal'] }}</strong></p>
-				<p>Duo Korting: <strong>{{ $booking['duo-korting'] }}</strong></p>
-			</div>
-			<div class="border-t border-gray-300 my-3"></div>
-			<div>
-				<h2 class="text-xl font-semibold">Totaalprijs</h2>
-				<p class="text-2xl font-bold text-blue-600">{{ number_format($booking['total-price'] / 100, 2, ',', '.') }} €</p>
-			</div>
-		</div>
+	<div class="mx-auto my-[60px] flex justify-center">
+		<x-btn-verder id="btnVerder">Verder</x-btn-verder>
 	</div>
-
 </div>
 
+{{-- hidden data --}}
+<div>
+	<p data-booking-title="{{ $booking['selection-title'] }}"></p>
+	<p data-booking-date="{{ \Carbon\Carbon::parse($booking['selection-date'])->format('Y-m-d') }}"></p>
+	<p data-booking-time="{{ $booking['selection-time'] }}"></p>
+	<p data-booking-screenroom="{{ $booking['selection-screenroom'] }}"></p>
+</div>
 
-
-
-
-<script>
-	const roomWrapper = document.getElementById("room-wrapper");
-
-	roomWrapper.addEventListener('mouseover', (event) => {
-		const targetSeat = event.target.closest('.seat');
-		if (!targetSeat || targetSeat.classList.contains('seat-status-booked')) return;
-		this.handleMouseEvents('mouseover', targetSeat);
-	});
-
-	roomWrapper.addEventListener('mouseout', (event) => {
-		const targetSeat = event.target.closest('.seat');
-		if (!targetSeat || targetSeat.classList.contains('seat-status-booked')) return;
-		this.handleMouseEvents('mouseout', targetSeat);
-	});
-
-	roomWrapper.addEventListener('click', (event) => {
-		const targetSeat = event.target.closest('.seat');
-		if (!targetSeat || targetSeat.classList.contains('seat-status-booked')) return;
-		this.handleMouseEvents('click', targetSeat);
-	});
-
-	function handleMouseEvents(eventType, button) {
-
-		const seatIMG = button.children[0]; // seat img
-		const seatType = button.dataset.seattype;
-		const seatrowDATA = button.dataset.seatRow;
-		// const [seatNR, seatROW] = seatrowDATA.split('/');
-		// const seatNumber = parseInt(seatNR);
-		// const seatRow = parseInt(seatROW);
-
-		if (eventType === 'mouseover') {
-
-			// when seat is already selected, do not add a hover class!
-			if (!seatIMG || seatIMG.classList.contains('seat-status-selected')) return;
-
-			seatIMG.classList.add('seat-status-hover');
-
-			// TOOLTIP
-			// document.addEventListener('mousemove', (e) => this.updateTooltipPosition(e));
-			// this.displayTooltip('block', seatNumber, seatRow, seatType);
-
-		} else if (eventType === 'mouseout') {
-
-			seatIMG.classList.remove('seat-status-hover');
-
-			// TOOLTIP
-			// this.displayTooltip('none', '', '', '');
-			// document.removeEventListener('mousemove', (e) => this.updateTooltipPosition(e));
-
-		} else if (eventType === 'click') {
-
-			console.log(button);
-			seatIMG.classList.toggle('seat-status-selected');
-
-			if (seatIMG.classList.contains('seat-status-hover')) seatIMG.classList.remove('seat-status-hover');
-
-
-
-
-			// when user selects a seat add class to button element...
-			// button.classList.toggle('selected');
-
-			// gebruiker zou niet in staat mogen zijn om meer seats aan te klikken dan aantal/type hij/zij gekozen voorheen heeft.
-
-			// when selecting a seat, initiate a function
-
-			// const rowNumber = button.dataset.rowNumber;
-			// const rowSeatNumber = button.dataset.rowSeatNumber;
-			// const globalSeatNumber = button.dataset.globalSeatNumber;
-
-			// console.log("TheatreRoom.js:", button.id);
-
-		}
-	}
-</script>
-
-
-
-
-
-
-
-
-
-
-
-<script>
-	// function insertVoornaam() {
-	// 	console.log('tester initiated!');
-	// 	let voornaam = document.getElementById("voornaam").value;
-
-	// 	axios.post('/tester', {
-	// 			voornaam: voornaam
-	// 		})
-	// 		.then(response => {
-	// 			console.log(response.data);
-	// 			alert(response.data.message);
-	// 		})
-	// 		.catch(error => {
-	// 			console.error("Error:", error);
-	// 		});
-	// }
-</script>
+{{-- javascripts --}}
+<script src="{{ asset('js/roomSelectListeners.js') }}"></script>
+<script src="{{ asset('js/requestBooking.js') }}"></script>
 
 @endsection

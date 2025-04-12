@@ -23,5 +23,3 @@ yarn-error.log
 /.zed
 .gitignore
 ToDo.txt
-/backups
-/database/dbExports

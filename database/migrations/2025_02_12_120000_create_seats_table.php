@@ -13,12 +13,13 @@ return new class extends Migration {
 			$table->date('screening_date');
 			$table->time('screening_time');
 			$table->unsignedInteger('screen_number');
+			$table->unsignedInteger('global_seat_number');
 			$table->unsignedInteger('seat_number');
 			$table->unsignedInteger('row_number');
 			$table->integer('seat_status');
 
 			// Composite primary key
-			$table->primary(['screening_date', 'screening_time', 'screen_number', 'seat_number']);
+			$table->primary(['screening_date', 'screening_time', 'screen_number', 'global_seat_number']);
 
 			// Foreign key referencing screenings table
 			$table->foreign(['screening_date', 'screening_time', 'screen_number'])

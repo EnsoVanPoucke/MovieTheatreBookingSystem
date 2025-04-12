@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="44"
+   height="44"
+   viewBox="0 0 11.641666 11.641667"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
+   sodipodi:docname="IMAX.svg"
+   inkscape:export-filename="D:\PROJECTS\Laravel\theatrebookingsystem\public\images\icons\IMAX.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
+  <defs
+     id="defs2">
+    <rect
+       x="2.4722433"
+       y="9.8889723"
+       width="30.535543"
+       height="17.706606"
+       id="rect837" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="5.6"
+     inkscape:cx="38.576723"
+     inkscape:cy="37.835479"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1280"
+     inkscape:window-height="971"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="path10"
+       style="fill:#00485c;fill-opacity:1;stroke:none;stroke-width:2.64583;stroke-linejoin:round;stroke-miterlimit:1"
+       d="M 5.8208328,-2.3718749e-7 A 5.8208333,5.8208333 0 0 0 -2.6468749e-7,5.8208331 5.8208333,5.8208333 0 0 0 5.8208328,11.641666 5.8208333,5.8208333 0 0 0 11.641666,5.8208331 5.8208333,5.8208333 0 0 0 5.8208328,-2.3718749e-7 Z M 1.2844863,4.7536801 H 1.8354949 V 6.8879857 H 1.2844863 Z m 1.1059963,0 H 2.9570285 L 3.5313431,5.689144 c 0.043979,0.072461 0.085304,0.1471133 0.1241095,0.2239659 0.038805,0.074656 0.069941,0.1405371 0.093224,0.1976277 C 3.7848957,6.0097312 3.8573554,5.8691986 3.9660107,5.689144 L 4.5441149,4.7536801 H 5.1106611 V 6.8879857 H 4.567421 V 5.5606765 C 4.5337903,5.6419206 4.4768972,5.7483929 4.3966991,5.8801403 L 3.9620316,6.6244187 H 3.5391118 L 3.0966754,5.8801403 C 3.0164773,5.7461973 2.9595851,5.639725 2.9259537,5.5606765 V 6.8879857 H 2.3904826 Z m 3.9464944,0 h 0.6868662 l 0.9041993,2.107968 v 0.026338 H 7.3419804 L 7.140184,6.3775258 H 6.2088886 L 6.0110712,6.8879857 H 5.4327774 v -0.026338 z m 1.7267333,0 H 8.7195014 L 9.2045718,5.4553254 9.7051776,4.7536801 H 10.310568 L 9.5228987,5.7583043 10.35718,6.8879857 H 9.69362 l -0.5043967,-0.78388 -0.5549877,0.78388 H 8.0250563 L 8.8593382,5.7977162 Z M 6.6706518,5.1885373 6.356304,6.0019759 h 0.6364649 z" />
+    <g
+       aria-label="IMAX"
+       transform="matrix(1,0,0,0.84876814,-1.1138198,3.545904)"
+       id="text835"
+       style="font-size:10.5833px;line-height:1.25;font-family:dubai;-inkscape-font-specification:dubai;white-space:pre;shape-inside:url(#rect837);fill:#ffffff;stroke-width:1.08544" />
+  </g>
+</svg>

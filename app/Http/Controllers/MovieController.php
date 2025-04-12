@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class MovieController extends Controller {
 
@@ -21,6 +22,44 @@ class MovieController extends Controller {
 			AND s.is_public = 1
 			GROUP BY m.id, m.title, m.poster_url
 			ORDER BY next_screening_date ASC"
+		));
+
+		$banners = $this->getBanners();
+
+		return view('movies', compact('movies', 'banners'));
+	}
+
+	// Get movies for today
+	public function today() {
+		$movies = collect(DB::select(
+			"SELECT m.id, 
+            m.title, 
+            m.poster_url,
+            MIN(s.screening_date) AS next_screening_date
+            FROM movies m
+            JOIN screenings s ON m.id = s.movie_id
+            WHERE s.screening_date = CURDATE() 
+            AND s.is_public = 1
+            GROUP BY m.id, m.title, m.poster_url
+            ORDER BY next_screening_date ASC"
+		));
+
+		return view('movies', compact('movies'));
+	}
+
+	// Get movies for tomorrow
+	public function tomorrow() {
+		$movies = collect(DB::select(
+			"SELECT m.id, 
+            m.title, 
+            m.poster_url,
+            MIN(s.screening_date) AS next_screening_date
+            FROM movies m
+            JOIN screenings s ON m.id = s.movie_id
+            WHERE s.screening_date = CURDATE() + INTERVAL 1 DAY
+            AND s.is_public = 1
+            GROUP BY m.id, m.title, m.poster_url
+            ORDER BY next_screening_date ASC"
 		));
 
 		return view('movies', compact('movies'));
@@ -46,12 +85,20 @@ class MovieController extends Controller {
 		return view('movie_detail', compact('movieData', 'movieScreenings'));
 	}
 
+	private function getBanners() {
+		$bannersPath = public_path('images/banners');
+		$banners = [];
 
+		if (File::exists($bannersPath)) {
+			$files = File::files($bannersPath);
+			foreach ($files as $file) {
+				$banners[] = 'images/banners/' . $file->getFilename();
+			}
+		}
 
-
-
-
-
+		return $banners;
+	}
+}
 
 
 
@@ -78,8 +125,6 @@ class MovieController extends Controller {
 
 	// 	return view('movie_detail', compact('movie', 'screenings'));
 	// }
-}
-
 
 
 // dd($movie->toArray());
