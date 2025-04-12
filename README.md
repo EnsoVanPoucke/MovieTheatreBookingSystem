@@ -9,3 +9,8 @@ I chose to create a ticket booking system similar to the one used by cinemas lik
 Through this project, I’ve gained valuable insight into how such systems work, and I’m excited to continue refining this application with more features.
 
 😊 Thank you for taking an interest!
+
+
+
+### Screenshots
+![Screenshot of the Theatre Booking System](assets/images/screenshot.png)
