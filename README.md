@@ -10,7 +10,5 @@ Through this project, I’ve gained valuable insight into how such systems work,
 
 😊 Thank you for taking an interest!
 
-
-
 ### Screenshots
-![Screenshot of the Theatre Booking System](images/screenshots/screenshot_room.png)
+![Screenshot of the Theatre Booking System](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_room.png?raw=true)
