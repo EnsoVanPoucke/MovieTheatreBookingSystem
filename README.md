@@ -13,4 +13,4 @@ Through this project, I’ve gained valuable insight into how such systems work,
 
 
 ### Screenshots
-![Screenshot of the Theatre Booking System](assets/images/screenshot.png)
+![Screenshot of the Theatre Booking System](images/screenshots/screenshot_room.png)
