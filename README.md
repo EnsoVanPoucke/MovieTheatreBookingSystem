@@ -16,8 +16,8 @@ Room layouts are defined using predefined blueprints, which can be found in [`co
 Thank you for taking an interest!
 
 ### Screenshot
-<a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_room.jpg?raw=true">
-  <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_room.jpg?raw=true" width="300"/>
+<a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_4.jpg?raw=true">
+  <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_4.jpg?raw=true" width="300"/>
 </a>
 
 
