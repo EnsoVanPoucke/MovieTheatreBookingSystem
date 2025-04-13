@@ -9,7 +9,8 @@ I chose to create a ticket booking system similar to the one used by cinemas lik
 Through this project, I’ve gained valuable insight into how such systems work, and I’m excited to continue refining this application with more features.
 
 ## Features
-The application currently accommodates four unique screening rooms, each with its own layout and seating configuration, to simulate a more realistic multi-room cinema environment.
+The application currently accommodates four distinct screening rooms, each with its own layout and seating configuration.  
+The seating logic is dynamic, enabling the system to handle reservations and availability per room layout.
 
 Thank you for taking an interest!
 
