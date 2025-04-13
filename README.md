@@ -26,12 +26,12 @@ Thank you for taking an interest!
     <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_2.jpg?raw=true" width="150"/>
 </a>
 </p>
-<p align="left"><strong>3. Booking TicketSelection</strong><br>
+<p align="left"><strong>3. TicketSelection</strong><br>
 <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_3.jpg?raw=true">
     <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_3.jpg?raw=true" width="150"/>
 </a>
 </p>
-<p align="left"><strong>4. Booking SeatSelection</strong> (GridBlueprints in view)<br>
+<p align="left"><strong>4. SeatSelection</strong> (GridBlueprints in view)<br>
 <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_4.jpg?raw=true">
   <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_4.jpg?raw=true" width="400"/>
 </a>
