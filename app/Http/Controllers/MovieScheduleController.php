@@ -8,7 +8,6 @@ use Database\Seeders\SeatsTableSeeder;
 
 class MovieScheduleController extends Controller {
 
-
 	public function scheduleMovie(Request $request) {
 		$validated = $request->validate([
 			'show_date' => 'required|date',
@@ -29,7 +28,7 @@ class MovieScheduleController extends Controller {
 		$showTime = $validated['show_time'];
 		$screenroomNumber = $validated['screenroom'];
 
-		// You may call the seeder directly or create a custom method to insert data
+		// call the seeder
 		(new SeatsTableSeeder())->run($showDate, $showTime, $screenroomNumber);
 
 		return back()->with('success', 'Movie scheduled successfully!');
