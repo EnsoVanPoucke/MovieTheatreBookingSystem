@@ -18,3 +18,5 @@ Thank you for taking an interest!
 <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_room.jpg?raw=true">
   <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_room.jpg?raw=true" width="300"/>
 </a>
+
+The layout logic is driven by predefined blueprints located in [`config/gridblueprints.php`](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/config/gridblueprints.php), allowing for flexible room configuration and easy future expansion.
