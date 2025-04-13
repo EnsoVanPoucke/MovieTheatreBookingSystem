@@ -3,12 +3,11 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\BookingController;
-use App\Http\Controllers\MovieScheduleController;
-use Illuminate\Http\Request;
 use App\Http\Controllers\SeatController;
-
+use App\Http\Controllers\MovieScheduleController;
 use App\Http\Controllers\BannerController;
 use App\Models\Banner;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
