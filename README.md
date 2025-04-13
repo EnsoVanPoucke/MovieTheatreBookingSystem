@@ -16,27 +16,18 @@ Room layouts are defined using predefined blueprints, which can be found in [`ap
 Thank you for taking an interest!
 
 ### Screenshots
+<a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_1.jpg?raw=true">
+    <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_1.jpg?raw=true" width="150"/>
+</a>
+<br>
+<a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_2.jpg?raw=true">
+    <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_2.jpg?raw=true" width="150"/>
+</a>
+<br>
+<a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_3.jpg?raw=true">
+    <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_3.jpg?raw=true" width="150"/>
+</a>
+<br>
 <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_4.jpg?raw=true">
   <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_4.jpg?raw=true" width="400"/>
 </a>
-<br>
-<br>
-<table>
-  <tr>
-    <td>
-      <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_1.jpg?raw=true">
-        <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_1.jpg?raw=true" width="200"/>
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_2.jpg?raw=true">
-        <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_2.jpg?raw=true" width="200"/>
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_3.jpg?raw=true">
-        <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_3.jpg?raw=true" width="200"/>
-      </a>
-    </td>
-  </tr>
-</table>
