@@ -22,10 +22,10 @@ Thank you for taking an interest!
 <br>
 <br>
 <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_1.jpg?raw=true">
-  <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_1.jpg?raw=true" width="200 style="margin-right:20px"/>
+  <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_1.jpg?raw=true" width="200"/>
 </a>
 <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_2.jpg?raw=true">
-  <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_2.jpg?raw=true" width="200 style="margin-right:20px"/>
+  <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_2.jpg?raw=true" width="200"/>
 </a>
 <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_3.jpg?raw=true">
   <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_3.jpg?raw=true" width="200"/>
