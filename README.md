@@ -16,19 +16,19 @@ Room layouts are defined using predefined blueprints, which can be found in [`ap
 Thank you for taking an interest!
 
 ### Screenshots
-<p align="left"><strong>1. Homepage</strong><br>
+<p align="left"><strong>1. Homepage</strong></p>
 <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_1.jpg?raw=true">
     <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_1.jpg?raw=true" width="150"/>
 </a>
-<p align="left"><strong>2. Movie details</strong><br>
+<p align="left"><strong>2. Movie details</strong></p>
 <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_2.jpg?raw=true">
     <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_2.jpg?raw=true" width="150"/>
 </a>
-<p align="left"><strong>3. Booking TicketSelection</strong><br>
+<p align="left"><strong>3. Booking TicketSelection</strong></p>
 <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_3.jpg?raw=true">
     <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_3.jpg?raw=true" width="150"/>
 </a>
-<p align="left"><strong>4. Booking SeatSelection</strong><br>
+<p align="left"><strong>4. Booking SeatSelection</strong></p>
 <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_4.jpg?raw=true">
   <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_4.jpg?raw=true" width="400"/>
 </a>
