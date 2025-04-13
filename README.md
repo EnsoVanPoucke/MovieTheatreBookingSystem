@@ -1,7 +1,7 @@
 # TheatreBookingSystem
 A theatre ticket booking system created with Laravel.
 
-> Note: This project was created as part of an academic challenge where I explored Laravel and built a hands-on application to apply what I learned.  
+> Note: This project was created during an academic challenge where I explored and applied the Laravel framework by building a practical, hands-on application.  
 > This project is still under development and may receive further improvements and features in the future.  
 
 ## Motivation
