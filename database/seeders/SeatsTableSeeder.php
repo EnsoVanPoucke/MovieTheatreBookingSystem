@@ -40,5 +40,3 @@ class SeatsTableSeeder extends Seeder {
 		}
 	}
 }
-
-// php artisan migrate --path=/database/migrations/SeatsTableSeeder.php
