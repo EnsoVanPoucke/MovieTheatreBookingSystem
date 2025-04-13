@@ -27,8 +27,6 @@ class TicketQuantityContinue extends Component {
 			'movie_title' => $this->movie_title,
 			'selectedTickets' => $this->selectedTickets
 		]);
-
-		dd('ok');
 	}
 
 	public function render() {
