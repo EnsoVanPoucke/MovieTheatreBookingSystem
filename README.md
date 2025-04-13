@@ -21,3 +21,8 @@ Thank you for taking an interest!
 </a>
 
 
+
+1. [screenshot_1.jpg](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_1.jpg?raw=true)
+2. [screenshot_2.jpg](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_2.jpg?raw=true)
+3. [screenshot_3.jpg](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_3.jpg?raw=true)
+4. [screenshot_4.jpg](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_4.jpg?raw=true)
