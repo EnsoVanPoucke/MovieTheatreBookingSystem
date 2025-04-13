@@ -11,7 +11,7 @@ Through this project, I’ve gained valuable insight into how such systems work,
 ## Features
 The application currently accommodates four distinct screening rooms, each with its own layout and seating configuration.  
 The seating logic is dynamic, allowing the system to manage reservations and seat availability based on each room's layout.
-The layout system is driven by predefined blueprints stored in config/gridblueprints.php, making room configuration flexible and easily extendable for future expansion.
+The layout logic is driven by predefined blueprints located in [`config/gridblueprints.php`](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/config/gridblueprints.php), allowing for flexible room configuration and easy future expansion.
 
 Thank you for taking an interest!
 
@@ -20,4 +20,4 @@ Thank you for taking an interest!
   <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_room.jpg?raw=true" width="300"/>
 </a>
 
-The layout logic is driven by predefined blueprints located in [`config/gridblueprints.php`](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/config/gridblueprints.php), allowing for flexible room configuration and easy future expansion.
+
