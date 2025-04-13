@@ -12,13 +12,13 @@
 </div>
 
 {{-- change this - get the new values from array --}}
-<input type="hidden" id="maxQuantities" name="maxQuantities" value="{{ $booking['totalSeats'] }}">
-<input type="hidden" id="maxQuantitiesSingleSeats" name="maxQuantitiesSingleSeats" value="{{ $booking['totalSingleSeats'] }}">
-<input type="hidden" id="maxQuantitiesDuoSeats" name="maxQuantitiesDuoSeats" value="{{ $booking['totalDuoSeats'] }}">
+<input type="hidden" id="maxQuantities" name="maxQuantities" value="{{ $booking->totalSeats }}">
+<input type="hidden" id="maxQuantitiesSingleSeats" name="maxQuantitiesSingleSeats" value="{{ $booking->totalSingleSeats }}">
+<input type="hidden" id="maxQuantitiesDuoSeats" name="maxQuantitiesDuoSeats" value="{{ $booking->totalDuoSeats }}">
 
 {{-- room and button --}}
 <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 flex justify-center">
-	<div class="roomWidth{{ $booking['selection-screenroom'] }}">
+	<div class="roomWidth{{ $booking->selection_screenroom }}">
 		<div>
 			<div id="screen"></div>
 		</div>
@@ -95,10 +95,10 @@
 
 {{-- hidden data --}}
 <div>
-	<p data-booking-title="{{ $booking['selection-title'] }}"></p>
-	<p data-booking-date="{{ \Carbon\Carbon::parse($booking['selection-date'])->format('Y-m-d') }}"></p>
-	<p data-booking-time="{{ $booking['selection-time'] }}"></p>
-	<p data-booking-screenroom="{{ $booking['selection-screenroom'] }}"></p>
+	<p data-booking-title="{{ $booking->selection_title }}"></p>
+	<p data-booking-date="{{ \Carbon\Carbon::parse($booking->selection_date)->format('Y-m-d') }}"></p>
+	<p data-booking-time="{{ $booking->selection_time }}"></p>
+	<p data-booking-screenroom="{{ $booking->selection_screenroom }}"></p>
 </div>
 
 {{-- javascripts --}}

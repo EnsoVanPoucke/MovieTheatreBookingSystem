@@ -30,33 +30,35 @@
 						<div class="flex border-t border-gray-900/20 py-4 justify-between">
 							<!-- Seat Label -->
 							<div class="tickets-list-item-label flex items-center">
-								<h1 class="text-2xl font-semibold text-gray-700">{{ $tarief['seat-label'] }}</h1>
+								<h1 class="text-2xl font-semibold text-gray-700">{{ $tarief->seat_label }}</h1>
 							</div>
 
 							<div class="flex gap-4">
 								<!-- Seat Price -->
 								<div class="tickets-price-item flex items-center">
 									<h1 class="text-2xl font-semibold text-blue-900">
-										{{ number_format($tarief['price'] / 100, 2, ',', '.') }} &euro;
+										{{ number_format($tarief->price / 100, 2, ',', '.') }} &euro;
 									</h1>
 								</div>
 
 								<!-- Seat Quantity Selection -->
 								<div class="price-item-container flex items-center gap-5">
 									<div class="relative">
-										<x-form-select name="quantity[{{ $index }}]"
-											price="{{ $tarief['price'] }}"
-											type="{{ $tarief['seat-type'] }}"
-											pricecategory="{{ $tarief['price-category'] }}"
+										<x-form-select
+											name="quantity[{{ $index }}]"
+											price="{{ $tarief->price }}"
+											type="{{ $tarief->{'seat_type'} }}"
+											pricecategory="{{ $tarief->{'price_category'} }}"
 											wire:model="quantity.{{ $index }}"
-											x-on:change="selectedTickets[{{ $index }}] = $event.target.value * {{ $tarief['price'] }}; 
-                                                totalPrice = Object.values(selectedTickets).reduce((sum, val) => sum + val, 0);">
+											x-on:change="selectedTickets[{{ $index }}] = $event.target.value * {{ $tarief->price }}; 
+												totalPrice = Object.values(selectedTickets).reduce((sum, val) => sum + val, 0);">
 										</x-form-select>
+
 										<!-- Hidden input to submit the ticket price -->
-										<input type="hidden" name="category[{{ $index }}]" value="{{ $tarief['seat-category'] }}">
-										<input type="hidden" name="type[{{ $index }}]" value="{{ $tarief['seat-type'] }}">
-										<input type="hidden" name="pricecategory[{{ $index }}]" value="{{ $tarief['price-category'] }}">
-										<input type="hidden" name="price[{{ $index }}]" value="{{ $tarief['price'] }}">
+										<input type="hidden" name="category[{{ $index }}]" value="{{ $tarief->seat_category }}">
+										<input type="hidden" name="type[{{ $index }}]" value="{{ $tarief->seat_type }}">
+										<input type="hidden" name="pricecategory[{{ $index }}]" value="{{ $tarief->price_category }}">
+										<input type="hidden" name="price[{{ $index }}]" value="{{ $tarief->price }}">
 									</div>
 								</div>
 							</div>
