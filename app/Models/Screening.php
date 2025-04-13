@@ -17,23 +17,3 @@ class Screening extends Model {
 		return $this->belongsTo(Movie::class, 'movie_id');
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// public function movie() {
-// 	return $this->belongsTo(\App\Models\Movie::class, 'id', 'id');
-// }
