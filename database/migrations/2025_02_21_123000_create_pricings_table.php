@@ -25,8 +25,3 @@ return new class extends Migration {
 		Schema::dropIfExists('pricing');
 	}
 };
-
-
-
-// pricing_screening_date_screening_time_screen_number
-// seats_screening_date_screening_time_screen_number
