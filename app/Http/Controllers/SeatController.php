@@ -61,8 +61,6 @@ class SeatController extends Controller {
 				}
 			});
 
-
-
 			// when updating database is successfull...
 			// create an array for each ticket here...
 			$bookedTickets = [];
@@ -103,12 +101,6 @@ class SeatController extends Controller {
 				'message' => 'Seats booked successfully.',
 				'tickets' => $bookedTickets
 			]);
-			
-			
-			
-			
-			
-			
 		} catch (\Throwable $e) {
 			Log::error('Seat booking failed:', ['error' => $e->getMessage()]);
 
