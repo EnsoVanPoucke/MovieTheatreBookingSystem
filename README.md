@@ -10,7 +10,8 @@ Through this project, I’ve gained valuable insight into how such systems work,
 
 ## Features
 The application currently accommodates four distinct screening rooms, each with its own layout and seating configuration.  
-The seating logic is dynamic, enabling the system to handle reservations and availability per room layout.
+The seating logic is dynamic, allowing the system to manage reservations and seat availability based on each room's layout.
+The layout system is driven by predefined blueprints stored in config/gridblueprints.php, making room configuration flexible and easily extendable for future expansion.
 
 Thank you for taking an interest!
 
