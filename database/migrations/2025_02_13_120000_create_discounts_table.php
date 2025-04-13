@@ -29,9 +29,3 @@ return new class extends Migration {
 		Schema::dropIfExists('discounts');
 	}
 };
-
-
-// $table->integer('aantal_single_normaal')->nullable();
-// $table->integer('aantal_single_korting')->nullable();
-// $table->integer('aantal_duo_normaal')->nullable();
-// $table->integer('aantal_duo_korting')->nullable();
