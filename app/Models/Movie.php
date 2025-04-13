@@ -22,18 +22,3 @@ class Movie extends Model {
 		return $this->hasMany(Screening::class, 'movie_id');
 	}
 }
-
-
-
-
-
-// public function screenings() {
-// 	return $this->hasMany(\App\Models\Screening::class, 'id', 'id');
-// }
-
-// protected $primaryKey = 'movie_id'; // Tell Laravel that 'movie_id' is the primary key
-
-// 'tarief_single_normaal',
-// 'tarief_single_korting',
-// 'tarief_duo_normaal',
-// 'tarief_duo_korting',
