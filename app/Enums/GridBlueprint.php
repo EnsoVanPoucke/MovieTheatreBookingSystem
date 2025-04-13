@@ -9,6 +9,19 @@ enum GridBlueprint: int {
 	case SCREEN_4 = 4;
 
 	public function getBlueprint(): array {
+
+		/*
+		These blueprints represent the seating layout of each screen room.
+		Each nested array corresponds to a row in the cinema.
+		
+		Legend:
+		- 0     => Free space (no seat)
+		- 1     => Available single seat
+		- 1001  => Available duo seat
+		- 9000	=> Free space (no row marker)
+		- 9000+ => Row number markers (e.g., 9001 = Row 1, 9002 = Row 2, ...)
+		*/
+
 		return match ($this) {
 			self::SCREEN_1 => [
 				[9001, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9001],
