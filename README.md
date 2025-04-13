@@ -15,4 +15,7 @@ The seating logic is dynamic, enabling the system to handle reservations and ava
 Thank you for taking an interest!
 
 ### Screenshots
-![Screenshot of the Theatre Booking System](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_room.jpg?raw=true)
+<p><strong>Room Layout View</strong></p>
+<a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_room.jpg?raw=true">
+  <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_room.jpg?raw=true" width="300"/>
+</a>
