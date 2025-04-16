@@ -1,18 +1,31 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\MovieController;
-use App\Http\Controllers\BookingController;
-use App\Http\Controllers\SeatController;
-use App\Http\Controllers\MovieScheduleController;
-use App\Http\Controllers\BannerController;
-use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SeatController;
+use App\Http\Controllers\MovieController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ScreeningController;
+use App\Http\Controllers\MovieScheduleController;
 
 Route::get('/', function () {
 	return view('welcome');
 });
+
+
+
+// Route to render the page with the calendar
+Route::get('admin/calendar', function () {
+	return view('admin_calendar');
+});
+
+// Separate route to fetch events (use a prefix like api or ajax)
+Route::get('/admin/calendar/events', [ScreeningController::class, 'getEvents']);
+Route::post('/admin/calendar/create', [ScreeningController::class, 'store']);
+Route::delete('/admin/calendar/delete', [ScreeningController::class, 'delete']);
+
+
 
 Route::get('/dashboard', function () {
 	return view('dashboard');
