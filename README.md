@@ -1,8 +1,10 @@
 # MovieTheatreBookingSystem
 Created with Laravel.
 
+
 > Note: This project was created during an academic challenge where I explored and applied the Laravel framework by building a practical, hands-on application.  
 > This project is still under development and may receive further improvements and features in the future.  
+
 
 ## Motivation
 I decided to create a booking system similar to those used by cinemas like Kinepolis. The seat selection page was especially intriguing, as it combined dynamic UI elements with backend logic to manage seat availability and reservations.  
