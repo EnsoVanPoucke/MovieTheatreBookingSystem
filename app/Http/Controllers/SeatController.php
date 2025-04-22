@@ -27,72 +27,50 @@ class SeatController extends Controller {
 				], 400);
 			}
 
+			/**
+			 * DB TRANSACTION to update seat satus
+			 */
 			DB::transaction(function () use ($validated) {
 				// Update seat_status for single seats
 				if (!empty($validated['selectedSingleSeatDetails'])) {
-
-					$singleSeatNumbers = array_column($validated['selectedSingleSeatDetails'], 'global_seat_number');
-
-					$updatedSingle = Seat::where('screening_date', $validated['date'])
-						->where('screening_time', $validated['time'])
-						->where('screen_number', $validated['screenroom'])
-						->whereIn('global_seat_number', $singleSeatNumbers)
-						->update(['seat_status' => 3]);
-
-					if ($updatedSingle === 0) {
-						throw new \Exception('Failed to update single seats.');
-					}
+					$this->updateSeatStatus(
+						$validated['date'],
+						$validated['time'],
+						$validated['screenroom'],
+						array_column($validated['selectedSingleSeatDetails'], 'global_seat_number'),
+						3 // Status for single seats
+					);
 				}
 
 				// Update seat_status for duo seats
 				if (!empty($validated['selectedDuoSeatDetails'])) {
-
-					$duoSeatNumbers = array_column($validated['selectedDuoSeatDetails'], 'global_seat_number');
-
-					$updatedDuo = Seat::where('screening_date', $validated['date'])
-						->where('screening_time', $validated['time'])
-						->where('screen_number', $validated['screenroom'])
-						->whereIn('global_seat_number', $duoSeatNumbers)
-						->update(['seat_status' => 1003]);
-
-					if ($updatedDuo === 0) {
-						throw new \Exception('Failed to update duo seats.');
-					}
+					$this->updateSeatStatus(
+						$validated['date'],
+						$validated['time'],
+						$validated['screenroom'],
+						array_column($validated['selectedDuoSeatDetails'], 'global_seat_number'),
+						1003 // Status for duo seats
+					);
 				}
 			});
 
-			// when updating database is successfull...
-			// create an array for each ticket here...
+			/**
+			 * Create booked tickets
+			 */
 			$bookedTickets = [];
 
-			// Process single seats
 			if (!empty($validated['selectedSingleSeatDetails'])) {
-				foreach ($validated['selectedSingleSeatDetails'] as $seat) {
-					$bookedTickets[] = [
-						'date' => $validated['date'],
-						'time' => substr($validated['time'], 0, 5), // HH:MM
-						'screen_number' => $validated['screenroom'],
-						'title' => $validated['title'],
-						'seat_number' => $seat['seat_number'],
-						'seat_row' => $seat['row_number'],
-						'seat_type' => 'single'
-					];
-				}
+				$bookedTickets = array_merge(
+					$bookedTickets,
+					$this->formatBookedSeats($validated['selectedSingleSeatDetails'], $validated, 'single')
+				);
 			}
 
-			// Process duo seats
 			if (!empty($validated['selectedDuoSeatDetails'])) {
-				foreach ($validated['selectedDuoSeatDetails'] as $seat) {
-					$bookedTickets[] = [
-						'date' => $validated['date'],
-						'time' => substr($validated['time'], 0, 5),
-						'screen_number' => $validated['screenroom'],
-						'title' => $validated['title'],
-						'seat_number' => $seat['seat_number'],
-						'seat_row' => $seat['row_number'],
-						'seat_type' => 'duo'
-					];
-				}
+				$bookedTickets = array_merge(
+					$bookedTickets,
+					$this->formatBookedSeats($validated['selectedDuoSeatDetails'], $validated, 'duo')
+				);
 			}
 
 			// return ajax response
@@ -107,6 +85,34 @@ class SeatController extends Controller {
 			return response()->json([
 				'error' => 'Something went wrong. Check logs for details.'
 			], 500);
+		}
+	}
+
+	// helper function to book seats
+	private function formatBookedSeats(array $seats, array $baseData, string $type): array {
+		return array_map(function ($seat) use ($baseData, $type) {
+			return [
+				'date' => $baseData['date'],
+				'time' => substr($baseData['time'], 0, 5), // HH:MM
+				'screen_number' => $baseData['screenroom'],
+				'title' => $baseData['title'],
+				'seat_number' => $seat['seat_number'],
+				'seat_row' => $seat['row_number'],
+				'seat_type' => $type,
+			];
+		}, $seats);
+	}
+
+	// helper function to update status
+	private function updateSeatStatus(string $date, string $time, string $screenNumber, array $seatNumbers, int $status) {
+		$updated = Seat::where('screening_date', $date)
+			->where('screening_time', $time)
+			->where('screen_number', $screenNumber)
+			->whereIn('global_seat_number', $seatNumbers)
+			->update(['seat_status' => $status]);
+
+		if ($updated === 0) {
+			throw new \Exception("Failed to update seats with status {$status}.");
 		}
 	}
 }
