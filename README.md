@@ -1,5 +1,5 @@
-# TheatreBookingSystem
-A theatre booking system created with Laravel.
+# MovieTheatreBookingSystem
+Created with Laravel.
 
 > Note: This project was created during an academic challenge where I explored and applied the Laravel framework by building a practical, hands-on application.  
 > This project is still under development and may receive further improvements and features in the future.  
