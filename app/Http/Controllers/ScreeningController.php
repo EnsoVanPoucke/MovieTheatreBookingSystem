@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\Screening;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Database\Seeders\SeatsTableSeeder;
 
 class ScreeningController extends Controller {
 
@@ -52,13 +54,23 @@ class ScreeningController extends Controller {
 		$start = \Carbon\Carbon::parse($request->start);
 		$end = \Carbon\Carbon::parse($request->end);
 
-		Screening::create([
-			'movie_id' => $validatedData['movie_id'],
-			'screening_date' => $start->format('Y-m-d'),
-			'screening_time' => $start->format('H:i:s'),
-			'screen_number' => $validatedData['screen_number'],
-			'is_public' => $validatedData['is_public'] ?? 0
-		]);
+		DB::transaction(function () use ($validatedData, $start) {
+			// Create the screening
+			Screening::create([
+				'movie_id' => $validatedData['movie_id'],
+				'screening_date' => $start->format('Y-m-d'),
+				'screening_time' => $start->format('H:i:s'),
+				'screen_number' => $validatedData['screen_number'],
+				'is_public' => $validatedData['is_public'] ?? 0
+			]);
+
+			$screeningDate = $start->format('Y-m-d');
+			$screeningTime = $start->format('H:i:s');
+			$screenNumber = $validatedData['screen_number'];
+
+			// Run the seat seeder to create rows per seat for this screening
+			(new SeatsTableSeeder())->run($screeningDate, $screeningTime, $screenNumber);
+		});
 
 		return response()->json(['message' => 'Screening created successfully']);
 	}
@@ -70,10 +82,20 @@ class ScreeningController extends Controller {
 			$screeningTime = $request->screening_time;
 			$screenNumber = $request->screen_number;
 
-			Screening::where('screening_date', $screeningDate)
-				->where('screening_time', $screeningTime)
-				->where('screen_number', $screenNumber)
-				->delete();
+			DB::transaction(function () use ($screeningDate, $screeningTime, $screenNumber) {
+				// Delete seats related to the screening
+				DB::table('seats')
+					->where('screening_date', $screeningDate)
+					->where('screening_time', $screeningTime)
+					->where('screen_number', $screenNumber)
+					->delete();
+
+				// Delete the screening
+				Screening::where('screening_date', $screeningDate)
+					->where('screening_time', $screeningTime)
+					->where('screen_number', $screenNumber)
+					->delete();
+			});
 
 			return response()->json(['success' => true]);
 		} catch (Exception $e) {
