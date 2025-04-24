@@ -22,6 +22,16 @@ class PricingsTableSeeder extends Seeder {
 				'single_seat_price' => 1580,
 				'duo_seat_price' => 2080,
 			],
+			[
+				'movie_id' => 3,
+				'single_seat_price' => 1580,
+				'duo_seat_price' => 2080,
+			],
+			[
+				'movie_id' => 4,
+				'single_seat_price' => 1580,
+				'duo_seat_price' => 2080,
+			]
 		]);
 	}
 }

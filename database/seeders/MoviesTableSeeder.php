@@ -36,6 +36,30 @@ class MoviesTableSeeder extends Seeder {
 				'poster_url' => 'vaiana_2.jpg',
 				'trailer_url' => '#',
 				'created_at' => now()
+			],
+			[
+				'title' => 'Interstellar',
+				'description' => 'When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humans.',
+				'director' => 'Christopher Nolan',
+				'cast' => 'Matthew McConaughey, Anne Hathaway, Jessica Chastain',
+				'genre' => 'Adventure Epic, Drama',
+				'duration' => 169,
+				'release_date' => '2014-11-05',
+				'poster_url' => 'interstellar.jpg',
+				'trailer_url' => '#',
+				'created_at' => now()
+			],
+			[
+				'title' => 'Inglourious Basterds',
+				'description' => 'In Nazi-occupied France during World War II, a plan to assassinate Nazi leaders by a group of Jewish U.S. soldiers coincides with a theatre owner\'s vengeful plans for the same.',
+				'director' => 'Quentin Tarantino',
+				'cast' => 'Brad Pitt, Diane Kruger, Christoph Waltz, Michael Fassbender, Mélanie Laurent',
+				'genre' => 'Dark comedy, Drama, War',
+				'duration' => 153,
+				'release_date' => '2009-08-19',
+				'poster_url' => 'inglourious_basterds.jpg',
+				'trailer_url' => '#',
+				'created_at' => now()
 			]
 		]);
 	}
