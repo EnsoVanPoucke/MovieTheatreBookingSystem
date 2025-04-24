@@ -11,9 +11,9 @@ return new class extends Migration {
 	public function up(): void {
 		Schema::create('screens', function (Blueprint $table) {
 			$table->unsignedTinyInteger('screen_id', true); // Equivalent to screen_id as AUTO_INCREMENT
-			$table->string('name');
+			$table->string('name', 100);
 			$table->text('description')->nullable();
-			$table->smallInteger('capacity')->nullable();
+			$table->unsignedSmallInteger('capacity')->nullable();
 			$table->enum('screen_type', ['3D', 'IMAX', 'Dolby Cinema', 'Laser Ultra']);
 			$table->enum('sound_system', ['Dolby Surround 7.1', 'Dolby Digital', 'Dolby Atmos', 'DTS:X']);
 			$table->enum('resolution', ['HD', '2K', '4K', '8K', '16K']);

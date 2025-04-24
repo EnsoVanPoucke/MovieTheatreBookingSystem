@@ -14,11 +14,11 @@ return new class extends Migration {
 			$table->string('code')->unique();
 			$table->string('description')->nullable();
 			$table->enum('discount_type', ['fixed', 'percentage']);
-			$table->decimal('discount_value', 5, 2);
+			$table->unsignedInteger('discount_value');
 			$table->date('valid_from');
 			$table->date('valid_until');
-			$table->integer('max_uses')->nullable();
-			$table->integer('used_count')->default(0);
+			$table->unsignedInteger('max_uses')->nullable();
+			$table->unsignedInteger('used_count')->default(0);
 		});
 	}
 

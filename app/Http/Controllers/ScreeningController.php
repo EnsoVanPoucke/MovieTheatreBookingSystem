@@ -42,7 +42,7 @@ class ScreeningController extends Controller {
 		return response()->json($events);
 	}
 
-	public function store(Request $request) {
+	public function createEvent(Request $request) {
 		$validatedData = $request->validate([
 			'movie_id' => 'required|exists:movies,id',
 			'screen_number' => 'required|integer|min:1|max:4',
@@ -75,7 +75,7 @@ class ScreeningController extends Controller {
 		return response()->json(['message' => 'Screening created successfully']);
 	}
 
-	public function delete(Request $request) {
+	public function deleteEvent(Request $request) {
 		try {
 			// Get the composite key values from the request
 			$screeningDate = $request->screening_date;

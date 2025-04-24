@@ -23,6 +23,7 @@ class MoviesTableSeeder extends Seeder {
 				'release_date' => '2008-07-18',
 				'poster_url' => 'the_dark_knight.jpg',
 				'trailer_url' => '#',
+				'created_at' => now()
 			],
 			[
 				'title' => 'Vaiana 2',
@@ -34,6 +35,7 @@ class MoviesTableSeeder extends Seeder {
 				'release_date' => '2024-11-27',
 				'poster_url' => 'vaiana_2.jpg',
 				'trailer_url' => '#',
+				'created_at' => now()
 			]
 		]);
 	}

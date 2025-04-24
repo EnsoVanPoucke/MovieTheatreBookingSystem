@@ -116,8 +116,6 @@ document.addEventListener('DOMContentLoaded', function () {
 				is_public: isPublic
 			};
 
-			// console.log(payload);
-
 			fetch('/admin/calendar/create', {
 				method: 'POST',
 				headers: {

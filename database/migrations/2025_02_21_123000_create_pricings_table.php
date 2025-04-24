@@ -9,12 +9,14 @@ return new class extends Migration {
 	 * Run the migrations.
 	 */
 	public function up() {
-		Schema::create('pricing', function (Blueprint $table) {
-			$table->id('movie_id');
+		Schema::create('pricings', function (Blueprint $table) {
+			$table->unsignedBigInteger('movie_id');
 			$table->unsignedSmallInteger('single_seat_price');
 			$table->unsignedSmallInteger('duo_seat_price');
 
 			$table->primary(['movie_id']);
+
+			$table->foreign('movie_id')->references('id')->on('movies')->onDelete('cascade');
 		});
 	}
 

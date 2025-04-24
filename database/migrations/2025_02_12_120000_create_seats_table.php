@@ -12,11 +12,11 @@ return new class extends Migration {
 		Schema::create('seats', function (Blueprint $table) {
 			$table->date('screening_date');
 			$table->time('screening_time');
-			$table->unsignedInteger('screen_number');
-			$table->unsignedInteger('global_seat_number');
-			$table->unsignedInteger('seat_number');
-			$table->unsignedInteger('row_number');
-			$table->integer('seat_status');
+			$table->unsignedTinyInteger('screen_number');
+			$table->unsignedSmallInteger('global_seat_number');
+			$table->unsignedTinyInteger('seat_number');
+			$table->unsignedTinyInteger('row_number');
+			$table->unsignedSmallInteger('seat_status');
 
 			// Composite primary key
 			$table->primary(['screening_date', 'screening_time', 'screen_number', 'global_seat_number']);

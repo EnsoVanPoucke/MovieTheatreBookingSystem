@@ -12,7 +12,7 @@ return new class extends Migration {
 		Schema::create('screenings', function (Blueprint $table) {
 			$table->date('screening_date');
 			$table->time('screening_time');
-			$table->unsignedInteger('screen_number');
+			$table->unsignedTinyInteger('screen_number');
 			$table->foreignId('movie_id')->constrained('movies')->onDelete('cascade'); // Correct foreign key reference
 			$table->boolean('is_public')->default(false);
 

@@ -21,9 +21,9 @@ Route::get('admin/calendar', function () {
 });
 
 // Separate route to fetch events (use a prefix like api or ajax)
+Route::post('/admin/calendar/create', [ScreeningController::class, 'createEvent']);
 Route::get('/admin/calendar/events', [ScreeningController::class, 'getEvents']);
-Route::post('/admin/calendar/create', [ScreeningController::class, 'store']);
-Route::delete('/admin/calendar/delete', [ScreeningController::class, 'delete']);
+Route::delete('/admin/calendar/delete', [ScreeningController::class, 'deleteEvent']);
 
 
 

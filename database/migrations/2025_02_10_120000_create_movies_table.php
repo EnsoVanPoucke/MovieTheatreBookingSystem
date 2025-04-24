@@ -16,7 +16,7 @@ return new class extends Migration {
 			$table->string('director');
 			$table->text('cast');
 			$table->text('genre');
-			$table->integer('duration');
+			$table->unsignedSmallInteger('duration');
 			$table->date('release_date');
 			$table->text('poster_url');
 			$table->text('trailer_url')->nullable();
