@@ -11,6 +11,12 @@ class Pricing extends Model {
 
 	public $timestamps = false;
 
+	protected $fillable = [
+		'movie_id',
+		'single_seat_price',
+		'duo_seat_price',
+	];
+
 	public function movie() {
 		return $this->belongsTo(Movie::class, 'movie_id');
 	}

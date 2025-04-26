@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Screening extends Model {
-
 	use HasFactory;
 
 	protected $fillable = ['screening_date', 'screening_time', 'screen_number', 'movie_id', 'is_public'];

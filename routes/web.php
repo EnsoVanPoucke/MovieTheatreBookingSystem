@@ -48,6 +48,7 @@ Route::get('/movies/details/{movie}', [MovieController::class, 'show'])->name('m
 Route::get('/Booking/TicketSelection/{data}', [BookingController::class, 'show'])->name('TicketSelection');
 Route::get('/Booking/SeatSelection/{data}', [BookingController::class, 'showroom'])->name('SeatSelection');
 Route::post('/booking/showroom', [BookingController::class, 'showroom'])->name('booking.showroom');
+Route::post('/add-new-movie', [MovieScheduleController::class, 'addNewMovie'])->name('add.movie');
 Route::post('/schedule-movie', [MovieScheduleController::class, 'scheduleMovie'])->name('schedule.movie');
 Route::post('/book-seats', [SeatController::class, 'bookSeats']);
 
@@ -67,5 +68,12 @@ Route::get('/checkout', function (Request $request) {
 })->name('checkout');
 
 Route::get('admin/schedule-movie', function () {
-	return view('admin_schedule_movie');
+	return view('schedule_movie');
 });
+
+Route::get('admin/add-new-movie', function () {
+	return view('add_new_movie');
+});
+
+// autocomplete movie title search
+Route::get('/search-movie-title', [ScreeningController::class, 'searchMovieTitle']);

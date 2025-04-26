@@ -2,35 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Movie;
+use App\Models\Pricing;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Database\Seeders\SeatsTableSeeder;
+use Illuminate\Support\Facades\DB;
 
 class MovieScheduleController extends Controller {
 
-	public function scheduleMovie(Request $request) {
+	public function addNewMovie(Request $request) {
 		$validated = $request->validate([
-			'show_date' => 'required|date',
-			'show_time' => 'required|date_format:H:i',
-			'screenroom' => 'required|integer',
-			// 'poster' => 'required|image|mimes:jpg,png,gif|max:10240',
+			'title' => 'required|string|max:100|unique:movies,title',
+			'description' => 'required|string',
+			'director' => 'required|string|max:255',
+			'cast' => 'required|string',
+			'genre' => 'required|string|max:255',
+			'duration' => 'required|integer',
+			'release_date' => 'required|date',
+			'poster_url' => 'required|string',
+			'trailer_url' => 'required|string',
+			'tarief_single_normaal' => 'required|integer',
+			'tarief_duo_normaal' => 'required|integer'
 		]);
 
-		if ($request->hasFile('poster')) {
-			$image = $request->file('poster');
-			$imageName = $image->getClientOriginalName();
-			$destinationPath = public_path('images/movieposters/');
-			file_put_contents($destinationPath . $imageName, file_get_contents($image->getRealPath()));
-		}
+		DB::transaction(function () use ($validated) {
+			$movie = Movie::create([
+				'title'         => $validated['title'],
+				'description'   => $validated['description'],
+				'director'      => $validated['director'],
+				'cast'          => $validated['cast'],
+				'genre'         => $validated['genre'],
+				'duration'      => $validated['duration'],
+				'release_date'  => $validated['release_date'],
+				'poster_url'    => $validated['poster_url'],
+				'trailer_url'   => $validated['trailer_url']
+			]);
 
-		// Retrieve the form schedule inputs
-		$showDate = $validated['show_date'];
-		$showTime = $validated['show_time'];
-		$screenroomNumber = $validated['screenroom'];
+			Pricing::create([
+				'movie_id'           => $movie->id,
+				'single_seat_price'  => $validated['tarief_single_normaal'],
+				'duo_seat_price'     => $validated['tarief_duo_normaal'],
+			]);
+		});
 
-		// call the seeder
-		(new SeatsTableSeeder())->run($showDate, $showTime, $screenroomNumber);
-
-		return back()->with('success', 'Movie scheduled successfully!');
+		return back()->with('success', 'New Movie added successfully!');
 	}
 }

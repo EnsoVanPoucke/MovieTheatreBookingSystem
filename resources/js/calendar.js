@@ -8,6 +8,7 @@ import listPlugin from '@fullcalendar/list';
 
 document.addEventListener('DOMContentLoaded', function () {
 	const calendarElement = document.getElementById('calendar');
+	let currentEventData = {};
 	if (calendarElement) {
 		const calendar = new Calendar(calendarElement, {
 			plugins: [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin],
@@ -32,19 +33,53 @@ document.addEventListener('DOMContentLoaded', function () {
 			displayEventTime: true,
 			displayEventEnd: true,
 			events: '/admin/calendar/events',
-
+			eventOrderStrict: true,
+			eventOrder: 'screen_number',
 			eventDidMount: function (info) {
 				info.el.setAttribute('title', info.event.title);
+				info.el.setAttribute('data-is_public', info.event.extendedProps.is_public);
+
+				// Get the 'is_public' value from extendedProps
+				const isPublic = info.event.extendedProps.is_public;
+
+				// If 'is_public' is false, set the opacity to 50% (0.5)
+				if (!isPublic) {
+					// Adjust the color opacity
+					info.event.setProp('textColor', '#000000');
+					info.el.style.opacity = '0.7';
+					info.el.style.backgroundColor = '#cccccc';
+					info.el.style.borderColor = '#aaaaaa';
+				} else {
+					// Make sure the opacity is 100% (if 'is_public' is true)
+					info.el.style.opacity = '1';
+				}
+
+				info.el.style.width = `250px`; // set the width of each event
+
+				// show screen_room
+				const screenNumberElement = info.el.querySelector('.fc-event-title') || info.el;
+				if (screenNumberElement) {
+					const screenLabel = document.createElement('div');
+					screenLabel.textContent = `${info.event.extendedProps.screen_number}`;
+					screenLabel.style.fontSize = '1.4rem';
+					screenLabel.style.fontWeight = 'bold';
+					screenLabel.style.backgroundColor = '#33333390';
+					screenLabel.style.borderRadius = '4px';
+					screenLabel.style.padding = '4px 6px';
+					screenLabel.style.marginRight = '6px';
+					screenLabel.style.display = 'inline-block';
+					screenNumberElement.prepend(screenLabel);
+				}
 			},
 			select: function (info) {
-				const modal = document.getElementById('createEventModal');
+				const createEventModal = document.getElementById('createEventModal');
 				const form = document.getElementById('createEventForm');
 
 				// Set the start time in the form
 				form.start.value = info.startStr;
 
-				// Show modal
-				modal.style.display = 'block';
+				// Show createEventModal
+				createEventModal.style.display = 'block';
 			},
 			eventDrop: function (info) {
 				console.log('Event moved:', info.event.title);
@@ -55,37 +90,40 @@ document.addEventListener('DOMContentLoaded', function () {
 				// Update your event in the database here
 			},
 			eventClick: function (info) {
-				if (confirm('Are you sure you want to delete this event?')) {
-					const start = info.event.start;
-					const screeningDate = start.toISOString().split('T')[0];
-					const screeningTime = start.toTimeString().split(' ')[0]; // ← this is the key!
-					const screenNumber = info.event.extendedProps.screen_number;
+				const start = info.event.start;
 
-					// fetch(`/admin/calendar/delete/${screeningDate}/${screeningTime}/${screenNumber}`, {
-					fetch('/admin/calendar/delete', {
-						method: 'DELETE',
-						headers: {
-							'Content-Type': 'application/json',
-							'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-						},
-						body: JSON.stringify({
-							screening_date: info.event.start.toISOString().split('T')[0],
-							screening_time: info.event.start.toTimeString().split(' ')[0],
-							screen_number: info.event.extendedProps.screen_number
-						})
-					})
-						.then(response => response.json())
-						.then(data => {
-							if (data.success) {
-								calendar.refetchEvents();
-							} else {
-								alert('Failed to delete event: ' + data.message);
-							}
-						})
-						.catch(error => {
-							console.error('Delete error:', error);
-						});
+				currentEventData = {
+					screeningDate: start.toISOString().split('T')[0],
+					screeningTime: start.toTimeString().split(' ')[0],
+					screenNumber: info.event.extendedProps.screen_number,
+					isPublic: info.event.extendedProps.is_public
 				}
+
+				// Populate form with event data (you can map it to your form fields)
+				const startInput = document.getElementById('start');
+				const screenNumberInput = document.getElementById('screen_number');
+
+				// if (startInput && screenNumberInput) {
+				// 	console.log('both inputs are ok.');
+				// 	startInput.value = currentEventData.screeningDate;
+				// 	screenNumberInput.value = currentEventData.screenNumber;
+				// } else {
+				// 	console.log('Error: Input fields not found.');
+				// }
+
+
+
+
+				// Set the checkbox state directly using JavaScript
+				const isPublicCheckbox = document.getElementById('is_public_forupdate');
+				if (isPublicCheckbox) {
+					isPublicCheckbox.checked = currentEventData.isPublic; // Set checkbox checked state
+				}
+
+
+				// const updateEventForm = document.getElementById('updateEventForm');
+				const updateEventModal = document.getElementById('updateEventModal');
+				updateEventModal.style.display = 'block';
 			},
 			headerToolbar: {
 				left: 'prev,next today',
@@ -94,6 +132,95 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 		});
 		calendar.render();
+
+		// UPDATING THE EVENT:
+		document.getElementById('updateEventForm').addEventListener('submit', function (e) {
+			e.preventDefault(); // Prevent the form from submitting normally
+
+			console.log(e.target);
+			const payload = {
+				screening_date: currentEventData.screeningDate,
+				screening_time: currentEventData.screeningTime,
+				screen_number: currentEventData.screenNumber,
+				is_public: currentEventData.isPublic
+			};
+
+			console.log(payload);
+
+
+			// // Optional: Populate the is_public field if you have a checkbox or other element for it
+			// const isPublicCheckbox = document.getElementById('is_public');
+			// if (isPublicCheckbox) {
+			// 	isPublicCheckbox.checked = currentEventData.isPublic;  // Set checkbox state based on is_public
+			// }
+
+
+
+
+			// fetch('/admin/calendar/update', {
+			// 	method: 'POST',  // Use POST to update data
+			// 	headers: {
+			// 		'Content-Type': 'application/json',
+			// 		'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content  // CSRF token for security
+			// 	},
+			// 	body: JSON.stringify(payload)  // Send the updated data as JSON
+			// })
+			// 	.then(response => response.json())  // Handle the server response
+			// 	.then(data => {
+			// 		if (data.success) {
+			// 			// If the update is successful, refetch the events to reflect the changes
+			// 			calendar.refetchEvents();
+			// 			alert('Event updated successfully!');
+			// 			document.getElementById('updateEventModal').style.display = 'none'; // Close the modal
+			// 		} else {
+			// 			alert('Failed to update event: ' + data.message);  // Show error message
+			// 		}
+			// 	})
+			// 	.catch(error => {
+			// 		console.error('Error updating event:', error);
+			// 		alert('An error occurred while updating the event.');
+			// 	});
+		});
+
+
+		// DELETING THE EVENT:
+		document.getElementById('deleteEventForm').addEventListener('submit', function (e) {
+			e.preventDefault();
+
+			if (!currentEventData.screeningDate || !currentEventData.screeningTime || !currentEventData.screenNumber) {
+				alert('No event selected for deletion');
+				return;
+			}
+
+			const payload = {
+				screening_date: currentEventData.screeningDate,
+				screening_time: currentEventData.screeningTime,
+				screen_number: currentEventData.screenNumber,
+			};
+
+			if (confirm('Are you sure you want to delete this event?')) {
+				fetch('/admin/calendar/delete', {
+					method: 'DELETE',
+					headers: {
+						'Content-Type': 'application/json',
+						'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+					},
+					body: JSON.stringify(payload)
+				})
+					.then(response => response.json())
+					.then(data => {
+						if (data.success) {
+							document.getElementById('updateEventModal').style.display = 'none';
+							calendar.refetchEvents();
+						} else {
+							alert('Failed to delete event: ' + data.message);
+						}
+					})
+					.catch(error => {
+						console.error('Delete error:', error);
+					});
+			}
+		});
 
 		// Form submission handler
 		document.getElementById('createEventForm').addEventListener('submit', function (e) {
@@ -135,9 +262,14 @@ document.addEventListener('DOMContentLoaded', function () {
 				});
 		});
 
-		// Close modal logic
-		document.getElementById('closeModalBtn').addEventListener('click', function () {
+		// Close createEventModal logic
+		document.getElementById('closeCreateModalBtn').addEventListener('click', function () {
 			document.getElementById('createEventModal').style.display = 'none';
+		});
+
+		// Close updateEventModal logic
+		document.getElementById('closeUpdateModalBtn').addEventListener('click', function () {
+			document.getElementById('updateEventModal').style.display = 'none';
 		});
 	}
 });

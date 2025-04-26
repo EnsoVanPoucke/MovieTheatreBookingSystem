@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use App\Models\Movie;
 use App\Models\Screening;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,7 +36,8 @@ class ScreeningController extends Controller {
 				'color' => $colorMap[$screening->screen_number] ?? '#95a5a6',
 				'extendedProps' => [
 					'movie_id' => $screening->movie->id,
-					'screen_number' => $screening->screen_number
+					'screen_number' => $screening->screen_number,
+					'is_public' => $screening->is_public
 				]
 			];
 		});
@@ -101,5 +103,61 @@ class ScreeningController extends Controller {
 		} catch (Exception $e) {
 			return response()->json(['success' => false, 'message' => $e->getMessage()]);
 		}
+	}
+
+	public function updateEvent(Request $request) {
+		// Validate the request data
+		$validatedData = $request->validate([
+			'movie_id' => 'required|exists:movies,id',
+			'screen_number' => 'required|integer|min:1|max:4',
+			'screening_date' => 'required|date',
+			'screening_time' => 'required|date_format:H:i:s',
+			'is_public' => 'nullable|boolean'
+		]);
+
+		// Start a transaction to ensure both the screening and the seats are updated atomically
+		try {
+			DB::transaction(function () use ($validatedData) {
+				// Find the screening to update
+				$screening = Screening::where('screening_date', $validatedData['screening_date'])
+					->where('screening_time', $validatedData['screening_time'])
+					->where('screen_number', $validatedData['screen_number'])
+					->firstOrFail(); // Throws an exception if not found
+
+				// Update the screening details
+				$screening->update([
+					'movie_id' => $validatedData['movie_id'],
+					'screening_date' => $validatedData['screening_date'],
+					'screening_time' => $validatedData['screening_time'],
+					'screen_number' => $validatedData['screen_number'],
+					'is_public' => $validatedData['is_public'] ?? 0
+				]);
+
+				// Update the seats related to this screening
+				DB::table('seats')
+					->where('screening_date', $validatedData['screening_date'])
+					->where('screening_time', $validatedData['screening_time'])
+					->where('screen_number', $validatedData['screen_number'])
+					->update([
+						'screening_date' => $validatedData['screening_date'],
+						'screening_time' => $validatedData['screening_time'],
+						'screen_number' => $validatedData['screen_number']
+					]);
+			});
+
+			// If everything goes well, return a success message
+			return response()->json(['success' => true, 'message' => 'Screening and seats updated successfully']);
+		} catch (Exception $e) {
+			// Catch any exception and return an error message
+			return response()->json(['success' => false, 'message' => $e->getMessage()]);
+		}
+	}
+
+	// autocomplete search function
+	public function searchMovieTitle(Request $request) {
+		$query = $request->input('query'); // Movie title query
+		// $movies = Movie::where('title', 'LIKE', '%' . $query . '%')->limit(5)->get(); // Fetch up to 5 titles
+		$movies = Movie::where('title', 'LIKE', '%' . $query . '%')->get(['id', 'title']);
+		return response()->json($movies);
 	}
 }
