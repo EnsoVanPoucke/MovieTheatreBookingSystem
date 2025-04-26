@@ -32,9 +32,6 @@ function showSuggestions(movies) {
 
 	if (movies.length > 0) {
 		movies.forEach(movie => {
-
-			console.log(movie);
-
 			const div = document.createElement('div');
 			div.classList.add('suggestion');
 			div.textContent = movie.title;

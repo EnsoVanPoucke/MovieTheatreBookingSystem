@@ -27,6 +27,11 @@
 				<x-form-input id="screen_number" name="screen_number" type="number" />
 			</div>
 
+			<div class="col-span-2 mb-2">
+				<x-form-label for="break_duration">Break Duration (minutes):</x-form-label>
+				<x-form-input id="break_duration" name="break_duration" type="number" value="0" />
+			</div>
+
 			<div class="col-span-1">
 				<x-form-checkbox id="is_public" name="is_public">public</x-form-checkbox>
 			</div>

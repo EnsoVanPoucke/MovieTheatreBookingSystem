@@ -14,6 +14,7 @@ return new class extends Migration {
 			$table->time('screening_time');
 			$table->unsignedTinyInteger('screen_number');
 			$table->foreignId('movie_id')->constrained('movies')->onDelete('cascade'); // Correct foreign key reference
+			$table->unsignedTinyInteger('break_duration')->default(0); // (in minutes)
 			$table->boolean('is_public')->default(false);
 
 			$table->primary(['screening_date', 'screening_time', 'screen_number']); // Composite primary key

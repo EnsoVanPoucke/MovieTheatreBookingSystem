@@ -96,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					screeningDate: start.toISOString().split('T')[0],
 					screeningTime: start.toTimeString().split(' ')[0],
 					screenNumber: info.event.extendedProps.screen_number,
+					breakDuration: info.event.extendedProps.break_duration,
 					isPublic: info.event.extendedProps.is_public
 				}
 
@@ -103,23 +104,11 @@ document.addEventListener('DOMContentLoaded', function () {
 				const startInput = document.getElementById('start');
 				const screenNumberInput = document.getElementById('screen_number');
 
-				// if (startInput && screenNumberInput) {
-				// 	console.log('both inputs are ok.');
-				// 	startInput.value = currentEventData.screeningDate;
-				// 	screenNumberInput.value = currentEventData.screenNumber;
-				// } else {
-				// 	console.log('Error: Input fields not found.');
-				// }
-
-
-
-
 				// Set the checkbox state directly using JavaScript
 				const isPublicCheckbox = document.getElementById('is_public_forupdate');
 				if (isPublicCheckbox) {
 					isPublicCheckbox.checked = currentEventData.isPublic; // Set checkbox checked state
 				}
-
 
 				// const updateEventForm = document.getElementById('updateEventForm');
 				const updateEventModal = document.getElementById('updateEventModal');
@@ -132,56 +121,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 		});
 		calendar.render();
-
-		// UPDATING THE EVENT:
-		document.getElementById('updateEventForm').addEventListener('submit', function (e) {
-			e.preventDefault(); // Prevent the form from submitting normally
-
-			console.log(e.target);
-			const payload = {
-				screening_date: currentEventData.screeningDate,
-				screening_time: currentEventData.screeningTime,
-				screen_number: currentEventData.screenNumber,
-				is_public: currentEventData.isPublic
-			};
-
-			console.log(payload);
-
-
-			// // Optional: Populate the is_public field if you have a checkbox or other element for it
-			// const isPublicCheckbox = document.getElementById('is_public');
-			// if (isPublicCheckbox) {
-			// 	isPublicCheckbox.checked = currentEventData.isPublic;  // Set checkbox state based on is_public
-			// }
-
-
-
-
-			// fetch('/admin/calendar/update', {
-			// 	method: 'POST',  // Use POST to update data
-			// 	headers: {
-			// 		'Content-Type': 'application/json',
-			// 		'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content  // CSRF token for security
-			// 	},
-			// 	body: JSON.stringify(payload)  // Send the updated data as JSON
-			// })
-			// 	.then(response => response.json())  // Handle the server response
-			// 	.then(data => {
-			// 		if (data.success) {
-			// 			// If the update is successful, refetch the events to reflect the changes
-			// 			calendar.refetchEvents();
-			// 			alert('Event updated successfully!');
-			// 			document.getElementById('updateEventModal').style.display = 'none'; // Close the modal
-			// 		} else {
-			// 			alert('Failed to update event: ' + data.message);  // Show error message
-			// 		}
-			// 	})
-			// 	.catch(error => {
-			// 		console.error('Error updating event:', error);
-			// 		alert('An error occurred while updating the event.');
-			// 	});
-		});
-
 
 		// DELETING THE EVENT:
 		document.getElementById('deleteEventForm').addEventListener('submit', function (e) {
@@ -240,8 +179,12 @@ document.addEventListener('DOMContentLoaded', function () {
 				end: end.toISOString(),
 				movie_id: form.movie_id.value,
 				screen_number: form.screen_number.value,
+				break_duration: form.break_duration.value,
 				is_public: isPublic
 			};
+
+			console.log(payload); // is ok here!
+
 
 			fetch('/admin/calendar/create', {
 				method: 'POST',
@@ -273,57 +216,3 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// eventDidMount: function (info) {
-// 	const screen = info.event.extendedProps.screen_number;
-
-// 	// Set tooltip
-// 	info.el.setAttribute('title', `Screen ${screen} - ${info.event.title}`);
-
-// 	// Optional: Custom display inside the event box
-// 	const titleEl = info.el.querySelector('.fc-event-title') || info.el;
-
-// 	if (titleEl) {
-// 		const screenLabel = document.createElement('div');
-// 		screenLabel.textContent = `Screen ${screen}`;
-// 		screenLabel.style.fontSize = '0.75rem';
-// 		screenLabel.style.fontWeight = 'bold';
-// 		screenLabel.style.backgroundColor = '#eee';
-// 		screenLabel.style.borderRadius = '4px';
-// 		screenLabel.style.padding = '2px 4px';
-// 		screenLabel.style.marginBottom = '2px';
-// 		screenLabel.style.display = 'inline-block';
-
-// 		titleEl.prepend(screenLabel);
-// 	}
-// },

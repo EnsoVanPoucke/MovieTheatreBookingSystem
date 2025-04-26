@@ -11,6 +11,7 @@ use Database\Seeders\SeatsTableSeeder;
 
 class ScreeningController extends Controller {
 
+	// admin calendar event
 	public function getEvents() {
 		$colorMap = [
 			1 => '#3498db', // blue
@@ -26,6 +27,7 @@ class ScreeningController extends Controller {
 			$start = $screening->screening_date . 'T' . $screening->screening_time;
 			$end = \Carbon\Carbon::parse($start)
 				->addMinutes($screening->movie->duration)
+				->addMinutes($screening->break_duration)
 				->setTimezone('Europe/Brussels')
 				->toIso8601String();
 			return [
@@ -37,6 +39,7 @@ class ScreeningController extends Controller {
 				'extendedProps' => [
 					'movie_id' => $screening->movie->id,
 					'screen_number' => $screening->screen_number,
+					'break_duration' => $screening->break_duration,
 					'is_public' => $screening->is_public
 				]
 			];
@@ -44,12 +47,14 @@ class ScreeningController extends Controller {
 		return response()->json($events);
 	}
 
+	// admin calendar event
 	public function createEvent(Request $request) {
 		$validatedData = $request->validate([
-			'movie_id' => 'required|exists:movies,id',
-			'screen_number' => 'required|integer|min:1|max:4',
 			'start' => 'required|date',
 			'end' => 'required|date|after:start',
+			'movie_id' => 'required|exists:movies,id',
+			'screen_number' => 'required|integer|min:1|max:4',
+			'break_duration' => 'required|integer',
 			'is_public' => 'nullable|boolean'
 		]);
 
@@ -63,6 +68,7 @@ class ScreeningController extends Controller {
 				'screening_date' => $start->format('Y-m-d'),
 				'screening_time' => $start->format('H:i:s'),
 				'screen_number' => $validatedData['screen_number'],
+				'break_duration' => $validatedData['break_duration'],
 				'is_public' => $validatedData['is_public'] ?? 0
 			]);
 
@@ -77,6 +83,7 @@ class ScreeningController extends Controller {
 		return response()->json(['message' => 'Screening created successfully']);
 	}
 
+	// admin calendar event
 	public function deleteEvent(Request $request) {
 		try {
 			// Get the composite key values from the request
@@ -112,6 +119,7 @@ class ScreeningController extends Controller {
 			'screen_number' => 'required|integer|min:1|max:4',
 			'screening_date' => 'required|date',
 			'screening_time' => 'required|date_format:H:i:s',
+			'break_duration' => 'required|integer|min:1|max:3',
 			'is_public' => 'nullable|boolean'
 		]);
 
@@ -130,6 +138,7 @@ class ScreeningController extends Controller {
 					'screening_date' => $validatedData['screening_date'],
 					'screening_time' => $validatedData['screening_time'],
 					'screen_number' => $validatedData['screen_number'],
+					'break_duration' => $validatedData['break_duration'],
 					'is_public' => $validatedData['is_public'] ?? 0
 				]);
 
@@ -153,7 +162,7 @@ class ScreeningController extends Controller {
 		}
 	}
 
-	// autocomplete search function
+	// autocomplete search function for admin calendar
 	public function searchMovieTitle(Request $request) {
 		$query = $request->input('query'); // Movie title query
 		// $movies = Movie::where('title', 'LIKE', '%' . $query . '%')->limit(5)->get(); // Fetch up to 5 titles
