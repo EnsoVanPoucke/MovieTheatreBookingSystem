@@ -10,7 +10,8 @@ Through this project, I’ve gained valuable insights into how Laravel works and
 
 ## Features
 The application currently accommodates four distinct screening rooms, each with its own layout and seating configuration.
-The seating logic is dynamic, allowing the system to manage reservations and seat availability based on each room's layout.
+The seating logic is dynamic, allowing the system to manage reservations and seat availability based on each room's layout.  
+
 Room layouts are defined using predefined blueprints, which can be found in [`app/Enums/GridBlueprint.php`](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/app/Enums/GridBlueprint.php), allowing for flexible room configuration and easy future expansion.
 
 <p align="left"><strong>4. SeatSelection</strong> (GridBlueprints in view)<br>
