@@ -17,12 +17,30 @@ The seating logic is dynamic, allowing the system to manage reservations and sea
 Room layouts are defined using predefined blueprints, which can be found in [`app/Enums/GridBlueprint.php`](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/app/Enums/GridBlueprint.php), allowing for flexible room configuration and easy future expansion.
 
 <p align="left">(GridBlueprints in view)<br>
-<a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_4.jpg?raw=true">
-  <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_4.jpg?raw=true" width="400"/>
+<a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_seats_1.jpg?raw=true">
+  <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_seats_1.jpg?raw=true" width="400"/>
 </a>
 </p>
 
-### Screening Scheduler (In Progress)
+### Screening Scheduler (in progress)
 - Visual calendar interface for administrators to create and manage screenings.  
+
+<p align="left"><strong>1. Homepage</strong><br>
+<a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_1.jpg?raw=true">
+    <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_1.jpg?raw=true" width="150"/>
+</a>
+</p>
+
+<p align="left"><strong>1. Homepage</strong><br>
+<a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_2.jpg?raw=true">
+    <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_2.jpg?raw=true" width="150"/>
+</a>
+</p>
+
+<p align="left"><strong>1. Homepage</strong><br>
+<a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_3.jpg?raw=true">
+    <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_3.jpg?raw=true" width="150"/>
+</a>
+</p>
 
 Thank you for taking an interest!
