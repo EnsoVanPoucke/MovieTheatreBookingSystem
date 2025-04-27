@@ -19,8 +19,8 @@ Through this project, I’ve gained valuable insights into how Laravel works and
 ## Features
 
 ### 1. Seat selection
-The application currently accommodates four distinct screening rooms, each with its own layout and seating configuration.
-The seating logic is dynamic, allowing the system to manage reservations and seat availability based on each room's layout.  
+The application currently supports four distinct screening rooms, each featuring a unique seating configuration.  
+Dynamic seating logic ensures that each room's availability is accurately managed, with seamless reservation handling based on layout.  
 
 Room layouts are configured using predefined blueprints, which can be found in [`app/Enums/GridBlueprint.php`](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/app/Enums/GridBlueprint.php), allowing for flexible room configuration and easy future expansion.
 
@@ -34,12 +34,13 @@ The Screening Calendar acts as a visual **Database Management System (DBMS)** in
 It automatically calculates each movie’s duration and required breaks, while preventing scheduling conflicts by ensuring no overlapping screenings occur.  
 All changes made through the calendar are synchronized with the backend database in real time for accurate and up-to-date management.
 
+*Calendar preview 1*  
 <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_1.jpg?raw=true">
   <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_1.jpg?raw=true" width="400"/>
 </a>  
 
-[screenshot calendar 2](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_2.jpg?raw=true)  
-[screenshot calendar 3](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_3.jpg?raw=true)
+[Calendar preview 2](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_2.jpg?raw=true)  
+[Calendar preview 3](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_3.jpg?raw=true)
 <br/>
 <br/>
 Thank you for taking an interest!
