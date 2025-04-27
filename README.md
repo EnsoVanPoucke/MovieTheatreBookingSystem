@@ -9,12 +9,14 @@ I decided to create a booking system similar to those used by cinemas like Kinep
 Through this project, I’ve gained valuable insights into how Laravel works and am excited to continue refining the application with more features in the future.
 
 ## Features
+
+### Seat selection
 The application currently accommodates four distinct screening rooms, each with its own layout and seating configuration.
 The seating logic is dynamic, allowing the system to manage reservations and seat availability based on each room's layout.  
 
 Room layouts are defined using predefined blueprints, which can be found in [`app/Enums/GridBlueprint.php`](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/app/Enums/GridBlueprint.php), allowing for flexible room configuration and easy future expansion.
 
-<p align="left"><strong>SeatSelection</strong> (GridBlueprints in view)<br>
+<p align="left">(GridBlueprints in view)<br>
 <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_4.jpg?raw=true">
   <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_4.jpg?raw=true" width="400"/>
 </a>
