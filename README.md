@@ -28,7 +28,7 @@ Room layouts are configured using predefined blueprints, which can be found in [
   <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_seats_1.jpg?raw=true" width="400"/>
 </a>
 
-### 2. Screening calendar (in progress)
+### 2. Screening calendar
 The Screening Calendar acts as a visual **Database Management System (DBMS)** interface, allowing administrators to intuitively schedule and manage movie screenings across different rooms and times.  
 It automatically calculates each movie’s duration and required breaks, while preventing scheduling conflicts by ensuring no overlapping screenings occur.  
 All changes made through the calendar are synchronized with the backend database in real time for accurate and up-to-date management.
