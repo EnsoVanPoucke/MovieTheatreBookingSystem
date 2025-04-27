@@ -25,19 +25,19 @@ Room layouts are defined using predefined blueprints, which can be found in [`ap
 ### Screening Scheduler (in progress)
 - Visual calendar interface for administrators to create and manage screenings.  
 
-<p align="left"><strong>1. Homepage</strong><br>
+<p align="left"><strong>1.</strong><br>
 <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_1.jpg?raw=true">
     <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_1.jpg?raw=true" width="150"/>
 </a>
 </p>
 
-<p align="left"><strong>1. Homepage</strong><br>
+<p align="left"><strong>2.</strong><br>
 <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_2.jpg?raw=true">
     <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_2.jpg?raw=true" width="150"/>
 </a>
 </p>
 
-<p align="left"><strong>1. Homepage</strong><br>
+<p align="left"><strong>3.</strong><br>
 <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_3.jpg?raw=true">
     <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_3.jpg?raw=true" width="150"/>
 </a>
