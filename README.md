@@ -22,4 +22,7 @@ Room layouts are defined using predefined blueprints, which can be found in [`ap
 </a>
 </p>
 
+### Screening Scheduler (In Progress)
+- Visual calendar interface for administrators to create and manage screenings.  
+
 Thank you for taking an interest!
