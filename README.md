@@ -21,9 +21,10 @@ Room layouts are defined using predefined blueprints, which can be found in [`ap
   <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_seats_1.jpg?raw=true" width="400"/>
 </a>
 </p>
+<br/>
 
 ### 2. Screening Scheduler (in progress)
-- Visual calendar interface for administrators to create and manage screenings.  
+- Visual calendar interface for administrators to create and manage screenings.<br/>
 
 <p align="left">
   <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_1.jpg?raw=true">
@@ -36,6 +37,5 @@ Room layouts are defined using predefined blueprints, which can be found in [`ap
     <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_3.jpg?raw=true" width="150" />
   </a>
 </p>
-
-
+<br/>
 Thank you for taking an interest!
