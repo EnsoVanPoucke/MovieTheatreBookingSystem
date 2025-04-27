@@ -30,8 +30,9 @@ Room layouts are defined using predefined blueprints, which can be found in [`ap
 </p>
 
 ### 2. Screening calendar (in progress)
-The Screening Calendar is an intuitive, visual interface designed for administrators to easily create, manage, and schedule movie screenings across different screens and times. The calendar is tightly integrated with the system’s backend, automatically adjusting to the length of the movie and required breaks.<br/>
-Every change made on the calendar is synchronized with the backend system to ensure real-time updates, conflict-free scheduling, and accurate movie/showtime management.
+The Screening Calendar functions as a visual Database Management System (DBMS) interface for movie screenings, allowing administrators to manage showtimes directly through an intuitive calendar.<br/>
+It is tightly integrated with the system’s backend, automatically calculating the movie’s duration and required breaks (such as cleaning or intermissions) to schedule screenings efficiently.<br/>
+Every change made through the calendar is synchronized with the backend database in real-time, ensuring conflict-free scheduling and accurate management of all showtimes across different screens.
 
 <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_1.jpg?raw=true">
   <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_1.jpg?raw=true" width="400"/>
