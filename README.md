@@ -37,6 +37,6 @@ Room layouts are defined using predefined blueprints, which can be found in [`ap
   </a>
 </p>
 
-![Screenshot of a comment.]([[https://myoctocat.com/assets/images/base-octocat.svg](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_1.jpg)](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_1.jpg))
+![Screenshot of a comment.](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_1.jpg)
 
 Thank you for taking an interest!
