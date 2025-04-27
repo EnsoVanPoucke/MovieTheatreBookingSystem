@@ -37,4 +37,6 @@ Room layouts are defined using predefined blueprints, which can be found in [`ap
   </a>
 </p>
 
+![Screenshot of a comment on a GitHub issue showing an image.](https://myoctocat.com/assets/images/base-octocat.svg)
+
 Thank you for taking an interest!
