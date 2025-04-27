@@ -26,7 +26,7 @@ Dynamic seating logic ensures that each room's availability is accurately manage
 
 Room layouts are configured using predefined blueprints, which can be found in [`app/Enums/GridBlueprint.php`](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/app/Enums/GridBlueprint.php), allowing for flexible room configuration and easy future expansion.
 
-*App preview 4* (gridBlueprint in view)  
+*App preview 4* `(GridBlueprint in view)`  
 <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_seats_1.jpg?raw=true">
   <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_seats_1.jpg?raw=true" width="400"/>
 </a>
