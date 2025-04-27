@@ -4,9 +4,12 @@ Created with Laravel.
 > Note: This project was created during an academic challenge where I explored and applied the Laravel framework by building a practical, hands-on application.  
 > This project is still under development and may receive further improvements and features in the future.<br/>
 
+screenshot index
 <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_app_1.jpg?raw=true">
   <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_app_1.jpg?raw=true" width="400"/>
 </a>  
+[Screenshot app 2](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_app_2.jpg?raw=true)<br/>
+[Screenshot app 3](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_app_3.jpg?raw=true)
 
 ## Motivation
 I decided to create a booking system similar to those used by cinemas like Kinepolis. The seat selection page was especially intriguing, as it combined dynamic UI elements with backend logic to manage seat availability and reservations.  
