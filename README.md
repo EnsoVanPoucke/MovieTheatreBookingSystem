@@ -14,7 +14,7 @@ The seating logic is dynamic, allowing the system to manage reservations and sea
 
 Room layouts are defined using predefined blueprints, which can be found in [`app/Enums/GridBlueprint.php`](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/app/Enums/GridBlueprint.php), allowing for flexible room configuration and easy future expansion.
 
-<p align="left"><strong>4. SeatSelection</strong> (GridBlueprints in view)<br>
+<p align="left"><strong>SeatSelection</strong> (GridBlueprints in view)<br>
 <a href="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_4.jpg?raw=true">
   <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_4.jpg?raw=true" width="400"/>
 </a>
