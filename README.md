@@ -10,7 +10,7 @@ Through this project, I’ve gained valuable insights into how Laravel works and
 
 ## Features
 
-### Seat selection
+### 1. Seat selection
 The application currently accommodates four distinct screening rooms, each with its own layout and seating configuration.
 The seating logic is dynamic, allowing the system to manage reservations and seat availability based on each room's layout.  
 
@@ -22,7 +22,7 @@ Room layouts are defined using predefined blueprints, which can be found in [`ap
 </a>
 </p>
 
-### Screening Scheduler (in progress)
+### 2. Screening Scheduler (in progress)
 - Visual calendar interface for administrators to create and manage screenings.  
 
 <p align="left">
