@@ -8,7 +8,7 @@ Created with Laravel.
   <img src="https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_app_1.jpg?raw=true" width="400"/>
 </a>  
 
-[App preview 2](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_app_2.jpg?raw=true)<br/>
+[App preview 2](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_app_2.jpg?raw=true)  
 [App preview 3](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_app_3.jpg?raw=true)
 
 ## Motivation
@@ -39,7 +39,6 @@ All changes made through the calendar are synchronized with the backend database
 </a>  
 
 [Calendar preview 2](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_2.jpg?raw=true)  
-[Calendar preview 3](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_3.jpg?raw=true)
-<br/>
-<br/>
+[Calendar preview 3](https://github.com/EnsoVanPoucke/TheatreBookingSystem/blob/main/public/images/screenshots/screenshot_calendar_3.jpg?raw=true)  
+  
 Thank you for taking an interest!
