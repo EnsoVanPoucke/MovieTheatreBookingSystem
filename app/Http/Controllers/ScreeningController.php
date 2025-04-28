@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ScreeningController extends Controller {
 
-	// admin calendar event
+	// get all admin calendar events
 	public function getEvents() {
 		$colorMap = [
 			1 => '#3498db', // blue
@@ -48,7 +48,7 @@ class ScreeningController extends Controller {
 		return response()->json($events);
 	}
 
-	// admin calendar event
+	// create admin calendar event
 	public function createEvent(Request $request) {
 		$validatedData = $request->validate([
 			'start' => 'required|date',
@@ -84,35 +84,7 @@ class ScreeningController extends Controller {
 		return response()->json(['message' => 'Screening created successfully']);
 	}
 
-	// admin calendar event
-	public function deleteEvent(Request $request) {
-		try {
-			// Get the composite key values from the request
-			$screeningDate = $request->screening_date;
-			$screeningTime = $request->screening_time;
-			$screenNumber = $request->screen_number;
-
-			DB::transaction(function () use ($screeningDate, $screeningTime, $screenNumber) {
-				// Delete seats related to the screening
-				DB::table('seats')
-					->where('screening_date', $screeningDate)
-					->where('screening_time', $screeningTime)
-					->where('screen_number', $screenNumber)
-					->delete();
-
-				// Delete the screening
-				Screening::where('screening_date', $screeningDate)
-					->where('screening_time', $screeningTime)
-					->where('screen_number', $screenNumber)
-					->delete();
-			});
-
-			return response()->json(['success' => true]);
-		} catch (Exception $e) {
-			return response()->json(['success' => false, 'message' => $e->getMessage()]);
-		}
-	}
-
+	// update admin calendar event
 	public function updateEvent(Request $request) {
 
 		// Validate the request data first
@@ -155,6 +127,34 @@ class ScreeningController extends Controller {
 		}
 	}
 
+	// delete admin calendar event
+	public function deleteEvent(Request $request) {
+		try {
+			// Get the composite key values from the request
+			$screeningDate = $request->screening_date;
+			$screeningTime = $request->screening_time;
+			$screenNumber = $request->screen_number;
+
+			DB::transaction(function () use ($screeningDate, $screeningTime, $screenNumber) {
+				// Delete seats related to the screening
+				DB::table('seats')
+					->where('screening_date', $screeningDate)
+					->where('screening_time', $screeningTime)
+					->where('screen_number', $screenNumber)
+					->delete();
+
+				// Delete the screening
+				Screening::where('screening_date', $screeningDate)
+					->where('screening_time', $screeningTime)
+					->where('screen_number', $screenNumber)
+					->delete();
+			});
+
+			return response()->json(['success' => true]);
+		} catch (Exception $e) {
+			return response()->json(['success' => false, 'message' => $e->getMessage()]);
+		}
+	}
 
 	// autocomplete search function for admin calendar
 	public function searchMovieTitle(Request $request) {
