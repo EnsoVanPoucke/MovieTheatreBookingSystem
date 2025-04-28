@@ -122,8 +122,36 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 		calendar.render();
 
-		// DELETING THE EVENT:
-		document.getElementById('deleteEventForm').addEventListener('submit', function (e) {
+		// CREATE CALENDAR EVENT
+		document.getElementById('createEventForm').addEventListener('submit', async function (e) {
+			e.preventDefault();
+
+			const form = e.target;
+			const start = new Date(form.start.value);
+			const durationInMinutes = 120; // temp duration
+			const end = new Date(start.getTime() + durationInMinutes * 60000);
+
+			const payload = {
+				start: form.start.value,
+				end: end.toISOString(),
+				movie_id: form.movie_id.value,
+				screen_number: form.screen_number.value,
+				break_duration: form.break_duration.value,
+				is_public: document.getElementById('is_public').checked ? 1 : 0 // checkbox
+			};
+
+			try {
+				const data = await fetchJson('/admin/calendar/create', 'POST', payload);
+				console.log('Saved:', data);
+				document.getElementById('createEventModal').style.display = 'none';
+				calendar.refetchEvents();
+			} catch (error) {
+				alert('Failed to save event!');
+			}
+		});
+
+		// DELETING CALENDAR EVENT
+		document.getElementById('deleteEventForm').addEventListener('submit', async function (e) {
 			e.preventDefault();
 
 			if (!currentEventData.screeningDate || !currentEventData.screeningTime || !currentEventData.screenNumber) {
@@ -138,72 +166,46 @@ document.addEventListener('DOMContentLoaded', function () {
 			};
 
 			if (confirm('Are you sure you want to delete this event?')) {
-				fetch('/admin/calendar/delete', {
-					method: 'DELETE',
-					headers: {
-						'Content-Type': 'application/json',
-						'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-					},
-					body: JSON.stringify(payload)
-				})
-					.then(response => response.json())
-					.then(data => {
-						if (data.success) {
-							document.getElementById('updateEventModal').style.display = 'none';
-							calendar.refetchEvents();
-						} else {
-							alert('Failed to delete event: ' + data.message);
-						}
-					})
-					.catch(error => {
-						console.error('Delete error:', error);
-					});
+				try {
+					const data = await fetchJson('/admin/calendar/delete', 'DELETE', payload);
+					if (data.success) {
+						document.getElementById('updateEventModal').style.display = 'none';
+						calendar.refetchEvents();
+					} else {
+						alert('Failed to delete event: ' + data.message);
+					}
+				} catch (error) {
+					alert('Failed to delete event');
+				}
 			}
 		});
 
-		// Form submission handler
-		document.getElementById('createEventForm').addEventListener('submit', function (e) {
-			e.preventDefault();
+		// helper function
+		async function fetchJson(url, method, payload) {
+			const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-			const form = e.target;
-
-			const start = new Date(form.start.value);
-			const durationInMinutes = 120; // or whatever your movie duration is
-			const end = new Date(start.getTime() + durationInMinutes * 60000);
-
-			// Explicitly check the checkbox value and set is_public accordingly
-			const isPublic = document.getElementById('is_public').checked ? 1 : 0;
-
-			const payload = {
-				start: form.start.value,
-				end: end.toISOString(),
-				movie_id: form.movie_id.value,
-				screen_number: form.screen_number.value,
-				break_duration: form.break_duration.value,
-				is_public: isPublic
-			};
-
-			console.log(payload); // is ok here!
-
-
-			fetch('/admin/calendar/create', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-				},
-				body: JSON.stringify(payload)
-			})
-				.then(response => response.json())
-				.then(data => {
-					console.log('Saved:', data);
-					document.getElementById('createEventModal').style.display = 'none';
-					calendar.refetchEvents();
-				})
-				.catch(error => {
-					console.error('Error:', error);
+			try {
+				const response = await fetch(url, {
+					method: method,
+					headers: {
+						'Content-Type': 'application/json',
+						'X-CSRF-TOKEN': csrfToken
+					},
+					body: JSON.stringify(payload)
 				});
-		});
+
+				const data = await response.json();
+
+				if (!response.ok) {
+					throw new Error(data.message || 'Request failed');
+				}
+
+				return data;
+			} catch (error) {
+				console.error(`${method} ${url} error:`, error);
+				throw error;
+			}
+		}
 
 		// Close createEventModal logic
 		document.getElementById('closeCreateModalBtn').addEventListener('click', function () {
