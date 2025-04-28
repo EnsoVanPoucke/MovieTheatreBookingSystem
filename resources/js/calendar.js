@@ -150,6 +150,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 		});
 
+		let deletePayload = {};
+
 		// DELETING CALENDAR EVENT
 		document.getElementById('deleteEventForm').addEventListener('submit', async function (e) {
 			e.preventDefault();
@@ -159,24 +161,33 @@ document.addEventListener('DOMContentLoaded', function () {
 				return;
 			}
 
-			const payload = {
+			deletePayload = {
 				screening_date: currentEventData.screeningDate,
 				screening_time: currentEventData.screeningTime,
 				screen_number: currentEventData.screenNumber,
 			};
 
-			if (confirm('Are you sure you want to delete this event?')) {
-				try {
-					const data = await fetchJson('/admin/calendar/delete', 'DELETE', payload);
-					if (data.success) {
-						document.getElementById('updateEventModal').style.display = 'none';
-						calendar.refetchEvents();
-					} else {
-						alert('Failed to delete event: ' + data.message);
-					}
-				} catch (error) {
-					alert('Failed to delete event');
+			document.getElementById('deleteConfirmModal').classList.remove('hidden');
+
+		});
+
+		// Confirm button handler
+		document.getElementById('confirmDeleteBtn').addEventListener('click', async function () {
+			if (!deletePayload) return;
+
+			try {
+				const data = await fetchJson('/admin/calendar/delete', 'DELETE', deletePayload);
+				if (data.success) {
+					document.getElementById('updateEventModal').style.display = 'none';
+					calendar.refetchEvents();
+				} else {
+					alert('Failed to delete event: ' + data.message);
 				}
+			} catch (error) {
+				alert('Failed to delete event');
+			} finally {
+				deletePayload = null;
+				document.getElementById('deleteConfirmModal').classList.add('hidden');
 			}
 		});
 
@@ -215,6 +226,12 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Close updateEventModal logic
 		document.getElementById('closeUpdateModalBtn').addEventListener('click', function () {
 			document.getElementById('updateEventModal').style.display = 'none';
+		});
+
+		// Cancel button handler
+		document.getElementById('cancelDeleteBtn').addEventListener('click', function () {
+			deletePayload = null;
+			document.getElementById('deleteConfirmModal').classList.add('hidden');
 		});
 	}
 });
