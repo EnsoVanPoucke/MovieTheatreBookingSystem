@@ -8,6 +8,7 @@ use App\Models\Screening;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Database\Seeders\SeatsTableSeeder;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ScreeningController extends Controller {
 
@@ -113,54 +114,47 @@ class ScreeningController extends Controller {
 	}
 
 	public function updateEvent(Request $request) {
-		// Validate the request data
+
+		// Validate the request data first
 		$validatedData = $request->validate([
-			'movie_id' => 'required|exists:movies,id',
-			'screen_number' => 'required|integer|min:1|max:4',
 			'screening_date' => 'required|date',
-			'screening_time' => 'required|date_format:H:i:s',
-			'break_duration' => 'required|integer|min:1|max:3',
-			'is_public' => 'nullable|boolean'
+			'screening_time' => 'required',
+			'screen_number' => 'required',
+			'is_public' => 'nullable|boolean',
 		]);
 
-		// Start a transaction to ensure both the screening and the seats are updated atomically
+		// Get the composite key values from the validated data
+		$screeningDate = $validatedData['screening_date'];
+		$screeningTime = $validatedData['screening_time'];
+		$screenNumber = $validatedData['screen_number'];
+		$isPublic = $validatedData['is_public'] ?? 0;
+
 		try {
-			DB::transaction(function () use ($validatedData) {
-				// Find the screening to update
-				$screening = Screening::where('screening_date', $validatedData['screening_date'])
-					->where('screening_time', $validatedData['screening_time'])
-					->where('screen_number', $validatedData['screen_number'])
-					->firstOrFail(); // Throws an exception if not found
+			// Retrieve the screening using composite keys
+			$screening = Screening::where('screening_date', $screeningDate)
+				->where('screening_time', $screeningTime)
+				->where('screen_number', $screenNumber)
+				->update(['is_public' => $isPublic]);
 
-				// Update the screening details
-				$screening->update([
-					'movie_id' => $validatedData['movie_id'],
-					'screening_date' => $validatedData['screening_date'],
-					'screening_time' => $validatedData['screening_time'],
-					'screen_number' => $validatedData['screen_number'],
-					'break_duration' => $validatedData['break_duration'],
-					'is_public' => $validatedData['is_public'] ?? 0
-				]);
-
-				// Update the seats related to this screening
-				DB::table('seats')
-					->where('screening_date', $validatedData['screening_date'])
-					->where('screening_time', $validatedData['screening_time'])
-					->where('screen_number', $validatedData['screen_number'])
-					->update([
-						'screening_date' => $validatedData['screening_date'],
-						'screening_time' => $validatedData['screening_time'],
-						'screen_number' => $validatedData['screen_number']
-					]);
-			});
-
-			// If everything goes well, return a success message
-			return response()->json(['success' => true, 'message' => 'Screening and seats updated successfully']);
+			return response()->json([
+				'success' => true,
+				'message' => 'Event updated successfully'
+			]);
+		} catch (ModelNotFoundException $e) {
+			// If not found, return 404
+			return response()->json([
+				'success' => false,
+				'message' => 'Event not found.'
+			], 404);
 		} catch (Exception $e) {
-			// Catch any exception and return an error message
-			return response()->json(['success' => false, 'message' => $e->getMessage()]);
+			// Any other exception
+			return response()->json([
+				'success' => false,
+				'message' => 'An error occurred: ' . $e->getMessage()
+			], 500);
 		}
 	}
+
 
 	// autocomplete search function for admin calendar
 	public function searchMovieTitle(Request $request) {

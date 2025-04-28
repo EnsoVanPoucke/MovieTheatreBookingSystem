@@ -150,6 +150,46 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 		});
 
+
+
+
+
+
+		// UPDATE CALENDAR EVENT
+		document.getElementById('updateEventForm').addEventListener('submit', async function (e) {
+			e.preventDefault();
+
+			const updatePayload = {
+				screening_date: currentEventData.screeningDate,
+				screening_time: currentEventData.screeningTime,
+				screen_number: currentEventData.screenNumber,
+				is_public: document.getElementById('is_public_forupdate').checked ? 1 : 0 // checkbox
+			};
+			console.log(updatePayload);
+
+			try {
+				const data = await fetchJson('/admin/calendar/update', 'PUT', updatePayload);
+				console.log('Updated:', data);
+				document.getElementById('updateEventModal').style.display = 'none';
+				calendar.refetchEvents();
+			} catch (error) {
+				console.error('Update failed:', error);
+				alert('Failed to update event!');
+			}
+		});
+
+
+
+
+
+
+
+
+
+
+
+
+
 		let deletePayload = {};
 
 		// DELETING CALENDAR EVENT
@@ -205,11 +245,13 @@ document.addEventListener('DOMContentLoaded', function () {
 					body: JSON.stringify(payload)
 				});
 
-				const data = await response.json();
-
 				if (!response.ok) {
-					throw new Error(data.message || 'Request failed');
+					// Ensure response.ok is checked before using response.json()
+					const errorData = await response.json(); // This will contain the error message
+					throw new Error(errorData.message || 'Request failed');
 				}
+
+				const data = await response.json();
 
 				return data;
 			} catch (error) {

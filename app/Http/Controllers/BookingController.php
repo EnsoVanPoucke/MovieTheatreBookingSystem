@@ -30,7 +30,6 @@ class BookingController extends Controller {
 			['movie_id', '=', $movieId]
 		])->firstOrFail();
 
-		$movieScreeningDataArray = $movieScreeningData->toArray(); // Convert to array before modifying
 		$movieScreeningData['movie_title'] = $movieTitle; // add the movie title to the entire array
 
 		// Store in session
