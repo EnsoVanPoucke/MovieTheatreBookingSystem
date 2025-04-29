@@ -35,6 +35,9 @@ document.addEventListener('DOMContentLoaded', function () {
 			events: '/admin/calendar/events',
 			eventOrderStrict: true,
 			eventOrder: 'screen_number',
+			editable: false,
+			eventStartEditable: false,
+			eventDurationEditable: false,
 			eventDidMount: function (info) {
 				info.el.setAttribute('title', info.event.title);
 				info.el.setAttribute('data-is_public', info.event.extendedProps.is_public);
