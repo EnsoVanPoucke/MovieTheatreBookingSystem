@@ -51,7 +51,7 @@
 		{{-- Update Form --}}
 		<form id="updateEventForm">
 			<div class="col-span-1">
-				<x-form-checkbox id="is_public_forupdate" name="is_public">public</x-form-checkbox>
+				<x-form-checkbox id="is_public_forupdate" name="is_public_forupdate">public</x-form-checkbox>
 			</div>
 
 			<div class="mt-6 flex items-center justify-end gap-2">

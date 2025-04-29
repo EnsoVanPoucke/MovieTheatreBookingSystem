@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			};
 
 			try {
-				const data = await fetchJson('/admin/calendar/create', 'POST', payload);
+				const data = await callScreeningController('/admin/calendar/create', 'POST', payload);
 				console.log('Saved:', data);
 				document.getElementById('createEventModal').style.display = 'none';
 				calendar.refetchEvents();
@@ -150,14 +150,14 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 		});
 
-
-
-
-
-
 		// UPDATE CALENDAR EVENT
 		document.getElementById('updateEventForm').addEventListener('submit', async function (e) {
 			e.preventDefault();
+			
+			if (!currentEventData?.screeningDate || !currentEventData?.screeningTime || !currentEventData?.screenNumber) {
+				alert('Invalid event data');
+				return;
+			}
 
 			const updatePayload = {
 				screening_date: currentEventData.screeningDate,
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			console.log(updatePayload);
 
 			try {
-				const data = await fetchJson('/admin/calendar/update', 'PUT', updatePayload);
+				const data = await callScreeningController('/admin/calendar/update', 'PUT', updatePayload);
 				console.log('Updated:', data);
 				document.getElementById('updateEventModal').style.display = 'none';
 				calendar.refetchEvents();
@@ -178,21 +178,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 		});
 
-
-
-
-
-
-
-
-
-
-
-
-
-		let deletePayload = {};
-
 		// DELETING CALENDAR EVENT
+		let deletePayload = {};
 		document.getElementById('deleteEventForm').addEventListener('submit', async function (e) {
 			e.preventDefault();
 
@@ -216,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			if (!deletePayload) return;
 
 			try {
-				const data = await fetchJson('/admin/calendar/delete', 'DELETE', deletePayload);
+				const data = await callScreeningController('/admin/calendar/delete', 'DELETE', deletePayload);
 				if (data.success) {
 					document.getElementById('updateEventModal').style.display = 'none';
 					calendar.refetchEvents();
@@ -232,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 
 		// helper function
-		async function fetchJson(url, method, payload) {
+		async function callScreeningController(url, method, payload) {
 			const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 			try {
