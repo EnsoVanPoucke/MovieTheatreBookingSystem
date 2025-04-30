@@ -13,8 +13,6 @@ Route::get('/', function () {
 	return view('welcome');
 });
 
-
-
 // Route to render the page with the calendar
 Route::get('admin/calendar', function () {
 	return view('admin_calendar');
@@ -25,8 +23,6 @@ Route::get('/admin/calendar/events', [ScreeningController::class, 'getEvents']);
 Route::post('/admin/calendar/create', [ScreeningController::class, 'createEvent']);
 Route::put('/admin/calendar/update', [ScreeningController::class, 'updateEvent']);
 Route::delete('/admin/calendar/delete', [ScreeningController::class, 'deleteEvent']);
-
-
 
 Route::get('/dashboard', function () {
 	return view('dashboard');
@@ -43,14 +39,11 @@ Route::get('/login', function () {
 	return view('auth.login');
 })->name('login');
 
-require __DIR__ . '/auth.php';
-
 Route::get('/movies/details/{movie}', [MovieController::class, 'show'])->name('movies.show');
 Route::get('/Booking/TicketSelection/{data}', [BookingController::class, 'show'])->name('TicketSelection');
 Route::get('/Booking/SeatSelection/{data}', [BookingController::class, 'showroom'])->name('SeatSelection');
 Route::post('/booking/showroom', [BookingController::class, 'showroom'])->name('booking.showroom');
 Route::post('/add-new-movie', [MovieScheduleController::class, 'addNewMovie'])->name('add.movie');
-Route::post('/schedule-movie', [MovieScheduleController::class, 'scheduleMovie'])->name('schedule.movie');
 Route::post('/book-seats', [SeatController::class, 'bookSeats']);
 
 Route::get('/movies', function () {
@@ -68,13 +61,16 @@ Route::get('/checkout', function (Request $request) {
 	]);
 })->name('checkout');
 
-Route::get('admin/schedule-movie', function () {
-	return view('schedule_movie');
-});
-
 Route::get('admin/add-new-movie', function () {
 	return view('add_new_movie');
 });
 
 // autocomplete movie title search
 Route::get('/search-movie-title', [ScreeningController::class, 'searchMovieTitle']);
+
+
+
+
+
+
+require __DIR__ . '/auth.php';
