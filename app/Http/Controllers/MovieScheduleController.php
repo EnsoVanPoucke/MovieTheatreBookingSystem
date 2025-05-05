@@ -44,6 +44,6 @@ class MovieScheduleController extends Controller {
 			]);
 		});
 
-		return back()->with('success', 'New Movie added successfully!');
+		return back()->with('success', 'New Movie added successfully!'); //Redirect back to previous page with success session message
 	}
 }

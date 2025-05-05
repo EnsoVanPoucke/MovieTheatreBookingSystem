@@ -43,7 +43,6 @@ Route::get('/movies/details/{movie}', [MovieController::class, 'show'])->name('m
 Route::get('/Booking/TicketSelection/{data}', [BookingController::class, 'show'])->name('TicketSelection');
 Route::get('/Booking/SeatSelection/{data}', [BookingController::class, 'showroom'])->name('SeatSelection');
 Route::post('/booking/showroom', [BookingController::class, 'showroom'])->name('booking.showroom');
-Route::post('/add-new-movie', [MovieScheduleController::class, 'addNewMovie'])->name('add.movie');
 Route::post('/book-seats', [SeatController::class, 'bookSeats']);
 
 Route::get('/movies', function () {
@@ -64,13 +63,9 @@ Route::get('/checkout', function (Request $request) {
 Route::get('admin/add-new-movie', function () {
 	return view('add_new_movie');
 });
+Route::post('/add-new-movie', [MovieScheduleController::class, 'addNewMovie'])->name('add.movie');
 
 // autocomplete movie title search
 Route::get('/search-movie-title', [ScreeningController::class, 'searchMovieTitle']);
-
-
-
-
-
 
 require __DIR__ . '/auth.php';

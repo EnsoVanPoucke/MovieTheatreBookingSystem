@@ -2,26 +2,9 @@
 
 @section('content')
 
-
-
-
-{{--
-	<meta name="csrf-token" content="{{ csrf_token() }}">
-@if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-@vite(['resources/css/app.css', 'resources/js/app.js'])
-@else
-<style>
-</style>
-@endif
---}}
-
-
-
 <div class="mx-auto max-w-6xl p-6 sm:px-6 lg:px-8">
 
 	<h1 class="text-3xl font-bold my-5">Add New Movie</h1>
-
-
 
 	@if (session('success'))
 	<div class="text-green-500">
@@ -32,9 +15,6 @@
 	@error('screenroom')
 	<div class="text-red-500">{{ $message }}</div>
 	@enderror
-
-
-
 
 	<div class="border border-gray-900/10 rounded-md px-12">
 
@@ -53,13 +33,8 @@
 
 				<div class="mt-4 grid grid-cols-4 gap-x-4 gap-y-4">
 					<div class="col-span-4">
-						<x-form-label for="description">Description</x-form-label>
-						<div class="mt-0">
-							<textarea name="description"
-								id="description"
-								rows="5"
-								class="block w-full rounded-sm bg-white outline-1 -outline-offset-1 outline-gray-400 text-base text-gray-900 text-sm/6 py-1 px-2"></textarea>
-						</div>
+						<x-form-label for="description" label="Description" />
+						<x-form-textareafield id="description" name="description" />
 					</div>
 				</div>
 
@@ -71,14 +46,9 @@
 				</div>
 
 				<div class="mt-4 grid grid-cols-4 gap-x-4 gap-y-4">
-					<div class="col-span-2">
-						<x-form-label for="cast">Cast</x-form-label>
-						<div class="mt-0">
-							<textarea name="cast"
-								id="cast"
-								rows="2"
-								class="block w-full rounded-sm bg-white outline-1 -outline-offset-1 outline-gray-400 text-base text-gray-900 text-sm/6 py-1 px-2"></textarea>
-						</div>
+					<div class="col-span-4">
+						<x-form-label for="cast" label="Cast" />
+						<x-form-textareafield id="cast" name="cast" />
 					</div>
 				</div>
 
@@ -92,7 +62,7 @@
 				<div class="mt-4 grid grid-cols-4 gap-x-4 gap-y-4">
 					<div class="col-span-1">
 						<x-form-label for="duration">Duration</x-form-label>
-						<x-form-input id="duration" name="duration" type="text" />
+						<x-form-input id="duration" name="duration" type="number" />
 					</div>
 				</div>
 
@@ -136,8 +106,7 @@
 						</div>
 					</div>
 				</div>
-				--}}
-
+				
 				<script>
 					function previewImage(event) {
 						const file = event.target.files[0]; // Get the selected file
@@ -152,6 +121,7 @@
 						}
 					}
 				</script>
+				--}}
 			</div>
 
 			<div class="py-12">
@@ -159,29 +129,17 @@
 				<div class="mt-4 grid grid-cols-4 gap-x-4 gap-y-4">
 					<div class="col-span-1">
 						<x-form-label for="tarief_single_normaal">Single seat normaal</x-form-label>
-						<x-form-input id="tarief_single_normaal" name="tarief_single_normaal" type="text" />
+						<x-form-input id="tarief_single_normaal" name="tarief_single_normaal" type="number" />
 					</div>
-					{{--
-						<div class="col-span-1">
-							<x-form-label for="tarief_single_korting">Single seat korting</x-form-label>
-							<x-form-input id="tarief_single_korting" name="tarief_single_korting" type="text" />
-						</div>
-					--}}
 					<div class="col-span-1">
 						<x-form-label for="tarief_duo_normaal">Duo seat normaal</x-form-label>
-						<x-form-input id="tarief_duo_normaal" name="tarief_duo_normaal" type="text" />
+						<x-form-input id="tarief_duo_normaal" name="tarief_duo_normaal" type="number" />
 					</div>
-					{{--
-						<div class="col-span-1">
-							<x-form-label for="tarief_duo_korting">Duo seat korting</x-form-label>
-							<x-form-input id="tarief_duo_korting" name="tarief_duo_korting" type="text" />
-						</div>
-					--}}
 				</div>
 			</div>
 
 			<div class="border-t border-gray-900/10 mt-6 flex items-center justify-end gap-x-6 py-4">
-				<x-secondary-button>Reset</x-secondary-button>
+				<x-secondary-button type="reset">Reset</x-secondary-button>
 				<x-primary-button>Continue</x-primary-button>
 			</div>
 		</form>
