@@ -11,7 +11,6 @@
 </head>
 
 <body>
-
 	<div class="min-h-screen bg-gray-100">
 		<main>
 			@yield('content')
