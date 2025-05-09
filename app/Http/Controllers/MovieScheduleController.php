@@ -66,4 +66,19 @@ class MovieScheduleController extends Controller {
 
 		return back()->with('success', 'New Movie added successfully!'); //Redirect back to previous page with success session message
 	}
+
+	public function deleteMovie(Request $request) {
+		$validated = $request->validate(
+			['title' => 'required|string|exists:movies,title'],
+			['title.required' => 'Title required.']
+		);
+
+		$deleted = Movie::where('title', $validated['title'])->delete();
+
+		if ($deleted) {
+			return back()->with('success', $validated['title'] . '" deleted successfully.');
+		}
+
+		return back()->with('error', $validated['title'] . '" could not be deleted.');
+	}
 }

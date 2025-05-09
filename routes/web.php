@@ -13,6 +13,7 @@ Route::view('/', 'welcome');
 Route::view('/admin/calendar', 'admin_calendar');
 Route::view('/movies', 'movies');
 Route::view('/admin/add-new-movie', 'add_new_movie');
+Route::view('/admin/delete-movie', 'delete_movie');
 
 
 
@@ -57,6 +58,7 @@ Route::get('/checkout', function (Request $request) {
 
 
 Route::post('/add-new-movie', [MovieScheduleController::class, 'addNewMovie'])->name('add.movie');
+Route::post('/delete-movie', [MovieScheduleController::class, 'deleteMovie'])->name('delete.movie');
 
 
 // autocomplete movie title search
