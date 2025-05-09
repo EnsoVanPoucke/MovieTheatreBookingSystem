@@ -9,19 +9,16 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScreeningController;
 use App\Http\Controllers\MovieScheduleController;
 
-Route::get('/', function () {
-	return view('welcome');
-});
+Route::view('/', 'welcome');
+Route::view('/admin/calendar', 'admin_calendar');
+Route::view('/movies', 'movies');
+Route::view('/admin/add-new-movie', 'add_new_movie');
 
-// Route to render the page with the calendar
-Route::get('admin/calendar', function () {
-	return view('admin_calendar');
-});
 
-// Separate route to fetch events (use a prefix like api or ajax)
+
 Route::get('/admin/calendar/events', [ScreeningController::class, 'getEvents']);
 Route::post('/admin/calendar/create', [ScreeningController::class, 'createEvent']);
-Route::put('/admin/calendar/update', [ScreeningController::class, 'updateEvent']);
+Route::patch('/admin/calendar/update', [ScreeningController::class, 'updateEvent']); // changed put to patch
 Route::delete('/admin/calendar/delete', [ScreeningController::class, 'deleteEvent']);
 
 Route::get('/dashboard', function () {
@@ -45,9 +42,7 @@ Route::get('/Booking/SeatSelection/{data}', [BookingController::class, 'showroom
 Route::post('/booking/showroom', [BookingController::class, 'showroom'])->name('booking.showroom');
 Route::post('/book-seats', [SeatController::class, 'bookSeats']);
 
-Route::get('/movies', function () {
-	return view('movies');
-});
+
 
 Route::get('/booking/confirmation', function (Request $request) {
 	$bookingData = json_decode($request->query('data'), true);
@@ -60,10 +55,9 @@ Route::get('/checkout', function (Request $request) {
 	]);
 })->name('checkout');
 
-Route::get('admin/add-new-movie', function () {
-	return view('add_new_movie');
-});
+
 Route::post('/add-new-movie', [MovieScheduleController::class, 'addNewMovie'])->name('add.movie');
+
 
 // autocomplete movie title search
 Route::get('/search-movie-title', [ScreeningController::class, 'searchMovieTitle']);

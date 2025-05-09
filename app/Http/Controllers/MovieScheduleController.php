@@ -10,19 +10,39 @@ use Illuminate\Support\Facades\DB;
 class MovieScheduleController extends Controller {
 
 	public function addNewMovie(Request $request) {
-		$validated = $request->validate([
-			'title' => 'required|string|max:100|unique:movies,title',
-			'description' => 'required|string',
-			'director' => 'required|string|max:255',
-			'cast' => 'required|string',
-			'genre' => 'required|string|max:255',
-			'duration' => 'required|integer',
-			'release_date' => 'required|date',
-			'poster_url' => 'required|string',
-			'trailer_url' => 'required|string',
-			'tarief_single_normaal' => 'required|integer',
-			'tarief_duo_normaal' => 'required|integer'
-		]);
+		$validated = $request->validate(
+			[
+				'title' => 'required|string|max:100|unique:movies,title',
+				'description' => 'required|string',
+				'director' => 'required|string|max:255',
+				'cast' => 'required|string',
+				'genre' => 'required|string|max:255',
+				'duration' => 'required|integer',
+				'release_date' => 'required|date',
+				'poster_url' => 'required|string',
+				'trailer_url' => 'required|string',
+				'tarief_single_normaal' => 'required|integer',
+				'tarief_duo_normaal' => 'required|integer'
+			],
+			[
+				'title.required' => 'Title required.',
+				'title.unique' => 'Title already exists.',
+				'description.required' => 'Description required.',
+				'director.required' => 'Director required.',
+				'cast.required' => 'Cast required.',
+				'genre.required' => 'Genre required.',
+				'duration.required' => 'Duration required.',
+				'duration.integer' => 'must be number (minutes).',
+				'release_date.required' => 'Release date required.',
+				'release_date.date' => 'must be valid date.',
+				'poster_url.required' => 'Poster url required.',
+				'trailer_url.required' => 'Trailer url required.',
+				'tarief_single_normaal.required' => 'Tarief required.',
+				'tarief_single_normaal.integer' => 'must be cents.',
+				'tarief_duo_normaal.required' => 'Tarief required.',
+				'tarief_duo_normaal.integer' => 'must be cents.',
+			]
+		);
 
 		DB::transaction(function () use ($validated) {
 			$movie = Movie::create([
